@@ -6,3 +6,10 @@ edition = "2021"
 
 [dependencies]
 actix-web = "4"
+
+[lib]
+path = "src/lib.rs"
+
+[[bin]]
+path = "src/main.rs"
+name = "backend"
