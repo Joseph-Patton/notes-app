@@ -1,8 +1,9 @@
-use actix_web::{web, App, HttpRequest, HttpServer, Responder};
-async fn greet(req: HttpRequest) -> impl Responder {
-    let name = req.match_info().get("name").unwrap_or("World");
-    format!("Hello {}!", &name)
+use actix_web::{web, App, HttpRequest, HttpResponse, HttpServer, Responder};
+
+async fn greet(_req: HttpRequest) -> impl Responder {
+    HttpResponse::Ok().finish()
 }
+
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {
     HttpServer::new(|| {
