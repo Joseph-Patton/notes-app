@@ -3,12 +3,12 @@ use std::net::TcpListener;
 #[actix_rt::test]
 async fn health_check_works() {
     // Arrange
-    spawn_app();
+    let address = spawn_app();
     let client = reqwest::Client::new();
 
     // Act
     let response = client
-        .get("http://127.0.0.1:8000/health_check")
+        .get(&format!("{}/health_check", &address))
         .send()
         .await
         .expect("Failed to execute request.");
