@@ -1,5 +1,8 @@
+use std::net::TcpListener;
+
 use backend::run;
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {
-    run()?.await
+    let address = TcpListener::bind("127.0.0.1:8000")?;
+    run(address)?.await
 }
