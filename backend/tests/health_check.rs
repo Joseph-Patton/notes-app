@@ -3,7 +3,7 @@ use actix_rt;
 #[actix_rt::test]
 async fn health_check_works() {
     // Arrange
-    spawn_app().await.expect("Failed to spawn app");
+    spawn_app();
     let client = reqwest::Client::new();
 
     // Act
@@ -17,6 +17,8 @@ async fn health_check_works() {
     assert!(response.status().is_success());
     assert_eq!(Some(0), response.content_length());
 }
-async fn spawn_app() -> std::io::Result<()> {
-    backend::run().await
+
+fn spawn_app() {
+    let server = backend::run().expect("Failed to bind address");
+    let _ = tokio::spawn(server);
 }
