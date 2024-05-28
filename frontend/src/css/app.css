@@ -25,3 +25,9 @@ body {
     grid-gap: 1rem;
     grid-template-columns: repeat(3, minmax(300px, 1fr));
 }
+.notes__title {
+    color: #fff;
+    font-size: 38px;
+    font-family: "Montserrat";
+    font-weight: 400;
+}
