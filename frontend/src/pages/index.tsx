@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import EditNote from '../components/EditNote';
+import NoteList from '../components/NoteList';
 import Header from '../components/Header';
 import { text } from 'stream/consumers';
 import { v4 as uuid } from "uuid";
@@ -30,6 +31,7 @@ const Home: React.FC = () => {
   return (
     <div className='main'>
       <Header />
+      <NoteList />
       <EditNote
         textHandler={textHandler}
         saveHandler={saveHandler}

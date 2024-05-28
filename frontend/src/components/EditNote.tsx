@@ -1,8 +1,8 @@
 import React from 'react';
-
+import "./css/note.module.css";
 function EditNote({ textHandler, saveHandler, inputText }: any) {
   return (
-    <div className="edit-note">
+    <div className="edit-note" style={{ background: "rgba(255,255,255,0" }}>
       <textarea
         cols={10}
         rows={5}
@@ -11,12 +11,12 @@ function EditNote({ textHandler, saveHandler, inputText }: any) {
         onChange={textHandler}
         maxLength={100}
       ></textarea>
-      {/* <div className="note__footer">
+      <div className="note__footer">
         <span className="label"> left</span>
         <button className="note__save" onClick={saveHandler}>
           Save
         </button>
-      </div> */}
+      </div>
     </div >
   );
 };
