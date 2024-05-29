@@ -1,5 +1,10 @@
 import { React } from "react";
-function NotePreview() {
-  return <div className="note-preview">This is a preview note</div>;
+function NotePreview({ content }) {
+  return (
+    <div className="note-preview">
+      <div className="note-preview__title">Title</div>
+      <div className="note-preview__body">{content}</div>
+    </div>
+  );
 }
 export default NotePreview;

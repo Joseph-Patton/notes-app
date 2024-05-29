@@ -8,6 +8,8 @@ body {
 }
 
 .main {
+    display: flex;
+    flex-direction: column;
     max-width: 960px;
     margin: 0px auto;
     padding: 0px 15px;
@@ -32,9 +34,10 @@ body {
 .mainUI {
     max-width: 1200px;
     margin: 0 auto;
-    display: grid;
-    grid-gap: 1rem;
-    grid-template-columns: minmax(300px, 1fr) minmax(600px, 4fr);
+        flex-grow: 1;
+    display: flex;
+    column-gap: 10px;
+    margin: 10px 10px;
 }
 
 /* @media screen and (max-width: 900px) {
