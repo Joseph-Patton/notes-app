@@ -1,9 +1,10 @@
 import { React } from "react";
-function NotePreview({ content }) {
+import "./css/Note.css";
+function NotePreview() {
   return (
     <div className="note-preview">
-      <div className="note-preview__title">Title</div>
-      <div className="note-preview__body">{content}</div>
+      <div className="note-preview__title">title</div>
+      <div className="note-preview__body">text</div>
     </div>
   );
 }

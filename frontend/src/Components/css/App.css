@@ -34,7 +34,7 @@ body {
 .mainUI {
     max-width: 1200px;
     margin: 0 auto;
-        flex-grow: 1;
+    flex-grow: 1;
     display: flex;
     column-gap: 10px;
     margin: 10px 10px;

@@ -1,5 +1,5 @@
 import { React } from "react";
-function CreateNote({ textHandler, saveHandler, inputText }) {
+function EditPanel({ textHandler, saveHandler, inputText }) {
   return (
     <div
       className="edit-panel"
@@ -18,4 +18,4 @@ function CreateNote({ textHandler, saveHandler, inputText }) {
     </div>
   );
 }
-export default CreateNote;
+export default EditPanel;
