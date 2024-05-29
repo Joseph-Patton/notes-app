@@ -6,7 +6,7 @@ import { v4 as uuid } from "uuid";
 
 function MainUI() {
   return (
-    <div className="notes">
+    <div className="mainUI">
       <NoteList />
       <EditPanel />
     </div>
