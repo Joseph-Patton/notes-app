@@ -37,7 +37,7 @@ body {
     flex-grow: 1;
     display: flex;
     column-gap: 10px;
-    margin: 10px 10px;
+        margin: 10px 10px;
 }
 
 /* @media screen and (max-width: 900px) {

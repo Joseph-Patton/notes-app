@@ -12,7 +12,7 @@ function EditPanel({ textHandler, saveHandler, inputText }) {
         maxLength="100"
       ></textarea>
       <div className="edit-panel__footer">
-        <span className="label"> left</span>
+        <span className="label"></span>
         <button className="edit-panel__save">Save</button>
       </div>
     </div>

@@ -1,18 +1,18 @@
 .edit-panel {
     background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(5px);
-    box-shadow: inset -6px -4px 2px rgba(255, 255, 255, 0.03);
-    border-radius: 15px;
-    border: 1.5px solid rgba(255, 255, 255, 0.326);
-    color: #fff;
-    padding: 15px;
-    min-height: 140px;
-    flex-grow: 4;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    word-wrap: break-word;
-}
+        backdrop-filter: blur(5px);
+        box-shadow: inset -6px -4px 2px rgba(255, 255, 255, 0.03);
+        border-radius: 15px;
+        border: 1.5px solid rgba(255, 255, 255, 0.326);
+        color: #fff;
+        padding: 15px;
+        min-height: 140px;
+        flex: 2 1 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        word-wrap: break-word;
+    }
 .note-preview {
     /* background: rgba(255, 255, 255, 0.1);
     backdrop-filter: blur(5px);
@@ -22,7 +22,7 @@
     color: #fff;
     padding: 15px;
     min-height: 140px;
-    flex-grow: 1;
+    min-width: 300px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -30,14 +30,21 @@
 }
 
 .note-list {
-    background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(5px);
-    box-shadow: inset -6px -4px 2px rgba(227, 123, 123, 0.075);
-    border-radius: 15px;
-    border: 1.5px solid rgba(255, 255, 255, 0.326);
-    color: #fff;
-    padding: 15px;
-    min-height: 140px;
+        background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(5px);
+            box-shadow: inset -6px -4px 2px rgba(255, 255, 255, 0.03);
+            border-radius: 15px;
+            border: 1.5px solid rgba(255, 255, 255, 0.326);
+            color: #fff;
+            padding: 15px;
+            min-height: 140px;
+            flex: 1 1 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: start;
+            word-wrap: break-word;
+            row-gap: 10px;
+            margin: 10px 10px;
 }
 
 .edit-panel__footer {
