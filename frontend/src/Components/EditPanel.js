@@ -14,26 +14,26 @@ function EditPanel({
       style={{ background: "rgba(255, 255, 255, 0)" }}
     >
       <textarea
-        className="edit-panel__tile"
+        className="title"
         cols="10"
-        rows="5"
+        rows="1"
         value={inputTitle}
-        placeholder="Type...."
+        placeholder="Title...."
         onChange={titleHandler}
         maxLength="100"
       ></textarea>
       <textarea
-        className="edit-panel__text"
+        className="text"
         cols="10"
         rows="5"
         value={inputText}
-        placeholder="Type...."
+        placeholder="Content...."
         onChange={textHandler}
         maxLength="100"
       ></textarea>
-      <div className="edit-panel__footer">
+      <div className="footer">
         <span className="label">Tag</span>
-        <button className="edit-panel__save" onClick={saveHandler}>
+        <button className="save" onClick={saveHandler}>
           Save
         </button>
       </div>

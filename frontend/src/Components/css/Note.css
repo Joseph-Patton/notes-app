@@ -22,7 +22,20 @@
     color: #fff;
     padding: 15px;
     min-height: 140px;
-    min-width: 300px;
+    width: 300px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    word-wrap: break-word;
+}
+.note-preview div {
+    font-size: 18px;
+    border-radius: 15px;
+    border: 1.5px solid rgba(255, 255, 255, 0.326);
+    color: #fff;
+    padding: 15px;
+    min-height: 140px;
+    width: 300px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -30,39 +43,31 @@
 }
 
 .note-list {
-        background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(5px);
-            box-shadow: inset -6px -4px 2px rgba(255, 255, 255, 0.03);
-            border-radius: 15px;
-            border: 1.5px solid rgba(255, 255, 255, 0.326);
-            color: #fff;
-            padding: 15px;
-            min-height: 140px;
-            flex: 1 1 0;
-            display: flex;
-            flex-direction: column;
-            justify-content: start;
-            word-wrap: break-word;
-            row-gap: 10px;
-            margin: 10px 10px;
-}
-
-.edit-panel__footer {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(5px);
+    box-shadow: inset -6px -4px 2px rgba(255, 255, 255, 0.03);
+    border-radius: 15px;
+    border: 1.5px solid rgba(255, 255, 255, 0.326);
+    color: #fff;
+    padding: 15px;
+    min-height: 140px;
+    flex: 1 1 0;
     display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 15px;
+    flex-direction: column;
+    justify-content: start;
+    word-wrap: break-word;
+    row-gap: 10px;
+    margin: 10px 10px;
 }
 
 .edit-panel textarea {
     white-space: pre-wrap;
     background: transparent;
-    border: none;
+    border-radius: 15px;
+    border: 1.5px solid rgba(255, 255, 255, 0.326);
     color: #fff;
     resize: none;
-    font-size: 18px;
 }
-
 .edit-panel textarea:focus {
     outline: none;
 }
@@ -70,8 +75,17 @@
 .edit-panel textarea::placeholder {
     color: #fff;
 }
+.edit-panel .title {
+    min-height: 50px;
+    font-size: 1.8em;
+}
 
-.edit-panel__save {
+.edit-panel .text {
+    flex: 1 1 0;
+        font-size: 18px;
+}
+
+.edit-panel .save {
     background: transparent;
     transition: 0.1s ease-in-out;
     border: 1.5px solid #fff;
@@ -82,17 +96,24 @@
     cursor: pointer;
 }
 
-.edit-panel__save:hover {
+.edit-panel .save:hover {
     background: #fff;
     border: 1.5px solid #fff;
     color: #4b1589;
 }
 
-.edit-panel__delete {
+.edit-panel .footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 15px;
+}
+
+.edit-panel .delete {
     cursor: pointer;
 }
 
-.edit-panel__delete:hover {
+.edit-panel .delete:hover {
     transform: scale(1.1);
 }
 
