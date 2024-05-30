@@ -1,5 +1,13 @@
 @import "./Style.css";
 
+.overflow {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    line-clamp: 1;
+    -webkit-box-orient: vertical;
+}
+
 .note-preview {
     padding: 15px;
     min-height: 140px;
@@ -21,28 +29,37 @@
     margin: 10px 10px;
 }
 
-.note-list .title {
+.note-preview .title {
+    height: 2em;
     font-size: 1.6em;
     justify-content: start;
     word-wrap: break-word;
 }
 
-.note-list .text {
-    flex: 1 1 0;
+.note-preview .text {
+    flex: 1 1 auto;
     font-size: 1em;
     justify-content: start;
     word-wrap: break-word;
 }
 
-.overflow {
-    overflow: hidden;
-    display: -webkit-box;
-    -webkit-line-clamp: 1;
-    line-clamp: 1;
-    -webkit-box-orient: vertical;
+.note-preview .footer {
+    height: 2em;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 15px;
 }
 
-.note-list .tag {
+.note-preview .delete {
+    cursor: pointer;
+}
+
+.note-preview .delete:hover {
+    transform: scale(1.1);
+}
+
+.note-preview .tag {
     font-size: 1em;
     flex-direction: column;
     justify-content: start;
