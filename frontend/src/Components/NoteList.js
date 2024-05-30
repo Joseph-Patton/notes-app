@@ -1,5 +1,5 @@
 import React from "react";
-import "./css/Note.css";
+import "./css/EditPanel.css";
 import NotePreview from "./NotePreview";
 function NoteList({ notes, deleteNote }) {
   return (
@@ -8,7 +8,7 @@ function NoteList({ notes, deleteNote }) {
     //     <NotePreview title={note.title} text={note.text} />
     //   ))}
     // </div>
-    <div className="note-list">
+    <div className="note-list box">
       {notes.map((note) => (
         <NotePreview
           key={note.id}
