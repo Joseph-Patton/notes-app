@@ -1,14 +1,7 @@
 @import "./Style.css";
+
 .note-preview {
     padding: 15px;
-    min-height: 140px;
-    width: 300px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    word-wrap: break-word;
-}
-.note-preview div {
     min-height: 140px;
     width: 300px;
     display: flex;
@@ -28,60 +21,30 @@
     margin: 10px 10px;
 }
 
-.edit-panel textarea {
-    white-space: pre-wrap;
-    color: #fff;
-    resize: none;
-}
-.edit-panel textarea:focus {
-    outline: none;
+.note-list .title {
+    font-size: 1.6em;
+    justify-content: start;
+    word-wrap: break-word;
 }
 
-.edit-panel textarea::placeholder {
-    color: #fff;
-}
-.edit-panel .title {
-    min-height: 50px;
-    font-size: 1.8em;
-}
-
-.edit-panel .text {
+.note-list .text {
     flex: 1 1 0;
-        font-size: 18px;
+    font-size: 1em;
+    justify-content: start;
+    word-wrap: break-word;
 }
 
-.edit-panel .save {
-    background: transparent;
-    transition: 0.1s ease-in-out;
-    border: 1.5px solid #fff;
-    border-radius: 10px;
-    color: #fff;
-    padding: 4px 10px;
-    font-size: 13px;
-    cursor: pointer;
+.overflow {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    line-clamp: 1;
+    -webkit-box-orient: vertical;
 }
 
-.edit-panel .save:hover {
-    background: #fff;
-    border: 1.5px solid #fff;
-    color: #4b1589;
-}
-
-.edit-panel .footer {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 15px;
-}
-
-.edit-panel .delete {
-    cursor: pointer;
-}
-
-.edit-panel .delete:hover {
-    transform: scale(1.1);
-}
-
-.char-progress {
-    background-color: #fff !important;
+.note-list .tag {
+    font-size: 1em;
+    flex-direction: column;
+    justify-content: start;
+    word-wrap: break-word;
 }
