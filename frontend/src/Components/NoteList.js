@@ -1,7 +1,7 @@
 import React from "react";
 import "./css/Note.css";
 import NotePreview from "./NotePreview";
-function NoteList() {
+function NoteList({ notes, deleteNote }) {
   return (
     // <div className="note-list">
     //   {notes.map((note) => (
@@ -9,9 +9,14 @@ function NoteList() {
     //   ))}
     // </div>
     <div className="note-list">
-      <NotePreview />
-      <NotePreview />
-      <NotePreview />
+      {notes.map((note) => (
+        <NotePreview
+          key={note.id}
+          id={note.id}
+          text={note.text}
+          deleteNote={deleteNote}
+        />
+      ))}
     </div>
   );
 }
