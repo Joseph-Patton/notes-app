@@ -13,7 +13,9 @@ function NoteList({ notes, deleteNote }) {
         <NotePreview
           key={note.id}
           id={note.id}
+          title={note.title}
           text={note.text}
+          tag={note.tag}
           deleteNote={deleteNote}
         />
       ))}
