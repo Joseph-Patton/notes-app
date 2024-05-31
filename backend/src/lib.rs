@@ -7,7 +7,15 @@ async fn health_check() -> HttpResponse {
     HttpResponse::Ok().finish()
 }
 
-async fn create_note() -> HttpResponse {
+#[derive(serde::Deserialize, Debug)]
+struct Note {
+    id: u64,
+    title: String,
+    content: String,
+    tag: String,
+}
+async fn create_note(note: web::Json<Note>) -> HttpResponse {
+    //println!("note.title: {}", note.title);
     HttpResponse::Ok().finish()
 }
 

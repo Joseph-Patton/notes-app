@@ -250,6 +250,7 @@ dependencies = [
  "actix-rt",
  "actix-web",
  "reqwest",
+ "serde",
  "serde_json",
  "tokio",
 ]
