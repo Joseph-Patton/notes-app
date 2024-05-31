@@ -1,3 +1,4 @@
+use serde_json::json;
 use std::net::TcpListener;
 
 #[actix_rt::test]
@@ -26,4 +27,30 @@ fn spawn_app() -> String {
     let _ = tokio::spawn(server);
     // We return the application address to the caller!
     format!("http://127.0.0.1:{}", port)
+}
+
+#[actix_rt::test]
+async fn create_note_returns_a_200_for_valid_data() {
+    // Arrange
+    let app_address = spawn_app();
+    let client = reqwest::Client::new();
+    let body = json!({
+        "id": 1,
+        "title": "Test Note",
+        "content": "test note content",
+        "tag": "test"
+    })
+    .to_string();
+
+    // Act
+    let response = client
+        .post(&format!("{}/notes", &app_address))
+        .header("Content-Type", "application/json")
+        .body(body)
+        .send()
+        .await
+        .expect("Failed to execute request.");
+
+    // Assert
+    assert_eq!(200, response.status().as_u16());
 }
