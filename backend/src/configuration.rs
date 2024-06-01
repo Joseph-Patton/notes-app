@@ -1,6 +1,6 @@
 //! src/configuration.rs
 
-use config::FileFormat;
+//use config::FileFormat;
 #[derive(serde::Deserialize)]
 pub struct Settings {
     pub database: DatabaseSettings,
