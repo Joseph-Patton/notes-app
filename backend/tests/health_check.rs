@@ -1,4 +1,6 @@
+use backend::configuration::get_configuration;
 use serde_json::json;
+use sqlx::{Connection, PgConnection};
 use std::net::TcpListener;
 
 #[actix_rt::test]
@@ -33,6 +35,11 @@ fn spawn_app() -> String {
 async fn create_note_returns_a_200_for_valid_data() {
     // Arrange
     let app_address = spawn_app();
+    let configuration = get_configuration().expect("Failed to read configuration");
+    let connection_string = configuration.database.connection_string();
+    let connection = PgConnection::connect(&connection_string)
+        .await
+        .expect("Failed to connect to Postgres.");
     let client = reqwest::Client::new();
     let body = json!({
         "id": 1,
