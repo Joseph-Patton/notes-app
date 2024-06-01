@@ -42,7 +42,6 @@ async fn create_note_returns_a_200_for_valid_data() {
         .expect("Failed to connect to Postgres.");
     let client = reqwest::Client::new();
     let body = json!({
-        "id": 1,
         "title": "Test Note",
         "content": "test note content",
         "tag": "test",
@@ -71,15 +70,9 @@ async fn create_note_returns_a_200_for_valid_data() {
 async fn create_note_returns_a_400_when_data_is_missing() {
     // Arrange
     // TODO: systematic way to generate failing test cases
-    let note_body_missing_id = json!({
-        "title": "Test Note",
-        "content": "test note content",
-        "tag": "test",
-    })
-    .to_string();
+    let note_body_empty = json!({}).to_string();
 
     let note_body_missing_title = json!({
-        "id": 1,
         "content": "test note content",
         "tag": "test",
     })
@@ -88,7 +81,7 @@ async fn create_note_returns_a_400_when_data_is_missing() {
     let app_address = spawn_app();
     let client = reqwest::Client::new();
     let test_cases = vec![
-        (note_body_missing_id, "missing the id"),
+        (note_body_empty, "note body is empty"),
         (note_body_missing_title, "missing the title"),
     ];
 
