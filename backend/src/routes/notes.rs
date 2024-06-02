@@ -13,12 +13,12 @@ pub struct Note {
 pub async fn create_note(note: web::Json<Note>, pool: web::Data<PgPool>) -> HttpResponse {
     let request_id = Uuid::new_v4();
     let request_span = tracing::info_span!(
-        "Adding a new note.",
+        "Adding a new note",
         %request_id,
         note_title = %note.title,
     );
     let _request_span_guard = request_span.enter();
-    let query_span = tracing::info_span!("Saving new subscriber details in the database");
+    let query_span = tracing::info_span!("Saving new note in the database");
     match sqlx::query!(
         r#"
         INSERT INTO notes (id, title, content, tag, created_at)
