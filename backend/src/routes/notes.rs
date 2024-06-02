@@ -10,6 +10,12 @@ pub struct Note {
 }
 
 pub async fn create_note(note: web::Json<Note>, pool: web::Data<PgPool>) -> HttpResponse {
+    let request_id = Uuid::new_v4();
+    tracing::info!(
+        "request_id{} - Adding a new note '{}'.",
+        request_id,
+        note.title, //remove this after testing, user notes should not be logged
+    );
     match sqlx::query!(
         r#"
         INSERT INTO notes (id, title, content, tag, created_at)
@@ -24,9 +30,16 @@ pub async fn create_note(note: web::Json<Note>, pool: web::Data<PgPool>) -> Http
     .execute(pool.get_ref())
     .await
     {
-        Ok(_) => HttpResponse::Ok().finish(),
+        Ok(_) => {
+            tracing::info!("request_id {} - New note have been created", request_id);
+            HttpResponse::Ok().finish()
+        }
         Err(e) => {
-            println!("Failed to execute query: {}", e);
+            tracing::error!(
+                "request_id {} - Failed to execute query: {:?}",
+                request_id,
+                e
+            );
             HttpResponse::InternalServerError().finish()
         }
     }
