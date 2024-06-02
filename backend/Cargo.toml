@@ -25,6 +25,7 @@ env_logger = "0.11.3"
 tracing-futures = "0.2.5"
 tracing-bunyan-formatter = "0.3.9"
 tracing-subscriber = { version = "0.3", features = ["registry", "env-filter"] }
+tracing-log = "0.2.0"
 
 [dev-dependencies]
 reqwest = "0.11"
