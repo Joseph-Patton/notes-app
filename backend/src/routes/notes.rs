@@ -1,7 +1,6 @@
 use actix_web::{web, HttpResponse};
 use chrono::Utc;
 use sqlx::PgPool;
-use tracing_futures::Instrument;
 use uuid::Uuid;
 #[derive(serde::Deserialize, Debug)]
 pub struct Note {
@@ -9,8 +8,10 @@ pub struct Note {
     content: String,
     tag: String,
 }
+
+//web logic
 #[tracing::instrument(
-name = "Adding a new subscriber",
+name = "Adding a new noter",
 skip(note, pool),
 fields(
 request_id = %Uuid::new_v4(),
@@ -18,8 +19,16 @@ note_title = %note.title // TODO remove eventually so that user notes are not lo
 )
 )]
 pub async fn create_note(note: web::Json<Note>, pool: web::Data<PgPool>) -> HttpResponse {
-    let query_span = tracing::info_span!("Saving new note in the database");
-    match sqlx::query!(
+    match insert_note(&pool, &note).await {
+        Ok(_) => HttpResponse::Ok().finish(),
+        Err(_) => HttpResponse::InternalServerError().finish(),
+    }
+}
+
+//database logic
+#[tracing::instrument(name = "Saving new note in the database", skip(note, pool))]
+pub async fn insert_note(pool: &PgPool, note: &Note) -> Result<(), sqlx::Error> {
+    sqlx::query!(
         r#"
         INSERT INTO notes (id, title, content, tag, created_at)
         VALUES ($1, $2, $3, $4, $5)
@@ -30,14 +39,11 @@ pub async fn create_note(note: web::Json<Note>, pool: web::Data<PgPool>) -> Http
         note.tag,
         Utc::now()
     )
-    .execute(pool.get_ref())
-    .instrument(query_span)
+    .execute(pool)
     .await
-    {
-        Ok(_) => HttpResponse::Ok().finish(),
-        Err(e) => {
-            tracing::error!("Failed to execute query: {:?}", e);
-            HttpResponse::InternalServerError().finish()
-        }
-    }
+    .map_err(|e| {
+        tracing::error!("Failed to execute query: {:?}", e);
+        e
+    })?;
+    Ok(())
 }
