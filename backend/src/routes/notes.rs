@@ -9,15 +9,15 @@ pub struct Note {
     content: String,
     tag: String,
 }
-
+#[tracing::instrument(
+name = "Adding a new subscriber",
+skip(note, pool),
+fields(
+request_id = %Uuid::new_v4(),
+note_title = %note.title // TODO remove eventually so that user notes are not logged, keep for testing
+)
+)]
 pub async fn create_note(note: web::Json<Note>, pool: web::Data<PgPool>) -> HttpResponse {
-    let request_id = Uuid::new_v4();
-    let request_span = tracing::info_span!(
-        "Adding a new note",
-        %request_id,
-        note_title = %note.title,
-    );
-    let _request_span_guard = request_span.enter();
     let query_span = tracing::info_span!("Saving new note in the database");
     match sqlx::query!(
         r#"
