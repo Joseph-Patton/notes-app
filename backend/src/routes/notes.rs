@@ -14,7 +14,6 @@ pub struct Note {
 name = "Adding a new note",
 skip(note, pool),
 fields(
-request_id = %Uuid::new_v4(),
 note_title = %note.title // TODO remove eventually so that user notes are not logged, keep for testing
 )
 )]
