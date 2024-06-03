@@ -11,7 +11,7 @@ pub struct Note {
 
 //web logic
 #[tracing::instrument(
-name = "Adding a new noter",
+name = "Adding a new note",
 skip(note, pool),
 fields(
 request_id = %Uuid::new_v4(),
