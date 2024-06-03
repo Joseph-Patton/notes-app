@@ -7,7 +7,7 @@ use std::net::TcpListener;
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {
     //tracing
-    let subscriber = get_subscriber("backend".into(), "info".into());
+    let subscriber = get_subscriber("backend".into(), "info".into(), std::io::stdout);
     init_subscriber(subscriber);
     //configuration
     let configuration = get_configuration().expect("Failed to read configuration.");
