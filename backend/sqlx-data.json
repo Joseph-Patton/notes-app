@@ -1,0 +1,19 @@
+{
+  "db": "PostgreSQL",
+  "aaeab766f745b6e02eb2292f3b3335cdb46162b24d02683b3a74f59c2a26126c": {
+    "describe": {
+      "columns": [],
+      "nullable": [],
+      "parameters": {
+        "Left": [
+          "Uuid",
+          "Text",
+          "Text",
+          "Text",
+          "Timestamptz"
+        ]
+      }
+    },
+    "query": "\n        INSERT INTO notes (id, title, content, tag, created_at)\n        VALUES ($1, $2, $3, $4, $5)\n        "
+  }
+}
