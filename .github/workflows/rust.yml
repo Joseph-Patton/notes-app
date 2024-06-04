@@ -51,6 +51,10 @@ jobs:
       - name: Migrate database
         run: SKIP_DOCKER=true ./backend/scripts/init_db.sh
 
+      - name: Check sqlx-data.json is up-to-date
+        run: |
+          cargo sqlx prepare --workspace --check
+
       - name: Run tests
         run: cargo test --verbose
         working-directory: ./backend
