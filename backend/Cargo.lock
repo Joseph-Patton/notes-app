@@ -351,6 +351,7 @@ dependencies = [
  "once_cell",
  "reqwest",
  "serde",
+ "serde-aux",
  "serde_json",
  "sqlx",
  "tokio",
@@ -1972,6 +1973,17 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "226b61a0d411b2ba5ff6d7f73a476ac4f8bb900373459cd00fab8512828ba395"
 dependencies = [
  "serde_derive",
+]
+
+[[package]]
+name = "serde-aux"
+version = "4.5.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "0d2e8bfba469d06512e11e3311d4d051a4a387a5b42d010404fecf3200321c95"
+dependencies = [
+ "chrono",
+ "serde",
+ "serde_json",
 ]
 
 [[package]]
