@@ -1,13 +1,13 @@
 import { React } from "react";
 function EditPanel({
-  textHandler,
+  contentHandler,
   titleHandler,
   tagHandler,
   //saveHandler,
   createNote,
-  inputText,
+  inputContent,
   inputTitle,
-  InputTag,
+  inputTag,
 }) {
   return (
     <div
@@ -21,19 +21,27 @@ function EditPanel({
         value={inputTitle}
         placeholder="Title...."
         onChange={titleHandler}
-        maxLength="100"
+        maxLength="50"
       ></textarea>
       <textarea
         className="text box"
         cols="10"
         rows="5"
-        value={inputText}
+        value={inputContent}
         placeholder="Content...."
-        onChange={textHandler}
+        onChange={contentHandler}
         maxLength="100"
       ></textarea>
       <div className="footer box">
-        <span className="label">Tag</span>
+        <textarea
+          className="tag box"
+          cols="10"
+          rows="1"
+          value={inputTag}
+          placeholder="Tag...."
+          onChange={tagHandler}
+          maxLength="15"
+        ></textarea>
         <button className="save" onClick={createNote}>
           Save
         </button>

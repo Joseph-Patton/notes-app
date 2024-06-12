@@ -9,13 +9,13 @@ function MainUI() {
   const apiUrl = "http://localhost:8000"; // TODO add as argument
   const [notes, setNotes] = useState([]);
   //const [newNote, setNewNote] = useState([]);
-  const [inputText, setInputText] = useState("");
+  const [inputContent, setInputContent] = useState("");
   const [inputTitle, setInputTitle] = useState("");
   const [inputTag, setInputTag] = useState("");
 
   // get text and store in state
-  const textHandler = (e) => {
-    setInputText(e.target.value);
+  const contentHandler = (e) => {
+    setInputContent(e.target.value);
   };
   const titleHandler = (e) => {
     setInputTitle(e.target.value);
@@ -38,15 +38,10 @@ function MainUI() {
   // }, [backendName, apiUrl]);
   const createNote = async (e) => {
     e.preventDefault();
-    // const testNote = {
-    //   title: inputTitle,
-    //   text: inputText,
-    //   tag: inputTag,
-    // };
     const testNote = {
-      title: "Frontend Title",
-      content: "frontend content",
-      tag: "frontend tag",
+      title: inputTitle,
+      content: inputContent,
+      tag: inputTag,
     };
     try {
       await axios.post(`${apiUrl}/notes`, testNote);
@@ -56,25 +51,9 @@ function MainUI() {
     }
     //clear the textarea
     setInputTitle("");
-    setInputText("");
+    setInputContent("");
     setInputTag("");
   };
-  // add new note to the state array
-  // const saveHandler = () => {
-  //   setNotes((prevState) => [
-  //     ...prevState,
-  //     {
-  //       id: uuid(),
-  //       title: inputTitle,
-  //       text: inputText,
-  //       tag: inputTag,
-  //     },
-  //   ]);
-  //   //clear the textarea
-  //   setInputTitle("");
-  //   setInputText("");
-  //   setInputTag("");
-  // };
   //delete note function
   const deleteNote = (id) => {
     const filteredNotes = notes.filter((note) => note.id !== id);
@@ -85,12 +64,12 @@ function MainUI() {
       <NoteList notes={notes} deleteNote={deleteNote} />
       <EditPanel
         titleHandler={titleHandler}
-        textHandler={textHandler}
+        contentHandler={contentHandler}
         tagHandler={tagHandler}
         //saveHandler={saveHandler}
         createNote={createNote}
         inputTitle={inputTitle}
-        inputText={inputText}
+        inputContent={inputContent}
         inputTag={inputTag}
       />
     </div>
