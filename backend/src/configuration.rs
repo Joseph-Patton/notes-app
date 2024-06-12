@@ -1,5 +1,6 @@
 //! src/configuration.rs
 use serde_aux::field_attributes::deserialize_number_from_string;
+use sqlx::postgres::PgConnectOptions;
 use std::convert::{TryFrom, TryInto};
 //use actix_web::App;
 
@@ -27,19 +28,19 @@ pub struct DatabaseSettings {
     pub database_name: String,
 }
 impl DatabaseSettings {
-    pub fn connection_string(&self) -> String {
-        format!(
-            "postgres://{}:{}@{}:{}/{}",
-            self.username, self.password, self.host, self.port, self.database_name
-        )
+    pub fn without_db(&self) -> PgConnectOptions {
+        PgConnectOptions::new()
+            .host(&self.host)
+            .username(&self.username)
+            .password(&self.password)
+            .port(self.port)
     }
-    pub fn connection_string_without_db(&self) -> String {
-        format!(
-            "postgres://{}:{}@{}:{}",
-            self.username, self.password, self.host, self.port
-        )
+
+    pub fn with_db(&self) -> PgConnectOptions {
+        self.without_db().database(&self.database_name)
     }
 }
+
 pub fn get_configuration() -> Result<Settings, config::ConfigError> {
     let base_path = std::env::current_dir().expect("Failed to determine the current directory");
     //base_path.pop();

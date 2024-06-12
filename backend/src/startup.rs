@@ -11,9 +11,7 @@ use tracing_actix_web::TracingLogger;
 pub async fn build(configuration: Settings) -> Result<Server, std::io::Error> {
     let connection_pool = PgPoolOptions::new()
         .connect_timeout(std::time::Duration::from_secs(2))
-        .connect(&configuration.database.connection_string())
-        .await
-        .expect("Failed to connect to Postgres.");
+        .connect_lazy_with(configuration.database.with_db());
     let address = format!(
         "{}:{}",
         configuration.application.host, configuration.application.port
