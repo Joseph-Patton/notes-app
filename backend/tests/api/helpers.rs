@@ -22,6 +22,17 @@ pub struct TestApp {
     pub db_pool: PgPool,
 }
 
+impl TestApp {
+    pub async fn post_notes(&self, body: String) -> reqwest::Response {
+        reqwest::Client::new()
+            .post(&format!("{}/notes", &self.address))
+            .body(body)
+            .send()
+            .await
+            .expect("Failed to execute request.")
+    }
+}
+
 pub async fn spawn_app() -> TestApp {
     Lazy::force(&TRACING);
     // Randomise configuration to ensure test isolation
