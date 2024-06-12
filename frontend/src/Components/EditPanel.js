@@ -3,7 +3,8 @@ function EditPanel({
   textHandler,
   titleHandler,
   tagHandler,
-  saveHandler,
+  //saveHandler,
+  createNote,
   inputText,
   inputTitle,
   InputTag,
@@ -33,7 +34,7 @@ function EditPanel({
       ></textarea>
       <div className="footer box">
         <span className="label">Tag</span>
-        <button className="save" onClick={saveHandler}>
+        <button className="save" onClick={createNote}>
           Save
         </button>
       </div>

@@ -1,15 +1,18 @@
-import { React, useState, useEffect } from "react";
+import { React, useState } from "react";
 import "./css/EditPanel.css";
+import axios from "axios";
 import NoteList from "./NoteList";
 import EditPanel from "./EditPanel";
-import { v4 as uuid } from "uuid";
-import NotePreview from "./NotePreview";
+//import NotePreview from "./NotePreview";
 
 function MainUI() {
+  const apiUrl = "http://localhost:8000"; // TODO add as argument
   const [notes, setNotes] = useState([]);
+  //const [newNote, setNewNote] = useState([]);
   const [inputText, setInputText] = useState("");
   const [inputTitle, setInputTitle] = useState("");
   const [inputTag, setInputTag] = useState("");
+
   // get text and store in state
   const textHandler = (e) => {
     setInputText(e.target.value);
@@ -20,22 +23,58 @@ function MainUI() {
   const tagHandler = (e) => {
     setInputTag(e.target.value);
   };
-  // add new note to the state array
-  const saveHandler = () => {
-    setNotes((prevState) => [
-      ...prevState,
-      {
-        id: uuid(),
-        title: inputTitle,
-        text: inputText,
-        tag: inputTag,
-      },
-    ]);
+
+  // fetch notes
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     try {
+  //       const response = await axios.get(`${apiUrl}/notes`);
+  //       setNotes(response.data());
+  //     } catch (error) {
+  //       console.error('Error fetching data:', error);
+  //     }
+  //   };
+  //   fetchData();
+  // }, [backendName, apiUrl]);
+  const createNote = async (e) => {
+    e.preventDefault();
+    // const testNote = {
+    //   title: inputTitle,
+    //   text: inputText,
+    //   tag: inputTag,
+    // };
+    const testNote = {
+      title: "Frontend Title",
+      content: "frontend content",
+      tag: "frontend tag",
+    };
+    try {
+      await axios.post(`${apiUrl}/notes`, testNote);
+      //setNotes([response.data, ...notes]);
+    } catch (error) {
+      console.error("Error creating notes:", error);
+    }
     //clear the textarea
     setInputTitle("");
     setInputText("");
     setInputTag("");
   };
+  // add new note to the state array
+  // const saveHandler = () => {
+  //   setNotes((prevState) => [
+  //     ...prevState,
+  //     {
+  //       id: uuid(),
+  //       title: inputTitle,
+  //       text: inputText,
+  //       tag: inputTag,
+  //     },
+  //   ]);
+  //   //clear the textarea
+  //   setInputTitle("");
+  //   setInputText("");
+  //   setInputTag("");
+  // };
   //delete note function
   const deleteNote = (id) => {
     const filteredNotes = notes.filter((note) => note.id !== id);
@@ -48,7 +87,8 @@ function MainUI() {
         titleHandler={titleHandler}
         textHandler={textHandler}
         tagHandler={tagHandler}
-        saveHandler={saveHandler}
+        //saveHandler={saveHandler}
+        createNote={createNote}
         inputTitle={inputTitle}
         inputText={inputText}
         inputTag={inputTag}
