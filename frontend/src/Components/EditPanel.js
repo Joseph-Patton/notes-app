@@ -3,7 +3,6 @@ function EditPanel({
   contentHandler,
   titleHandler,
   tagHandler,
-  //saveHandler,
   createNote,
   inputContent,
   inputTitle,
