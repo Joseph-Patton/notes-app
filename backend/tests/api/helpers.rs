@@ -23,12 +23,17 @@ pub struct TestApp {
 }
 
 impl TestApp {
-    pub async fn post_notes(&self, body: String) -> reqwest::Response {
+    pub async fn post_note(&self, body: String) -> reqwest::Response {
         reqwest::Client::new()
             .post(&format!("{}/notes", &self.address))
             .header("Content-Type", "application/json")
             .body(body)
             .send()
+            .await
+            .expect("Failed to execute request.")
+    }
+    pub async fn get_notes(&self) -> reqwest::Response {
+        reqwest::get(&format!("{}/notes", &self.address))
             .await
             .expect("Failed to execute request.")
     }
