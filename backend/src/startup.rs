@@ -1,6 +1,6 @@
 use crate::configuration::DatabaseSettings;
 use crate::configuration::Settings;
-use crate::routes::{create_note, health_check};
+use crate::routes::{create_note, health_check, return_notes};
 use actix_cors::Cors;
 use actix_web::dev::Server;
 use actix_web::{web, App, HttpServer};
@@ -50,6 +50,7 @@ pub fn run(listener: TcpListener, db_pool: PgPool) -> Result<Server, std::io::Er
             .wrap(TracingLogger::default())
             .route("/health_check", web::get().to(health_check))
             .route("/notes", web::post().to(create_note))
+            .route("/notes", web::get().to(return_notes))
             .app_data(db_pool.clone())
     })
     .listen(listener)?
