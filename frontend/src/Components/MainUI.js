@@ -1,4 +1,4 @@
-import { React, useState } from "react";
+import { React, useState, useEffect } from "react";
 import "./css/EditPanel.css";
 import axios from "axios";
 import NoteList from "./NoteList";
@@ -24,18 +24,19 @@ function MainUI() {
     setInputTag(e.target.value);
   };
 
-  // fetch notes
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     try {
-  //       const response = await axios.get(`${apiUrl}/notes`);
-  //       setNotes(response.data());
-  //     } catch (error) {
-  //       console.error('Error fetching data:', error);
-  //     }
-  //   };
-  //   fetchData();
-  // }, [backendName, apiUrl]);
+  //fetch notes
+  const fetchNotes = async (apiUrl) => {
+    try {
+      const response = await axios.get(`${apiUrl}/notes`);
+      setNotes(response.data);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
+  useEffect(() => {
+    fetchNotes(apiUrl);
+  }, []);
+
   const createNote = async (e) => {
     e.preventDefault();
     const testNote = {
@@ -49,12 +50,15 @@ function MainUI() {
     } catch (error) {
       console.error("Error creating notes:", error);
     }
-    //clear the textarea
+    // Clear the textarea
     setInputTitle("");
     setInputContent("");
     setInputTag("");
+    // Fetch the updated list
+    fetchNotes(apiUrl);
   };
-  //delete note function
+
+  // Delete note function
   const deleteNote = (id) => {
     const filteredNotes = notes.filter((note) => note.id !== id);
     setNotes(filteredNotes);
