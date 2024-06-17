@@ -94,6 +94,7 @@ async fn get_notes_returns_notes_list() {
     // TODO change to check entire json object
     // assert_eq!("test note content 1", notes[0].content.unwrap());
     assert_eq!("Test Note 1", &notes[0].title);
+    assert_eq!("Test Note 2", &notes[1].title);
 }
 
 #[actix_rt::test]
