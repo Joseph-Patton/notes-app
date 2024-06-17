@@ -1,5 +1,6 @@
 use crate::helpers::spawn_app;
 use backend::routes::Notes;
+use log::Record;
 use serde_json::json;
 
 use uuid::Uuid;
@@ -124,13 +125,25 @@ async fn delete_note_deletes_note_from_database() {
     .execute(&app.db_pool)
     .await
     .expect("Failed to add note row to database.");
+    // check note added to database
+    let note = sqlx::query!(
+        r#"
+        SELECT * FROM notes WHERE id = $1
+        "#,
+        id,
+    )
+    .fetch_one(&app.db_pool)
+    .await
+    .expect("Failed to fetch saved note.");
+    assert_eq!(note.title, "Test Note");
+    assert_eq!(note.content.unwrap(), "test note content");
 
     // Act
     let response = app.delete_notes(id).await;
     assert_eq!(200, response.status().as_u16());
-    // try to get the data from the database, returns None
+
     // Assert
-    let saved = sqlx::query!(
+    let note_request = sqlx::query!(
         r#"
         SELECT * FROM notes WHERE id = $1
         "#,
@@ -139,5 +152,5 @@ async fn delete_note_deletes_note_from_database() {
     .fetch_one(&app.db_pool)
     .await;
     //.expect("Failed to fetch saved note.");
-    assert!(matches!(saved, Err(sqlx::Error::RowNotFound)));
+    assert!(matches!(note_request, Err(sqlx::Error::RowNotFound)));
 }

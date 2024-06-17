@@ -2,6 +2,7 @@ use backend::configuration::{get_configuration, DatabaseSettings};
 use backend::startup::{get_connection_pool, Application};
 use backend::telemetry::{get_subscriber, init_subscriber};
 use once_cell::sync::Lazy;
+use serde::Serialize;
 use sqlx::{Connection, Executor, PgConnection, PgPool};
 use uuid::Uuid;
 
@@ -23,7 +24,7 @@ pub struct TestApp {
 }
 
 impl TestApp {
-    pub async fn post_note(&self, body: String) -> reqwest::Response {
+    pub async fn post_notes(&self, body: String) -> reqwest::Response {
         reqwest::Client::new()
             .post(&format!("{}/notes", &self.address))
             .header("Content-Type", "application/json")
@@ -34,6 +35,15 @@ impl TestApp {
     }
     pub async fn get_notes(&self) -> reqwest::Response {
         reqwest::get(&format!("{}/notes", &self.address))
+            .await
+            .expect("Failed to execute request.")
+    }
+    pub async fn delete_notes(&self, body: Uuid) -> reqwest::Response {
+        reqwest::Client::new()
+            .delete(&format!("{}/notes", &self.address))
+            .header("Content-Type", "application/json")
+            .body(serde_json::to_string(&body).unwrap())
+            .send()
             .await
             .expect("Failed to execute request.")
     }
