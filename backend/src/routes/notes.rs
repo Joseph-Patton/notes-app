@@ -30,7 +30,7 @@ pub async fn create_note(
 
 //database logic
 #[tracing::instrument(name = "Saving new note in the database", skip(unitialised_note, pool))]
-pub async fn insert_note(
+async fn insert_note(
     pool: &PgPool,
     unitialised_note: &UninitialisedNote,
 ) -> Result<(), sqlx::Error> {
@@ -77,7 +77,7 @@ pub async fn return_notes(pool: web::Data<PgPool>) -> HttpResponse {
 
 //database logic
 #[tracing::instrument(name = "Fetching notes list from database", skip(pool))]
-pub async fn fetch_notes(pool: &PgPool) -> Result<Notes, sqlx::Error> {
+async fn fetch_notes(pool: &PgPool) -> Result<Notes, sqlx::Error> {
     let notes = sqlx::query_as!(
         Note,
         r#"
@@ -92,4 +92,31 @@ pub async fn fetch_notes(pool: &PgPool) -> Result<Notes, sqlx::Error> {
     })?;
     //info_span!("Content of notes: {:?}", notes);
     Ok(notes)
+}
+
+//Delete logic
+#[tracing::instrument(name = "Deleting a note", skip(pool))]
+pub async fn delete_note(pool: web::Data<PgPool>, note_id: web::Json<Uuid>) -> HttpResponse {
+    match delete_note_helper(&pool, &note_id).await {
+        Ok(_) => HttpResponse::Ok().finish(),
+        Err(_) => HttpResponse::InternalServerError().finish(),
+    }
+}
+
+//database logic
+#[tracing::instrument(name = "Deleting note from the database", skip(pool))]
+async fn delete_note_helper(pool: &PgPool, note_id: &Uuid) -> Result<(), sqlx::Error> {
+    sqlx::query!(
+        r#"
+        DELETE FROM notes WHERE id = $1
+        "#,
+        note_id
+    )
+    .execute(pool)
+    .await
+    .map_err(|e| {
+        tracing::error!("Failed to execute query: {:?}", e);
+        e
+    })?;
+    Ok(())
 }
