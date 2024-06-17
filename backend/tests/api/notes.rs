@@ -139,7 +139,7 @@ async fn delete_note_deletes_note_from_database() {
     assert_eq!(note.content.unwrap(), "test note content");
 
     // Act
-    let response = app.delete_notes(id).await;
+    let response = app.delete_notes(serde_json::to_string(&id).unwrap()).await;
     assert_eq!(200, response.status().as_u16());
 
     // Assert

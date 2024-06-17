@@ -38,11 +38,11 @@ impl TestApp {
             .await
             .expect("Failed to execute request.")
     }
-    pub async fn delete_notes(&self, body: Uuid) -> reqwest::Response {
+    pub async fn delete_notes(&self, body: String) -> reqwest::Response {
         reqwest::Client::new()
             .delete(&format!("{}/notes", &self.address))
             .header("Content-Type", "application/json")
-            .body(serde_json::to_string(&body).unwrap())
+            .body(body)
             .send()
             .await
             .expect("Failed to execute request.")
