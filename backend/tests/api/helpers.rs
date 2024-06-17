@@ -2,7 +2,6 @@ use backend::configuration::{get_configuration, DatabaseSettings};
 use backend::startup::{get_connection_pool, Application};
 use backend::telemetry::{get_subscriber, init_subscriber};
 use once_cell::sync::Lazy;
-use serde::Serialize;
 use sqlx::{Connection, Executor, PgConnection, PgPool};
 use uuid::Uuid;
 

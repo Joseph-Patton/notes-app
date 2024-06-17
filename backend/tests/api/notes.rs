@@ -1,6 +1,5 @@
 use crate::helpers::spawn_app;
 use backend::routes::Notes;
-use log::Record;
 use serde_json::json;
 
 use uuid::Uuid;
