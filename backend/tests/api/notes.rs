@@ -2,6 +2,8 @@ use crate::helpers::spawn_app;
 use backend::routes::Notes;
 use serde_json::json;
 
+use uuid::Uuid;
+
 #[actix_rt::test]
 async fn create_note_returns_a_200_for_valid_data() {
     // Arrange
@@ -14,7 +16,7 @@ async fn create_note_returns_a_200_for_valid_data() {
     .to_string();
 
     // Act
-    let response = app.post_note(body.into()).await;
+    let response = app.post_notes(body.into()).await;
 
     // Assert
     assert_eq!(200, response.status().as_u16());
@@ -47,7 +49,7 @@ async fn create_note_returns_a_400_when_data_is_missing() {
 
     for (invalid_body, error_message) in test_cases {
         // Act
-        let response = app.post_note(invalid_body.into()).await;
+        let response = app.post_notes(invalid_body.into()).await;
 
         // Assert
         assert_eq!(
@@ -63,6 +65,7 @@ async fn create_note_returns_a_400_when_data_is_missing() {
 async fn get_notes_returns_notes_list() {
     // Arrange
     let app = spawn_app().await;
+    // TODO generate random valid notes
     let body1 = json!({
         "title": "Test Note 1",
         "content": "test note content 1",
@@ -76,21 +79,65 @@ async fn get_notes_returns_notes_list() {
     })
     .to_string();
 
-    app.post_note(body1.into()).await;
-    app.post_note(body2.into()).await;
+    app.post_notes(body1.into()).await;
+    app.post_notes(body2.into()).await;
 
+    // Act
     let response = app.get_notes().await;
     assert_eq!(200, response.status().as_u16());
-    // Act
+
     let notes: Notes = response
         .json()
         .await
         .expect("Failed to deserialize the Json response.");
     // Assert
-    // println!(
-    //     "This is the payload: {}",
-    //     result.text().await.expect("failed to get payload")
-    // );
     // TODO change to check entire json object
-    assert_eq!("Test Note 1", notes[0].title);
+    // assert_eq!("test note content 1", notes[0].content.unwrap());
+    assert_eq!("Test Note 1", &notes[0].title);
+}
+
+#[actix_rt::test]
+async fn delete_note_deletes_note_from_database() {
+    // Arrange
+    let app = spawn_app().await;
+    let id = Uuid::new_v4();
+    // TODO replace with automatically generated note
+    let title = "Test Note";
+    let content = "test note content";
+    let tag = "test";
+    sqlx::query!(
+        r#"
+        INSERT INTO notes (
+            id,
+            title,
+            content,
+            tag,
+            created_at
+        )
+        VALUES ($1, $2, $3, $4, now())
+        "#,
+        id,
+        title,
+        content,
+        tag,
+    )
+    .execute(&app.db_pool)
+    .await
+    .expect("Failed to add note row to database.");
+
+    // Act
+    let response = app.delete_notes(id).await;
+    assert_eq!(200, response.status().as_u16());
+    // try to get the data from the database, returns None
+    // Assert
+    let saved = sqlx::query!(
+        r#"
+        SELECT * FROM notes WHERE id = $1
+        "#,
+        id,
+    )
+    .fetch_one(&app.db_pool)
+    .await;
+    //.expect("Failed to fetch saved note.");
+    assert!(matches!(saved, Err(sqlx::Error::RowNotFound)));
 }
