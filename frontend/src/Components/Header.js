@@ -1,8 +1,10 @@
 import React from "react";
+import SettingsIcon from "@mui/icons-material/Settings";
 function Header() {
   return (
     <div className="header">
-      <h1 className="app__title">Note Taking App</h1>
+      <div className="app-title">Note Taking App</div>
+      <SettingsIcon className="settings"></SettingsIcon>
     </div>
   );
 }

@@ -2,7 +2,8 @@
 
 .edit-panel {
     padding: 15px;
-    min-height: 140px;
+    max-height: 2em;
+    order: 1;
     flex: 2 1 0;
     display: flex;
     flex-direction: column;
@@ -25,8 +26,8 @@
 }
 
 .edit-panel .title {
-    min-height: 50px;
-    font-size: 1.8em;
+    min-height: 1.8em;
+    font-size: 1.5em;
 }
 
 .edit-panel .text {

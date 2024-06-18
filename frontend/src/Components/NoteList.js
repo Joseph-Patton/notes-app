@@ -8,7 +8,7 @@ function NoteList({ notes, deleteNote }) {
     //     <NotePreview title={note.title} text={note.text} />
     //   ))}
     // </div>
-    <div className="note-list box">
+    <div className="note-list">
       {notes.map((note) => (
         <NotePreview
           key={note.id}

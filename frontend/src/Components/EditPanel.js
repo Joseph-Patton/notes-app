@@ -10,7 +10,7 @@ function EditPanel({
 }) {
   return (
     <div
-      className="edit-panel box"
+      className="edit-panel border-box"
       style={{ background: "rgba(255, 255, 255, 0)" }}
     >
       <textarea
@@ -31,7 +31,7 @@ function EditPanel({
         onChange={contentHandler}
         maxLength="100"
       ></textarea>
-      <div className="footer box">
+      <div className="footer">
         <textarea
           className="tag box"
           cols="10"
