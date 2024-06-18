@@ -59,9 +59,16 @@ function MainUI() {
   };
 
   // Delete note function
-  const deleteNote = (id) => {
-    const filteredNotes = notes.filter((note) => note.id !== id);
-    setNotes(filteredNotes);
+  const deleteNote = async (id) => {
+    try {
+      await axios.delete(`${apiUrl}/notes`, {
+        data: id,
+        headers: { "Content-Type": "application/json" },
+      });
+    } catch (error) {
+      console.error("Error deleting note:", error);
+    }
+    fetchNotes(apiUrl);
   };
   return (
     <div className="mainUI">
