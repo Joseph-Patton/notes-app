@@ -5,7 +5,7 @@ import NoteList from "./NoteList";
 import EditPanel from "./EditPanel";
 //import NotePreview from "./NotePreview";
 
-function MainUI() {
+function Body() {
   const apiUrl = "http://localhost:8000"; // TODO add as argument
   const [notes, setNotes] = useState([]);
   //const [newNote, setNewNote] = useState([]);
@@ -71,7 +71,7 @@ function MainUI() {
     fetchNotes(apiUrl);
   };
   return (
-    <div className="mainUI">
+    <div className="body">
       <NoteList notes={notes} deleteNote={deleteNote} />
       <EditPanel
         titleHandler={titleHandler}
@@ -86,4 +86,4 @@ function MainUI() {
     </div>
   );
 }
-export default MainUI;
+export default Body;

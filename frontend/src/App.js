@@ -2,7 +2,7 @@ import React from "react";
 import { CssBaseline } from "@mui/material";
 import "./Components/css/App.css";
 import Header from "./Components/Header";
-import MainUI from "./Components/MainUI";
+import Body from "./Components/Body";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 
 const darkTheme = createTheme({
@@ -17,7 +17,7 @@ export default function App() {
       <CssBaseline />
       <div className="main">
         <Header />
-        <MainUI />
+        <Body />
       </div>
     </ThemeProvider>
   );
