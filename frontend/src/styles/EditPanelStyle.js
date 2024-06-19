@@ -1,10 +1,11 @@
 import { makeStyles } from "@material-ui/core/styles";
+import AddNoteButton from "../Components/AddNoteButton";
 
 export const useStyles = makeStyles((theme) => ({
   root: {
     "& .MuiDialog-paper": {
       borderRadius: 4,
-      boxShadow: "0 3px 6px #00000029",
+      //boxShadow: "0 3px 6px #00000029",
     },
     "& .MuiDialog-paperWidthSm": {
       maxWidth: theme.wrapper.maxWidth,
@@ -26,7 +27,7 @@ export const useStyles = makeStyles((theme) => ({
     padding: ".2em 1em",
     fontSize: "1.25em",
     color: "#00000099",
-    background: "#F4F4F4",
+    background: "none",
     border: "none",
     borderRadius: "4px 4px 0 0",
     marginBottom: "1.5em",
@@ -37,7 +38,7 @@ export const useStyles = makeStyles((theme) => ({
     },
     "&:focus, .MuiSelect-select:focus": {
       outline: "none",
-      background: "#F4F4F4",
+      //background: "#F4F4F4",
     },
     "&:before, &:after": {
       display: "none",
@@ -52,7 +53,7 @@ export const useStyles = makeStyles((theme) => ({
     fontFamily: "inherit",
   },
   formActionButtons: {
-    textAlign: "right",
+    textAlign: "left",
     "& button": {
       margin: "1em .5em 0",
       padding: "1em",
