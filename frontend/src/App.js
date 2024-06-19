@@ -5,6 +5,7 @@ import { useStyles } from "./styles/AppStyle";
 import Header from "./Components/Header";
 import NoteList from "./Components/NoteList";
 import EditPanel from "./Components/EditPanel";
+import AddNoteButton from "./Components/AddNoteButton";
 
 //import { useStyles } from "styles/AppStyle";
 // const darkTheme = createTheme({
@@ -80,11 +81,23 @@ function App() {
     fetchNotes(apiUrl);
   };
 
+  const [open, setOpen] = useState(false);
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
   return (
     <div className={classes.root}>
       <Grid container spacing={3} direction="column" className="notes">
         <Grid item xs={12}>
           <Header />
+        </Grid>
+        <Grid item sm={3} xs={12}>
+          <AddNoteButton handleClickOpen={handleClickOpen} />
         </Grid>
         <Grid item xs={12}>
           {" "}
@@ -92,6 +105,8 @@ function App() {
         </Grid>
       </Grid>
       <EditPanel
+        open={open}
+        handleClose={handleClose}
         titleHandler={titleHandler}
         contentHandler={contentHandler}
         tagHandler={tagHandler}
