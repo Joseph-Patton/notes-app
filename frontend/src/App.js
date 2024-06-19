@@ -1,6 +1,6 @@
 import { React, useState, useEffect } from "react";
 import axios from "axios";
-import Grid from "@material-ui/core/Grid";
+import Grid from "@mui/material/Grid";
 import { useStyles } from "./styles/AppStyle";
 import Header from "./Components/Header";
 import NoteList from "./Components/NoteList";

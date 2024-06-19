@@ -1,4 +1,4 @@
-import { makeStyles } from "@material-ui/core/styles";
+import { makeStyles } from "@mui/styles";
 import AddNoteButton from "../Components/AddNoteButton";
 
 export const useStyles = makeStyles((theme) => ({
