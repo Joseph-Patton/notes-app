@@ -1,5 +1,4 @@
 import React from "react";
-import "./css/EditPanel.css";
 import NotePreview from "./NotePreview";
 function NoteList({ notes, deleteNote }) {
   return (

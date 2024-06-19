@@ -1,24 +1,22 @@
-import React from "react";
-import { CssBaseline } from "@mui/material";
-import "./Components/css/App.css";
-import Header from "./Components/Header";
-import Body from "./Components/Body";
-import { ThemeProvider, createTheme } from "@mui/material/styles";
+import Grid from "@material-ui/core/Grid";
+import { useStyles } from "./styles/AppStyle";
+import MainUI from "./Components/MainUI";
 
-const darkTheme = createTheme({
-  palette: {
-    mode: "dark",
-  },
-});
+//import { useStyles } from "styles/AppStyle";
+// const darkTheme = createTheme({
+//   palette: {
+//     mode: "dark",
+//   },
+// });
 
-export default function App() {
+function App() {
+  const classes = useStyles();
   return (
-    <ThemeProvider theme={darkTheme}>
-      <CssBaseline />
-      <div className="main">
-        <Header />
-        <Body />
-      </div>
-    </ThemeProvider>
+    <div className={classes.root}>
+      <Grid container spacing={3} direction="column" className="notes">
+        <MainUI />
+      </Grid>
+    </div>
   );
 }
+export default App;

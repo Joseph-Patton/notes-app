@@ -1,5 +1,4 @@
 import { React } from "react";
-import "./css/NoteList.css";
 import DeleteForeverOutlinedIcon from "@mui/icons-material/DeleteForeverOutlined";
 function NotePreview({ id, content, title, tag, deleteNote }) {
   return (

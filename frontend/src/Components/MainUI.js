@@ -1,11 +1,10 @@
 import { React, useState, useEffect } from "react";
-import "./css/EditPanel.css";
 import axios from "axios";
 import NoteList from "./NoteList";
 import EditPanel from "./EditPanel";
 //import NotePreview from "./NotePreview";
 
-function Body() {
+function MainUI() {
   const apiUrl = "http://localhost:8000"; // TODO add as argument
   const [notes, setNotes] = useState([]);
   //const [newNote, setNewNote] = useState([]);
@@ -71,7 +70,7 @@ function Body() {
     fetchNotes(apiUrl);
   };
   return (
-    <div className="body">
+    <div className="mainUI">
       <NoteList notes={notes} deleteNote={deleteNote} />
       <EditPanel
         titleHandler={titleHandler}
@@ -86,4 +85,4 @@ function Body() {
     </div>
   );
 }
-export default Body;
+export default MainUI;
