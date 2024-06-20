@@ -10,13 +10,14 @@ import IconButton from "@mui/material/IconButton";
 import DeleteIcon from "@material-ui/icons/Delete";
 import { useStyles } from "../styles/NoteStyle";
 
-function DeleteNoteButton({ title, onDelete }) {
+function DeleteNoteButton({ title, deleteNote }) {
   const classes = useStyles();
   const [open, setOpen] = useState(false);
   const handleClickOpen = () => setOpen(true);
   const handleClickClose = () => setOpen(false);
   const handleDelete = () => {
     handleClickClose();
+    deleteNote();
   };
 
   return (
