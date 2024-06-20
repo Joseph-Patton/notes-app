@@ -2,7 +2,7 @@ import { React } from "react";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import { useStyles } from "../styles/NoteStyle";
-import DeleteForeverOutlinedIcon from "@mui/icons-material/DeleteForeverOutlined";
+import DeleteNoteButton from "./DeleteNoteButton";
 import { grey } from "@mui/material/colors";
 import Typography from "@mui/material/Typography";
 
@@ -26,10 +26,11 @@ function Note({ id, content, title, tag, deleteNote }) {
         >
           <EditIcon />
         </IconButton> */}
-        <DeleteForeverOutlinedIcon
-          onClick={() => deleteNote(id)}
-          aria-hidden="true"
-        ></DeleteForeverOutlinedIcon>
+        <DeleteNoteButton
+          title={title}
+          deleteNote={() => deleteNote(id)}
+        ></DeleteNoteButton>
+
         <Typography className={classes.title} gutterBottom>
           {title}
         </Typography>
@@ -39,7 +40,7 @@ function Note({ id, content, title, tag, deleteNote }) {
         </Typography>
 
         <Typography variant="body1" component="div" className={tag}>
-          Placeholer Date
+          {tag}
           {/* {DateFormatter(note.date)} */}
         </Typography>
       </CardContent>
