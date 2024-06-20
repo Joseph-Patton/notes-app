@@ -11,21 +11,6 @@ function Note({ id, content, title, tag, deleteNote }) {
   return (
     <Card className={classes.root} style={{ backgroundColor: green }}>
       <CardContent>
-        {/* <Checkbox
-          checked={completed}
-          onChange={toggleStatus}
-          className={classes.iconBtn}
-          style={{ left: ".2em" }}
-        /> */}
-        {/* 
-        <IconButton
-          aria-label="edit"
-          className={classes.iconBtn}
-          style={{ right: "1.8em" }}
-          onClick={() => onEdit(note)}
-        >
-          <EditIcon />
-        </IconButton> */}
         <DeleteNoteButton
           title={title}
           deleteNote={() => deleteNote(id)}

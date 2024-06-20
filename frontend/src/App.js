@@ -2,7 +2,7 @@ import { React, useState, useEffect } from "react";
 import axios from "axios";
 import Grid from "@mui/material/Grid";
 import { useStyles } from "./styles/AppStyle";
-import Header from "./Components/Header";
+import HeaderBar from "./Components/HeaderBar";
 import NoteList from "./Components/NoteList";
 import EditPanel from "./Components/EditPanel";
 import AddNoteButton from "./Components/AddNoteButton";
@@ -92,9 +92,9 @@ function App() {
 
   return (
     <div className={classes.root}>
-      <Grid container spacing={3} direction="column" className="notes">
+      <Grid container spacing={3} direction="column">
         <Grid item xs={12}>
-          <Header />
+          <HeaderBar />
         </Grid>
         <Grid item container>
           <Grid item container sm={3} xs={12}>
