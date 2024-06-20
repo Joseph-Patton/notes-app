@@ -1,5 +1,6 @@
 import React from "react";
-import NotePreview from "./NotePreview";
+import Note from "./Note.js";
+
 function NoteList({ notes, deleteNote }) {
   return (
     // <div className="note-list">
@@ -9,7 +10,7 @@ function NoteList({ notes, deleteNote }) {
     // </div>
     <div className="note-list">
       {notes.map((note) => (
-        <NotePreview
+        <Note
           key={note.id}
           id={note.id}
           title={note.title}

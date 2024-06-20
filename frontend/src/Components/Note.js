@@ -1,6 +1,6 @@
 import { React } from "react";
 import DeleteForeverOutlinedIcon from "@mui/icons-material/DeleteForeverOutlined";
-function NotePreview({ id, content, title, tag, deleteNote }) {
+function Note({ id, content, title, tag, deleteNote }) {
   return (
     <div className="note-preview box">
       <div className="title overflow">{title}</div>
@@ -16,4 +16,4 @@ function NotePreview({ id, content, title, tag, deleteNote }) {
     </div>
   );
 }
-export default NotePreview;
+export default Note;
