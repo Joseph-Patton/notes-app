@@ -11,9 +11,8 @@ function NoteList({ notes, deleteNote }) {
         <Typography>No Notes</Typography>
       ) : (
         notes.map((note) => (
-          <Grid item xs={12} sm={6}>
+          <Grid item xs={12} sm={6} key={note.id}>
             <Note
-              key={note.id}
               id={note.id}
               title={note.title}
               content={note.content}

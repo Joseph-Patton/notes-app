@@ -3,13 +3,13 @@ import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import { useStyles } from "../styles/NoteStyle";
 import DeleteNoteButton from "./DeleteNoteButton";
-import { grey } from "@mui/material/colors";
+import { green, grey } from "@mui/material/colors";
 import Typography from "@mui/material/Typography";
 
 function Note({ id, content, title, tag, deleteNote }) {
   const classes = useStyles();
   return (
-    <Card className={classes.root} style={{ backgroundColor: grey }}>
+    <Card className={classes.root} style={{ backgroundColor: green }}>
       <CardContent>
         {/* <Checkbox
           checked={completed}
@@ -29,6 +29,7 @@ function Note({ id, content, title, tag, deleteNote }) {
         <DeleteNoteButton
           title={title}
           deleteNote={() => deleteNote(id)}
+          style={{ right: ".2em" }}
         ></DeleteNoteButton>
 
         <Typography className={classes.title} gutterBottom>

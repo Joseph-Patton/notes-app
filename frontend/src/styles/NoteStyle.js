@@ -1,21 +1,11 @@
 import { makeStyles } from "@material-ui/core/styles";
 
 export const useStyles = makeStyles({
-  root: {
+  note: {
     position: "relative",
     color: "#fff",
     boxShadow: "0 3px 6px #00000029",
     overflow: "visible",
-  },
-  iconBtn: {
-    position: "absolute",
-    top: ".4em",
-    color: "#fff",
-    padding: ".2em",
-    opacity: ".6",
-    "&.Mui-checked": {
-      color: "inherit",
-    },
   },
   title: {
     fontSize: "1.2em",

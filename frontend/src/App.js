@@ -96,12 +96,14 @@ function App() {
         <Grid item xs={12}>
           <Header />
         </Grid>
-        <Grid item sm={3} xs={12}>
-          <AddNoteButton handleClickOpen={handleClickOpen} />
-        </Grid>
-        <Grid item xs={12}>
-          {" "}
-          <NoteList notes={notes} deleteNote={deleteNote} />
+        <Grid item container>
+          <Grid item container sm={3} xs={12}>
+            <AddNoteButton handleClickOpen={handleClickOpen} />
+          </Grid>
+          <Grid item xs={12}>
+            {" "}
+            <NoteList notes={notes} deleteNote={deleteNote} />
+          </Grid>
         </Grid>
       </Grid>
       <EditPanel
