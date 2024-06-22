@@ -1,11 +1,13 @@
 import { React, useState, useEffect } from "react";
 import axios from "axios";
 import Grid from "@mui/material/Grid";
-import { useStyles } from "./styles/AppStyle";
+import Box from "@mui/material/Box";
 import HeaderBar from "./Components/HeaderBar";
 import NoteList from "./Components/NoteList";
 import EditPanel from "./Components/EditPanel";
 import AddNoteButton from "./Components/AddNoteButton";
+import MainMenuDrawer from "./Components/MainMenuDrawer";
+import Toolbar from "@mui/material/Toolbar";
 
 //import { useStyles } from "styles/AppStyle";
 // const darkTheme = createTheme({
@@ -15,7 +17,6 @@ import AddNoteButton from "./Components/AddNoteButton";
 // });
 
 function App() {
-  const classes = useStyles();
   const apiUrl = "http://localhost:8000"; // TODO add as argument
   const [notes, setNotes] = useState([]);
   //const [newNote, setNewNote] = useState([]);
@@ -91,21 +92,33 @@ function App() {
   };
 
   return (
-    <div className={classes.root}>
-      <Grid container spacing={3} direction="column">
-        <Grid item xs={12}>
-          <HeaderBar />
-        </Grid>
-        <Grid item container>
-          <Grid item container sm={3} xs={12}>
+    <Box
+      sx={{
+        display: "flex",
+      }}
+    >
+      <HeaderBar />
+      <MainMenuDrawer />
+      <Box>
+        <Toolbar />
+        <Grid container spacing={3} direction="column">
+          <Grid
+            item
+            sm={3}
+            xs={3}
+            style={{
+              marginLeft: "auto",
+              marginRight: "auto",
+              marginTop: "2em",
+            }}
+          >
             <AddNoteButton handleClickOpen={handleClickOpen} />
           </Grid>
-          <Grid item xs={12}>
-            {" "}
+          <Grid item xs={12} style={{ margin: "2em" }}>
             <NoteList notes={notes} deleteNote={deleteNote} />
           </Grid>
         </Grid>
-      </Grid>
+      </Box>
       <EditPanel
         open={open}
         handleClose={handleClose}
@@ -117,7 +130,7 @@ function App() {
         inputContent={inputContent}
         inputTag={inputTag}
       />
-    </div>
+    </Box>
   );
 }
 export default App;

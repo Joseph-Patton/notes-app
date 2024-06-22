@@ -8,10 +8,8 @@ import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import IconButton from "@mui/material/IconButton";
 import DeleteIcon from "@material-ui/icons/Delete";
-import { useStyles } from "../styles/NoteStyle";
 
 function DeleteNoteButton({ title, deleteNote }) {
-  const classes = useStyles();
   const [open, setOpen] = useState(false);
   const handleClickOpen = () => setOpen(true);
   const handleClickClose = () => setOpen(false);
@@ -26,7 +24,6 @@ function DeleteNoteButton({ title, deleteNote }) {
         <div>
           <IconButton
             aria-label="delete"
-            className={classes.iconBtn}
             style={{ right: ".2em" }}
             onClick={handleClickOpen}
             type="button"
@@ -39,7 +36,22 @@ function DeleteNoteButton({ title, deleteNote }) {
             onClose={handleClickClose}
             aria-labelledby="alert-dialog-title"
             aria-describedby="alert-dialog-description"
-            className={classes.deleteDialog}
+            sx={{
+              "& .MuiDialog-paper": {
+                borderRadius: 0,
+                boxShadow: "0 3px 6px #00000029",
+              },
+              "& .MuiDialog-paperWidthSm": {
+                width: "100%",
+                maxWidth: "350px",
+                marginLeft: 0,
+                marginRight: 0,
+              },
+              "& .MuiDialogTitle-root": {
+                fontSize: "1em",
+                color: "#00000099",
+              },
+            }}
           >
             <DialogTitle id="alert-dialog-title" disableTypography>
               Delete note?

@@ -1,34 +1,56 @@
 import { React } from "react";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
-import { useStyles } from "../styles/NoteStyle";
 import DeleteNoteButton from "./DeleteNoteButton";
-import { green, grey } from "@mui/material/colors";
 import Typography from "@mui/material/Typography";
 
 function Note({ id, content, title, tag, deleteNote }) {
-  const classes = useStyles();
   return (
-    <Card className={classes.root} style={{ backgroundColor: green }}>
+    <Card
+      sx={{
+        position: "relative",
+        color: "#000",
+        backgroundColor: "#fff",
+        overflow: "visible",
+        border: "1px solid",
+        borderColor: "#5555",
+      }}
+    >
       <CardContent>
-        <DeleteNoteButton
-          title={title}
-          deleteNote={() => deleteNote(id)}
-          style={{ right: ".2em" }}
-        ></DeleteNoteButton>
-
-        <Typography className={classes.title} gutterBottom>
+        <Typography
+          sx={{
+            fontSize: "1.2em",
+            fontWeight: 500,
+            marginLeft: "1em",
+            marginRight: "4em",
+            whiteSpace: "nowrap",
+            overflow: "hidden",
+            textOverflow: "ellipsis",
+          }}
+          gutterBottom
+        >
           {title}
         </Typography>
 
-        <Typography variant="body2" component="p" className={content}>
+        <Typography
+          variant="body2"
+          component="p"
+          sx={{
+            overflow: "hidden",
+          }}
+        >
           {content}
         </Typography>
 
-        <Typography variant="body1" component="div" className={tag}>
+        <Typography variant="body1" component="div">
           {tag}
           {/* {DateFormatter(note.date)} */}
         </Typography>
+        <DeleteNoteButton
+          title={title}
+          deleteNote={() => deleteNote(id)}
+          sx={{ right: ".2em" }}
+        ></DeleteNoteButton>
       </CardContent>
     </Card>
   );

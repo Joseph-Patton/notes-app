@@ -7,7 +7,7 @@ import {
   InputBase,
   TextareaAutosize,
 } from "@mui/material";
-import { useStyles } from "../styles/EditPanelStyle";
+
 import { React } from "react";
 function EditPanel({
   open,
@@ -20,21 +20,17 @@ function EditPanel({
   inputTitle,
   inputTag,
 }) {
-  const classes = useStyles();
-
   return (
     <Dialog open={open} max-width sm={2} disableEqualOverflow>
       <DialogContent>
         <Grid container spacing={2}>
           <TextareaAutosize
-            className={`${classes.input} ${classes.textarea}`}
             minRows={1}
             placeholder="Title…"
             value={inputTitle}
             onChange={titleHandler}
           />
           <TextareaAutosize
-            className={`${classes.input} ${classes.textarea}`}
             minRows={4}
             placeholder="Content…"
             value={inputContent}
@@ -42,7 +38,6 @@ function EditPanel({
             maxLength="100"
           />
           <InputBase
-            className={`${classes.input}`}
             placeholder="Tag…"
             value={inputTag}
             onChange={tagHandler}
@@ -50,7 +45,7 @@ function EditPanel({
         </Grid>
       </DialogContent>
       <DialogActions>
-        <Grid container spacing={3} className={classes.formActionButtons}>
+        <Grid container spacing={3}>
           <Grid item xs={12}>
             <Button color="secondary" onClick={createNote}>
               Save
