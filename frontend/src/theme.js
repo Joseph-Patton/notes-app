@@ -1,6 +1,6 @@
-import { unstable_createMuiStrictModeTheme as createMuiTheme } from "@mui/material";
+import { createTheme, ThemeProvider, styled } from "@mui/material/styles";
 
-const theme = createMuiTheme({
+const theme = createTheme({
   wrapper: {
     width: "100%",
     //maxWidth: "824px",
