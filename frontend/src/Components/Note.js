@@ -53,7 +53,12 @@ function Note({ note, noteHover, deleteNote }) {
           {note.tag}
         </Typography>
       </CardContent>
-      <CardActions sx={{ opacity: noteHover === true ? "100%" : "0%" }}>
+      <CardActions
+        sx={{
+          opacity: noteHover === true ? "100%" : "0%",
+          justifyContent: "right",
+        }}
+      >
         <DeleteNoteButton
           title={note.title}
           deleteNote={() => deleteNote(note.id)}
