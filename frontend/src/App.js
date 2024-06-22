@@ -99,7 +99,8 @@ function App() {
     >
       <HeaderBar />
       <MainMenuDrawer />
-      <Box>
+      <Box sx={{ width: "100%" }}>
+        {/* <Box> */}
         <Toolbar />
         <Grid container spacing={3} direction="column">
           <Grid

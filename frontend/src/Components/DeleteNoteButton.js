@@ -24,7 +24,6 @@ function DeleteNoteButton({ title, deleteNote }) {
         <div>
           <IconButton
             aria-label="delete"
-            style={{ right: ".2em" }}
             onClick={handleClickOpen}
             type="button"
           >

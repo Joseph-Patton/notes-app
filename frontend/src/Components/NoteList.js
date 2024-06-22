@@ -1,8 +1,7 @@
-import React from "react";
-import Note from "./Note.js";
+import { React, useState } from "react";
+import NoteContainer from "./NoteContainer.js";
 import Grid from "@mui/material/Grid";
 import { Typography } from "@mui/material";
-//import NoNotesIllustration from "Components/NoNotesIllustration";
 
 function NoteList({ notes, deleteNote }) {
   return (
@@ -11,14 +10,8 @@ function NoteList({ notes, deleteNote }) {
         <Typography>No Notes</Typography>
       ) : (
         notes.map((note) => (
-          <Grid item xs={12} sm={6} key={note.id}>
-            <Note
-              id={note.id}
-              title={note.title}
-              content={note.content}
-              tag={note.tag}
-              deleteNote={deleteNote}
-            />
+          <Grid item xs={12} sm={3} key={note.id}>
+            <NoteContainer note={note} deleteNote={deleteNote} />
           </Grid>
         ))
       )}

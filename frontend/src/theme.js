@@ -3,7 +3,7 @@ import { unstable_createMuiStrictModeTheme as createMuiTheme } from "@mui/materi
 const theme = createMuiTheme({
   wrapper: {
     width: "100%",
-    maxWidth: "824px",
+    //maxWidth: "824px",
   },
   palette: {
     primary: {

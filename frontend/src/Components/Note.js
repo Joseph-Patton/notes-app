@@ -1,10 +1,11 @@
 import { React } from "react";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
+import CardActions from "@mui/material/CardActions";
 import DeleteNoteButton from "./DeleteNoteButton";
 import Typography from "@mui/material/Typography";
 
-function Note({ id, content, title, tag, deleteNote }) {
+function Note({ note, noteHover, deleteNote }) {
   return (
     <Card
       sx={{
@@ -14,22 +15,21 @@ function Note({ id, content, title, tag, deleteNote }) {
         overflow: "visible",
         border: "1px solid",
         borderColor: "#5555",
+        marginBottom: "0px",
       }}
     >
       <CardContent>
         <Typography
           sx={{
-            fontSize: "1.2em",
+            fontSize: "1em",
             fontWeight: 500,
-            marginLeft: "1em",
-            marginRight: "4em",
             whiteSpace: "nowrap",
             overflow: "hidden",
             textOverflow: "ellipsis",
           }}
           gutterBottom
         >
-          {title}
+          {note.title}
         </Typography>
 
         <Typography
@@ -37,21 +37,28 @@ function Note({ id, content, title, tag, deleteNote }) {
           component="p"
           sx={{
             overflow: "hidden",
+            marginBottom: "0.3em",
           }}
         >
-          {content}
+          {note.content}
         </Typography>
 
-        <Typography variant="body1" component="div">
-          {tag}
-          {/* {DateFormatter(note.date)} */}
+        <Typography
+          variant="body1"
+          component="div"
+          sx={{
+            fontSize: "0.9em",
+          }}
+        >
+          {note.tag}
         </Typography>
-        <DeleteNoteButton
-          title={title}
-          deleteNote={() => deleteNote(id)}
-          sx={{ right: ".2em" }}
-        ></DeleteNoteButton>
       </CardContent>
+      <CardActions sx={{ opacity: noteHover === true ? "100%" : "0%" }}>
+        <DeleteNoteButton
+          title={note.title}
+          deleteNote={() => deleteNote(note.id)}
+        ></DeleteNoteButton>
+      </CardActions>
     </Card>
   );
 }
