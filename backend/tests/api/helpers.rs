@@ -46,6 +46,15 @@ impl TestApp {
             .await
             .expect("Failed to execute request.")
     }
+    pub async fn put_notes(&self, body: String) -> reqwest::Response {
+        reqwest::Client::new()
+            .put(&format!("{}/notes", &self.address))
+            .header("Content-Type", "application/json")
+            .body(body)
+            .send()
+            .await
+            .expect("Failed to execute request.")
+    }
 }
 
 pub async fn spawn_app() -> TestApp {

@@ -154,3 +154,55 @@ async fn delete_note_deletes_note_from_database() {
     //.expect("Failed to fetch saved note.");
     assert!(matches!(note_request, Err(sqlx::Error::RowNotFound)));
 }
+
+#[actix_rt::test]
+async fn edit_note_correctly_modifies_existing_note_in_database() {
+    // Arrange
+    let app = spawn_app().await;
+
+    // Add note to the database
+    let id = Uuid::new_v4();
+    // TODO replace with automatically generated note
+    let title = "Test Note";
+    let content = "test note content";
+    let tag = "test";
+    sqlx::query!(
+        r#"
+        INSERT INTO notes (
+            id,
+            title,
+            content,
+            tag,
+            created_at
+        )
+        VALUES ($1, $2, $3, $4, now())
+        "#,
+        id,
+        title,
+        content,
+        tag,
+    )
+    .execute(&app.db_pool)
+    .await
+    .expect("Failed to add note row to database.");
+
+    let body = json!({
+        "id": serde_json::to_string(&id).unwrap(),
+        "title": "Test Note",
+        "content": "test note content",
+        "tag": "test",
+        "created_at": "",
+    })
+    .to_string();
+    // Act
+    let response = app.put_notes(body).await;
+    // Assert
+    assert_eq!(200, response.status().as_u16());
+    let saved = sqlx::query!("SELECT title, content, tag FROM notes ")
+        .fetch_one(&app.db_pool)
+        .await
+        .expect("Failed to fetch saved subscription.");
+    assert_eq!(saved.title, "Modified Test Note");
+    assert_eq!(saved.content.unwrap(), "modified test note content");
+    assert_eq!(saved.tag.unwrap(), "modified test");
+}
