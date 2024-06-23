@@ -5,7 +5,7 @@ import { Typography } from "@mui/material";
 
 function NoteList({ notes, deleteNote }) {
   return (
-    <Grid container spacing={2}>
+    <Grid container spacing={2} justifyContent={"left"}>
       {notes.length === 0 ? (
         <Typography>No Notes</Typography>
       ) : (

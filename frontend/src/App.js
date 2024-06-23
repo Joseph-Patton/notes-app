@@ -60,12 +60,15 @@ function App() {
     } catch (error) {
       console.error("Error creating notes:", error);
     }
+    // Fetch the updated list
+    fetchNotes(apiUrl);
+  };
+
+  const resetNote = () => {
     // Clear the textarea
     setInputTitle("");
     setInputContent("");
     setInputTag("");
-    // Fetch the updated list
-    fetchNotes(apiUrl);
   };
 
   // Delete note function
@@ -101,29 +104,27 @@ function App() {
       <MainMenuDrawer />
       <Box sx={{ width: "100%" }}>
         <Toolbar />
-        <Grid container spacing={3} direction="column">
-          <Grid
-            item
-            sm={3}
-            xs={3}
-            style={{
-              marginLeft: "auto",
-              marginRight: "auto",
-              marginTop: "2em",
-            }}
-          >
+        <Grid
+          container
+          //direction={"column"}
+          spacing={2}
+          margin={"auto"}
+          justifyContent={"center"}
+          alignItems={"center"}
+        >
+          <Grid item xs={6} paddingRight={"32px"}>
             <CreateNoteBox
-              handleClose={handleClose}
               titleHandler={titleHandler}
               contentHandler={contentHandler}
               tagHandler={tagHandler}
               createNote={createNote}
+              resetNote={resetNote}
               inputTitle={inputTitle}
               inputContent={inputContent}
               inputTag={inputTag}
             />
           </Grid>
-          <Grid item xs={12} style={{ margin: "2em" }}>
+          <Grid item xs={12} paddingRight={"32px"}>
             <NoteList notes={notes} deleteNote={deleteNote} />
           </Grid>
         </Grid>
