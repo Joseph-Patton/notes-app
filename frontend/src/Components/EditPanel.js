@@ -5,10 +5,9 @@ import {
   Button,
   Grid,
   InputBase,
-  TextareaAutosize,
 } from "@mui/material";
-
 import { React } from "react";
+
 function EditPanel({
   open,
   handleClose,
@@ -20,55 +19,31 @@ function EditPanel({
   inputTitle,
   inputTag,
 }) {
+  const handleCreate = async () => {
+    await createNote();
+    handleClose();
+  };
+
   return (
-    <Dialog
-      open={open}
-      max-width
-      sm={2}
-      disableEqualOverflow
-      sx={{
-        "& .MuiDialog-paper": {
-          borderRadius: 4,
-          boxShadow: "0 3px 6px #00000029",
-        },
-        "& .MuiDialog-paperWidthSm": {
-          //maxWidth: theme.wrapper.maxWidth,
-          //width: theme.wrapper.width,
-          margin: "15px",
-        },
-      }}
-    >
+    <Dialog open={open} max-width sm={2} disableEqualOverflow>
       <DialogContent>
-        <Grid container spacing={2}>
+        <Grid container spacing={2} direction="column">
           <InputBase
             minRows={1}
             placeholder="Title…"
             value={inputTitle}
             onChange={titleHandler}
-            sx={{
-              width: "100%",
-              minHeight: 44,
-              padding: ".2em 1em",
-              fontSize: "1.25em",
-              alignItems: "center",
-              "& .MuiInputBase-input::placeholder": {
-                opacity: 0.9,
-              },
-              "&:focus, .MuiSelect-select:focus": {
-                outline: "none",
-                background: "#F4F4F4",
-              },
-              "&:before, &:after": {
-                display: "none",
-              },
-            }}
+            multiline={true}
+            sx={{ fontSize: "1.2em" }}
           />
-          <TextareaAutosize
+          <InputBase
             minRows={4}
             placeholder="Content…"
             value={inputContent}
             onChange={contentHandler}
             maxLength="100"
+            multiline={true}
+            sx={{ fontSize: "1em" }}
           />
           <InputBase
             placeholder="Tag…"
@@ -80,15 +55,12 @@ function EditPanel({
       <DialogActions>
         <Grid container spacing={3}>
           <Grid item xs={12}>
-            <Button color="secondary" onClick={createNote}>
+            <Button color="secondary" onClick={handleCreate}>
               Save
             </Button>
             <Button onClick={handleClose} color="primary">
               Cancel
             </Button>
-            {/* <Button type="submit" color="primary" autoFocus>
-                {noteToEdit ? "Update" : "Add"}
-              </Button> */}
           </Grid>
         </Grid>
       </DialogActions>

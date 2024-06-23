@@ -16,6 +16,7 @@ function Note({ note, noteHover, deleteNote }) {
         border: "1px solid",
         borderColor: "#5555",
         marginBottom: "0px",
+        boxShadow: noteHover === true ? "0 2px 4px #000" : "none",
       }}
     >
       <CardContent>
@@ -23,11 +24,11 @@ function Note({ note, noteHover, deleteNote }) {
           sx={{
             fontSize: "1em",
             fontWeight: 500,
-            whiteSpace: "nowrap",
+            whiteSpace: "normal",
             overflow: "hidden",
-            textOverflow: "ellipsis",
+            //textOverflow: "ellipsis",
           }}
-          gutterBottom
+          gutterBottom={true}
         >
           {note.title}
         </Typography>

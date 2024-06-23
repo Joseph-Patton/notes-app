@@ -5,8 +5,8 @@ import Box from "@mui/material/Box";
 import HeaderBar from "./Components/HeaderBar";
 import NoteList from "./Components/NoteList";
 import EditPanel from "./Components/EditPanel";
-import AddNoteButton from "./Components/AddNoteButton";
 import MainMenuDrawer from "./Components/MainMenuDrawer";
+import CreateNoteBox from "./Components/CreateNoteBox";
 import Toolbar from "@mui/material/Toolbar";
 
 //import { useStyles } from "styles/AppStyle";
@@ -48,8 +48,7 @@ function App() {
     fetchNotes(apiUrl);
   }, []);
 
-  const createNote = async (e) => {
-    e.preventDefault();
+  const createNote = async () => {
     const new_note = {
       title: inputTitle,
       content: inputContent,
@@ -89,6 +88,7 @@ function App() {
 
   const handleClose = () => {
     setOpen(false);
+    console.log("handleClose");
   };
 
   return (
@@ -112,13 +112,23 @@ function App() {
               marginTop: "2em",
             }}
           >
-            <AddNoteButton handleClickOpen={handleClickOpen} />
+            <CreateNoteBox
+              handleClose={handleClose}
+              titleHandler={titleHandler}
+              contentHandler={contentHandler}
+              tagHandler={tagHandler}
+              createNote={createNote}
+              inputTitle={inputTitle}
+              inputContent={inputContent}
+              inputTag={inputTag}
+            />
           </Grid>
           <Grid item xs={12} style={{ margin: "2em" }}>
             <NoteList notes={notes} deleteNote={deleteNote} />
           </Grid>
         </Grid>
       </Box>
+
       <EditPanel
         open={open}
         handleClose={handleClose}
