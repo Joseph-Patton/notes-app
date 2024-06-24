@@ -156,7 +156,7 @@ async fn delete_note_deletes_note_from_database() {
 }
 
 #[actix_rt::test]
-async fn edit_note_correctly_modifies_existing_note_in_database() {
+async fn edit_note_modifies_existing_note_in_database() {
     // Arrange
     let app = spawn_app().await;
 

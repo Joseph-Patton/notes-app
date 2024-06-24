@@ -10,7 +10,7 @@ pub struct UninitialisedNote {
     tag: String,
 }
 
-//web logic
+// Create logic
 #[tracing::instrument(
 name = "Adding a new note",
 skip(uniitialised_note, pool),
@@ -28,7 +28,7 @@ pub async fn create_note(
     }
 }
 
-//database logic
+// Create database logic
 #[tracing::instrument(name = "Saving new note in the database", skip(unitialised_note, pool))]
 async fn insert_note(
     pool: &PgPool,
@@ -94,7 +94,7 @@ async fn fetch_notes(pool: &PgPool) -> Result<Notes, sqlx::Error> {
     Ok(notes)
 }
 
-//Delete logic
+// Delete logic
 #[tracing::instrument(name = "Deleting a note", skip(pool))]
 pub async fn delete_note(pool: web::Data<PgPool>, note_id: web::Json<Uuid>) -> HttpResponse {
     match delete_note_helper(&pool, &note_id).await {
@@ -103,7 +103,7 @@ pub async fn delete_note(pool: web::Data<PgPool>, note_id: web::Json<Uuid>) -> H
     }
 }
 
-//database logic
+// Delete database logic
 #[tracing::instrument(name = "Deleting note from the database", skip(pool))]
 async fn delete_note_helper(pool: &PgPool, note_id: &Uuid) -> Result<(), sqlx::Error> {
     sqlx::query!(
@@ -111,6 +111,39 @@ async fn delete_note_helper(pool: &PgPool, note_id: &Uuid) -> Result<(), sqlx::E
         DELETE FROM notes WHERE id = $1
         "#,
         note_id
+    )
+    .execute(pool)
+    .await
+    .map_err(|e| {
+        tracing::error!("Failed to execute query: {:?}", e);
+        e
+    })?;
+    Ok(())
+}
+
+// Put logic
+#[tracing::instrument(name = "Updating a note", skip(pool))]
+pub async fn update_note(pool: web::Data<PgPool>, note: web::Json<Note>) -> HttpResponse {
+    match update_note_helper(&pool, &note).await {
+        Ok(_) => HttpResponse::Ok().finish(),
+        Err(_) => HttpResponse::InternalServerError().finish(),
+    }
+}
+
+// Put database logic
+#[tracing::instrument(name = "Deleting note from the database", skip(pool, note))]
+async fn update_note_helper(pool: &PgPool, note: &Note) -> Result<(), sqlx::Error> {
+    println!("Here is the Note: {:?}", note);
+    sqlx::query!(
+        r#"
+        UPDATE notes 
+        SET title = $1, content = $2, tag = $3
+        WHERE id = $4
+        "#,
+        note.title,
+        note.content,
+        note.tag,
+        note.id,
     )
     .execute(pool)
     .await
