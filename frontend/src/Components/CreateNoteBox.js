@@ -1,12 +1,4 @@
-import {
-  Dialog,
-  DialogContent,
-  DialogActions,
-  Button,
-  Grid,
-  InputBase,
-  CardActions,
-} from "@mui/material";
+import { Button, Grid, InputBase, CardActions } from "@mui/material";
 import { React } from "react";
 
 function CreateNoteBox({

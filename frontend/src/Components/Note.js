@@ -19,6 +19,7 @@ function Note({ note, noteHover, deleteNote, handleClickOpen }) {
         overflow: "visible",
         border: "1px solid",
         borderColor: "#5555",
+        borderRadius: 2,
         marginBottom: "0px",
         boxShadow: noteHover === true ? "0 2px 4px #000" : "none",
       }}
