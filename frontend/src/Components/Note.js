@@ -5,7 +5,11 @@ import CardActions from "@mui/material/CardActions";
 import DeleteNoteButton from "./DeleteNoteButton";
 import Typography from "@mui/material/Typography";
 
-function Note({ note, noteHover, deleteNote }) {
+function Note({ note, noteHover, deleteNote, handleClickOpen }) {
+  const handleClickOpenNote = () => {
+    handleClickOpen(note);
+  };
+
   return (
     <Card
       sx={{
@@ -19,7 +23,7 @@ function Note({ note, noteHover, deleteNote }) {
         boxShadow: noteHover === true ? "0 2px 4px #000" : "none",
       }}
     >
-      <CardContent>
+      <CardContent onClick={handleClickOpenNote}>
         <Typography
           sx={{
             fontSize: "1em",

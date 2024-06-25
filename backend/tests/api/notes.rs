@@ -191,7 +191,6 @@ async fn edit_note_modifies_existing_note_in_database() {
         "title": "Test Note",
         "content": "test note content",
         "tag": "test",
-        "created_at": "",
     })
     .to_string();
     // Act

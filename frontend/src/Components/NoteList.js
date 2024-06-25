@@ -3,7 +3,7 @@ import NoteContainer from "./NoteContainer.js";
 import Grid from "@mui/material/Grid";
 import { Typography } from "@mui/material";
 
-function NoteList({ notes, deleteNote }) {
+function NoteList({ notes, deleteNote, handleClickOpen }) {
   return (
     <Grid container spacing={2} justifyContent={"left"}>
       {notes.length === 0 ? (
@@ -11,7 +11,11 @@ function NoteList({ notes, deleteNote }) {
       ) : (
         notes.map((note) => (
           <Grid item xs={12} sm={3} key={note.id}>
-            <NoteContainer note={note} deleteNote={deleteNote} />
+            <NoteContainer
+              note={note}
+              deleteNote={deleteNote}
+              handleClickOpen={handleClickOpen}
+            />
           </Grid>
         ))
       )}

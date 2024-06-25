@@ -15,7 +15,7 @@ pub struct UninitialisedNote {
 name = "Adding a new note",
 skip(uniitialised_note, pool),
 fields(
-note_title = %uniitialised_note.title // TODO remove eventually so that user notes are not logged
+uniitialised_note_title = %uniitialised_note.title // TODO remove eventually so that user notes are not logged
 )
 )]
 pub async fn create_note(
@@ -121,19 +121,31 @@ async fn delete_note_helper(pool: &PgPool, note_id: &Uuid) -> Result<(), sqlx::E
     Ok(())
 }
 
-// Put logic
+#[derive(serde::Serialize, serde::Deserialize, Debug)]
+pub struct UpdateNote {
+    pub id: Uuid,
+    pub title: String,
+    pub content: Option<String>,
+    pub tag: Option<String>,
+}
+
+// Update note logic
 #[tracing::instrument(name = "Updating a note", skip(pool))]
-pub async fn update_note(pool: web::Data<PgPool>, note: web::Json<Note>) -> HttpResponse {
+pub async fn update_note(pool: web::Data<PgPool>, note: web::Json<UpdateNote>) -> HttpResponse {
     match update_note_helper(&pool, &note).await {
         Ok(_) => HttpResponse::Ok().finish(),
         Err(_) => HttpResponse::InternalServerError().finish(),
     }
 }
 
-// Put database logic
-#[tracing::instrument(name = "Deleting note from the database", skip(pool, note))]
-async fn update_note_helper(pool: &PgPool, note: &Note) -> Result<(), sqlx::Error> {
-    println!("Here is the Note: {:?}", note);
+// Update note database logic
+#[tracing::instrument(name = "Deleting note from the database", skip(pool, note)
+fields(
+note_id = %note.id
+)
+
+)]
+async fn update_note_helper(pool: &PgPool, note: &UpdateNote) -> Result<(), sqlx::Error> {
     sqlx::query!(
         r#"
         UPDATE notes 

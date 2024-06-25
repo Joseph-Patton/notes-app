@@ -24,7 +24,6 @@ function App() {
   const [inputTitle, setInputTitle] = useState("");
   const [inputTag, setInputTag] = useState("");
 
-  // get text and store in state
   const contentHandler = (e) => {
     setInputContent(e.target.value);
   };
@@ -35,7 +34,6 @@ function App() {
     setInputTag(e.target.value);
   };
 
-  //fetch notes
   const fetchNotes = async (apiUrl) => {
     try {
       const response = await axios.get(`${apiUrl}/notes`);
@@ -84,8 +82,49 @@ function App() {
     fetchNotes(apiUrl);
   };
 
+  const [inputTitleEdit, setInputTitleEdit] = useState("");
+  const [inputContentEdit, setInputContentEdit] = useState("");
+  const [inputTagEdit, setInputTagEdit] = useState("");
+  const [noteIdEdit, setNoteIdEdit] = useState();
+
+  const titleHandlerEdit = (e) => {
+    setInputTitleEdit(e.target.value);
+  };
+  const contentHandlerEdit = (e) => {
+    setInputContentEdit(e.target.value);
+  };
+  const tagHandlerEdit = (e) => {
+    setInputTagEdit(e.target.value);
+  };
+
+  const updateNote = async () => {
+    const updated_note = {
+      id: noteIdEdit,
+      title: inputTitleEdit,
+      content: inputContentEdit,
+      tag: inputTagEdit,
+    };
+    try {
+      await axios.put(`${apiUrl}/notes`, updated_note);
+      //setNotes([response.data, ...notes]);
+    } catch (error) {
+      console.error("Error creating notes:", error);
+    }
+    // Fetch the updated list
+    fetchNotes(apiUrl);
+  };
+
+  // const updateNote = async () => {
+  //   console.log("calling updateNote");
+  // };
+
   const [open, setOpen] = useState(false);
-  const handleClickOpen = () => {
+  const handleClickOpen = (note) => {
+    console.log(note.id);
+    setNoteIdEdit(note.id);
+    setInputTitleEdit(note.title);
+    setInputContentEdit(note.content);
+    setInputTagEdit(note.tag);
     setOpen(true);
   };
 
@@ -125,7 +164,11 @@ function App() {
             />
           </Grid>
           <Grid item xs={12} paddingRight={"32px"}>
-            <NoteList notes={notes} deleteNote={deleteNote} />
+            <NoteList
+              notes={notes}
+              deleteNote={deleteNote}
+              handleClickOpen={handleClickOpen}
+            />
           </Grid>
         </Grid>
       </Box>
@@ -133,13 +176,13 @@ function App() {
       <EditPanel
         open={open}
         handleClose={handleClose}
-        titleHandler={titleHandler}
-        contentHandler={contentHandler}
-        tagHandler={tagHandler}
-        createNote={createNote}
-        inputTitle={inputTitle}
-        inputContent={inputContent}
-        inputTag={inputTag}
+        titleHandlerEdit={titleHandlerEdit}
+        contentHandlerEdit={contentHandlerEdit}
+        tagHandlerEdit={tagHandlerEdit}
+        inputTitleEdit={inputTitleEdit}
+        inputContentEdit={inputContentEdit}
+        inputTagEdit={inputTagEdit}
+        updateNote={updateNote}
       />
     </Box>
   );

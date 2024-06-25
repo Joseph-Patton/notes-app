@@ -11,16 +11,16 @@ import { React } from "react";
 function EditPanel({
   open,
   handleClose,
-  contentHandler,
-  titleHandler,
-  tagHandler,
-  createNote,
-  inputContent,
-  inputTitle,
-  inputTag,
+  contentHandlerEdit,
+  titleHandlerEdit,
+  tagHandlerEdit,
+  inputContentEdit,
+  inputTitleEdit,
+  inputTagEdit,
+  updateNote,
 }) {
-  const handleCreate = async () => {
-    await createNote();
+  const handleUpdate = async () => {
+    await updateNote();
     handleClose();
   };
 
@@ -31,32 +31,32 @@ function EditPanel({
           <InputBase
             minRows={1}
             placeholder="Title…"
-            value={inputTitle}
-            onChange={titleHandler}
+            value={inputTitleEdit}
+            onChange={titleHandlerEdit}
             multiline={true}
             sx={{ fontSize: "1.2em" }}
           />
           <InputBase
             minRows={4}
             placeholder="Content…"
-            value={inputContent}
-            onChange={contentHandler}
+            value={inputContentEdit}
+            onChange={contentHandlerEdit}
             maxLength="100"
             multiline={true}
             sx={{ fontSize: "1em" }}
           />
           <InputBase
             placeholder="Tag…"
-            value={inputTag}
-            onChange={tagHandler}
+            value={inputTagEdit}
+            onChange={tagHandlerEdit}
           />
         </Grid>
       </DialogContent>
       <DialogActions>
         <Grid container spacing={3}>
           <Grid item xs={12}>
-            <Button color="secondary" onClick={handleCreate}>
-              Save
+            <Button color="secondary" onClick={handleUpdate}>
+              Update
             </Button>
             <Button onClick={handleClose} color="primary">
               Cancel
