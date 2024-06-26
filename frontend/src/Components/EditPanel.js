@@ -25,7 +25,13 @@ function EditPanel({
   };
 
   return (
-    <Dialog open={open} max-width sm={2} disableEqualOverflow>
+    <Dialog
+      onClose={handleClose}
+      open={open}
+      fullWidth
+      maxWidth={"sm"}
+      sx={{ border: "3px solid", borderColor: "#888", borderRadius: 2 }}
+    >
       <DialogContent>
         <Grid container spacing={2} direction="column">
           <InputBase
@@ -53,7 +59,7 @@ function EditPanel({
         </Grid>
       </DialogContent>
       <DialogActions>
-        <Grid container spacing={3} justifyContent={"flex-end"}>
+        <Grid container spacing={3} justifyContent={"space-evenly"}>
           <Button onClick={handleClose} color="primary">
             Cancel
           </Button>
