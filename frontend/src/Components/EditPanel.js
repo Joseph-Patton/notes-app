@@ -53,15 +53,13 @@ function EditPanel({
         </Grid>
       </DialogContent>
       <DialogActions>
-        <Grid container spacing={3}>
-          <Grid item xs={12}>
-            <Button color="secondary" onClick={handleUpdate}>
-              Update
-            </Button>
-            <Button onClick={handleClose} color="primary">
-              Cancel
-            </Button>
-          </Grid>
+        <Grid container spacing={3} justifyContent={"flex-end"}>
+          <Button onClick={handleClose} color="primary">
+            Cancel
+          </Button>
+          <Button color="secondary" onClick={handleUpdate}>
+            Update
+          </Button>
         </Grid>
       </DialogActions>
     </Dialog>
