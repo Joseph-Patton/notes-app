@@ -187,10 +187,10 @@ async fn edit_note_modifies_existing_note_in_database() {
     .expect("Failed to add note row to database.");
 
     let body = json!({
-        "id": serde_json::to_string(&id).unwrap(),
-        "title": "Test Note",
-        "content": "test note content",
-        "tag": "test",
+        "id": id,
+        "title": "Modified Test Note",
+        "content": "modified test note content",
+        "tag": "modified test",
     })
     .to_string();
     // Act
