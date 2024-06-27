@@ -133,14 +133,20 @@ function App() {
     console.log("handleClose");
   };
 
+  const [drawer_open, setDrawerOpen] = useState(false);
+
+  const handleDrawerToggle = () => {
+    drawer_open ? setDrawerOpen(false) : setDrawerOpen(true);
+  };
+
   return (
     <Box
       sx={{
         display: "flex",
       }}
     >
-      <HeaderBar />
-      <MainMenuDrawer />
+      <HeaderBar handleDrawerToggle={handleDrawerToggle} />
+      <MainMenuDrawer drawer_open={drawer_open} />
       <Box sx={{ width: "100%" }}>
         <Toolbar />
         <Grid
