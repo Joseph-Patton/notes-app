@@ -29,32 +29,54 @@ function EditPanel({
       onClose={handleClose}
       open={open}
       fullWidth
-      maxWidth={"sm"}
+      maxWidth={"xs"}
       sx={{ border: "3px solid", borderColor: "#888", borderRadius: 2 }}
     >
       <DialogContent>
-        <Grid container spacing={2} direction="column">
+        <Grid
+          container
+          spacing={2}
+          direction="column"
+          sx={{ padding: "0.3em" }}
+        >
           <InputBase
             minRows={1}
             placeholder="Title…"
             value={inputTitleEdit}
             onChange={titleHandlerEdit}
             multiline={true}
-            sx={{ fontSize: "1.2em" }}
+            sx={{
+              fontSize: "1.2em",
+              fontWeight: 500,
+              whiteSpace: "normal",
+              overflow: "hidden",
+              marginBottom: "0.3em",
+            }}
           />
           <InputBase
-            minRows={4}
+            minRows={1}
             placeholder="Content…"
             value={inputContentEdit}
             onChange={contentHandlerEdit}
             maxLength="100"
             multiline={true}
-            sx={{ fontSize: "1em" }}
+            sx={{
+              fontSize: "1em",
+              whiteSpace: "normal",
+              overflow: "hidden",
+              marginBottom: "0.8em",
+            }}
           />
           <InputBase
             placeholder="Tag…"
             value={inputTagEdit}
             onChange={tagHandlerEdit}
+            sx={{
+              fontSize: "0.9em",
+              borderRadius: 2,
+              backgroundColor: "#eee",
+              padding: "0.1em",
+            }}
           />
         </Grid>
       </DialogContent>

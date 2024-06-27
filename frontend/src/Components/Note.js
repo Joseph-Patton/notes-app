@@ -3,6 +3,7 @@ import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardActions from "@mui/material/CardActions";
 import DeleteNoteButton from "./DeleteNoteButton";
+import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 
 function Note({ note, noteHover, deleteNote, handleClickOpen }) {
@@ -31,9 +32,8 @@ function Note({ note, noteHover, deleteNote, handleClickOpen }) {
             fontWeight: 500,
             whiteSpace: "normal",
             overflow: "hidden",
-            //textOverflow: "ellipsis",
+            marginBottom: "0.6em",
           }}
-          gutterBottom={true}
         >
           {note.title}
         </Typography>
@@ -43,21 +43,31 @@ function Note({ note, noteHover, deleteNote, handleClickOpen }) {
           component="p"
           sx={{
             overflow: "hidden",
-            marginBottom: "0.3em",
+            marginBottom: "0.6em",
           }}
         >
           {note.content}
         </Typography>
-
-        <Typography
-          variant="body1"
-          component="div"
-          sx={{
-            fontSize: "0.9em",
-          }}
-        >
-          {note.tag}
-        </Typography>
+        <Grid container>
+          <Grid
+            item
+            sx={{
+              borderRadius: 2,
+              backgroundColor: "#eee",
+              padding: "0.2em",
+            }}
+          >
+            <Typography
+              variant="body1"
+              component="div"
+              sx={{
+                fontSize: "0.9em",
+              }}
+            >
+              {note.tag}
+            </Typography>
+          </Grid>
+        </Grid>
       </CardContent>
       <CardActions
         sx={{
