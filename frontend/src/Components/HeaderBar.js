@@ -38,7 +38,10 @@ function ResponsiveAppBar({ handleDrawerToggle }) {
   return (
     <AppBar
       position="fixed"
-      sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}
+      sx={{
+        zIndex: (theme) => theme.zIndex.drawer + 1,
+        backgroundColor: "#fff",
+      }}
     >
       <Container maxWidth="xl">
         <Toolbar disableGutters>
@@ -65,7 +68,8 @@ function ResponsiveAppBar({ handleDrawerToggle }) {
               //fontFamily: "monospace",
               fontWeight: 700,
               letterSpacing: ".3rem",
-              color: "inherit",
+              color: "#52990a",
+
               textDecoration: "none",
             }}
           >
@@ -131,7 +135,7 @@ function ResponsiveAppBar({ handleDrawerToggle }) {
               <Button
                 key={page}
                 onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: "white", display: "block" }}
+                sx={{ my: 2, color: "black", display: "block" }}
               >
                 {page}
               </Button>
