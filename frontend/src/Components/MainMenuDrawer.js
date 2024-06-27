@@ -5,15 +5,11 @@ import MuiDrawer from "@mui/material/Drawer";
 import Toolbar from "@mui/material/Toolbar";
 import List from "@mui/material/List";
 import Divider from "@mui/material/Divider";
-import ListItem from "@mui/material/ListItem";
-import ListItemButton from "@mui/material/ListItemButton";
-import ListItemIcon from "@mui/material/ListItemIcon";
-import ListItemText from "@mui/material/ListItemText";
-import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
 import InboxIcon from "@mui/icons-material/MoveToInbox";
 import MailIcon from "@mui/icons-material/Mail";
-
+import LabelOutlinedIcon from "@mui/icons-material/LabelOutlined";
+import ListItemDrawer from "./ListItemDrawer";
 //const ListItem = styled(muiListItem)({});
 
 const drawerWidth = 240;
@@ -62,30 +58,10 @@ export default function MainMenuDrawer({ drawer_open }) {
       <Toolbar />
       <Box sx={{ overflow: "hidden" }}>
         <List>
-          {["Notes", "Tags"].map((text, index) => (
-            <ListItem key={text} disablePadding>
-              <ListItemButton
-                sx={{
-                  minHeight: 48,
-                  justifyContent: drawer_open ? "initial" : "center",
-                  px: 2.5,
-                }}
-              >
-                <ListItemIcon
-                  sx={{
-                    minWidth: 0,
-                    marginRight: drawer_open ? 3 : "auto",
-                    justifyContent: "center",
-                  }}
-                >
-                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                </ListItemIcon>
-                <ListItemText
-                  primary={text}
-                  sx={{ opacity: drawer_open ? 1 : 0 }}
-                />
-              </ListItemButton>
-            </ListItem>
+          {["Tag 1", "Tag 2", "Tag 3"].map((text) => (
+            <ListItemDrawer text={text} drawer_open={drawer_open}>
+              <LabelOutlinedIcon />
+            </ListItemDrawer>
           ))}
         </List>
         <Divider />
