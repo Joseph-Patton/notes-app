@@ -26,6 +26,8 @@ function CreateNote({
   inputContent,
   inputTitle,
   inputTag,
+  handleNoteOpen,
+  handleNoteClose,
 }) {
   if (create_note_open) {
     return (
@@ -41,7 +43,7 @@ function CreateNote({
       />
     );
   }
-  return <CreateNoteBoxSmall />;
+  return <CreateNoteBoxSmall handleNoteOpen={handleNoteOpen} />;
 }
 
 function App() {
@@ -170,6 +172,9 @@ function App() {
   const handleNoteClose = () => {
     setOpenCreateNote(false);
   };
+  const handleNoteOpen = () => {
+    setOpenCreateNote(true);
+  };
 
   return (
     <Box
@@ -199,6 +204,8 @@ function App() {
               inputTitle={inputTitle}
               inputContent={inputContent}
               inputTag={inputTag}
+              handleNoteOpen={handleNoteOpen}
+              handleNoteClose={handleNoteClose}
             />
           </Grid>
           <Grid item xs={12} paddingRight={"32px"}>

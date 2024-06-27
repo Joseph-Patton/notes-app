@@ -25,7 +25,7 @@ function Note({ note, noteHover, deleteNote, handleClickOpen }) {
         boxShadow: noteHover === true ? "0 2px 4px #000" : "none",
       }}
     >
-      <CardContent onClick={handleClickOpenNote}>
+      <CardContent onClick={handleClickOpenNote} sx={{ paddingBottom: "0px" }}>
         <Typography
           sx={{
             fontSize: "1em",
