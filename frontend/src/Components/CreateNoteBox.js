@@ -39,7 +39,7 @@ function CreateNoteBox({
         multiline={true}
         sx={{
           fontSize: "1.2em",
-          margin: "10px",
+          margin: "20px",
         }}
       />
       <InputBase
@@ -51,20 +51,29 @@ function CreateNoteBox({
         multiline={true}
         sx={{
           fontSize: "1em",
-
-          margin: "10px",
+          margin: "20px",
         }}
       />
-      <InputBase
-        placeholder="Tag…"
-        value={inputTag}
-        onChange={tagHandler}
-        sx={{
-          fontSize: "0.8em",
-          margin: "10px",
-        }}
-      />
-
+      <Grid container sx={{ margin: "10px" }}>
+        <Grid
+          item
+          sx={{
+            borderRadius: 2,
+            backgroundColor: "#eee",
+            padding: "0.2em",
+          }}
+        >
+          <InputBase
+            placeholder="Tag…"
+            value={inputTag}
+            onChange={tagHandler}
+            minWidth
+            sx={{
+              fontSize: "0.9em",
+            }}
+          />
+        </Grid>
+      </Grid>
       <CardActions>
         <Grid container justifyContent={"space-evenly"}>
           <Button onClick={resetNote} color="primary">
