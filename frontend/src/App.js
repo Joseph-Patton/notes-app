@@ -6,6 +6,7 @@ import HeaderBar from "./Components/HeaderBar";
 import NoteList from "./Components/NoteList";
 import EditPanel from "./Components/EditPanel";
 import MainMenuDrawer from "./Components/MainMenuDrawer";
+import CreateNoteBoxSmall from "./Components/CreateNoteBoxSmall";
 import CreateNoteBox from "./Components/CreateNoteBox";
 import Toolbar from "@mui/material/Toolbar";
 
@@ -15,6 +16,33 @@ import Toolbar from "@mui/material/Toolbar";
 //     mode: "dark",
 //   },
 // });
+function CreateNote({
+  create_note_open,
+  contentHandler,
+  titleHandler,
+  tagHandler,
+  createNote,
+  resetNote,
+  inputContent,
+  inputTitle,
+  inputTag,
+}) {
+  if (create_note_open) {
+    return (
+      <CreateNoteBox
+        titleHandler={titleHandler}
+        contentHandler={contentHandler}
+        tagHandler={tagHandler}
+        createNote={createNote}
+        resetNote={resetNote}
+        inputTitle={inputTitle}
+        inputContent={inputContent}
+        inputTag={inputTag}
+      />
+    );
+  }
+  return <CreateNoteBoxSmall />;
+}
 
 function App() {
   const apiUrl = "http://localhost:8000"; // TODO add as argument
@@ -130,13 +158,17 @@ function App() {
 
   const handleClose = () => {
     setOpen(false);
-    console.log("handleClose");
   };
 
   const [drawer_open, setDrawerOpen] = useState(false);
 
   const handleDrawerToggle = () => {
     drawer_open ? setDrawerOpen(false) : setDrawerOpen(true);
+  };
+
+  const [create_note_open, setOpenCreateNote] = useState(false);
+  const handleNoteClose = () => {
+    setOpenCreateNote(false);
   };
 
   return (
@@ -151,14 +183,14 @@ function App() {
         <Toolbar />
         <Grid
           container
-          //direction={"column"}
           spacing={2}
           margin={"auto"}
           justifyContent={"center"}
           alignItems={"center"}
         >
-          <Grid item xs={6} paddingRight={"32px"}>
-            <CreateNoteBox
+          <Grid item xs={12} paddingRight={"32px"}>
+            <CreateNote
+              create_note_open={create_note_open}
               titleHandler={titleHandler}
               contentHandler={contentHandler}
               tagHandler={tagHandler}
