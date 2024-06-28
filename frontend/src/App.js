@@ -17,7 +17,6 @@ import Toolbar from "@mui/material/Toolbar";
 //   },
 // });
 function CreateNote({
-  create_note_open,
   contentHandler,
   titleHandler,
   tagHandler,
@@ -26,6 +25,7 @@ function CreateNote({
   inputContent,
   inputTitle,
   inputTag,
+  create_note_open,
   handleNoteOpen,
   handleNoteClose,
 }) {
@@ -40,6 +40,8 @@ function CreateNote({
         inputTitle={inputTitle}
         inputContent={inputContent}
         inputTag={inputTag}
+        open={create_note_open}
+        handleNoteClose={handleNoteClose}
       />
     );
   }
@@ -168,12 +170,14 @@ function App() {
     drawer_open ? setDrawerOpen(false) : setDrawerOpen(true);
   };
 
-  const [create_note_open, setOpenCreateNote] = useState(false);
+  const [create_note_open, setCreateNoteOpen] = useState(false);
   const handleNoteClose = () => {
-    setOpenCreateNote(false);
+    setCreateNoteOpen(false);
+    console.log(`Handle note close called`);
   };
   const handleNoteOpen = () => {
-    setOpenCreateNote(true);
+    setCreateNoteOpen(true);
+    console.log(`Handle note open called`);
   };
 
   return (
@@ -195,7 +199,6 @@ function App() {
         >
           <Grid item xs={12} paddingRight={"32px"}>
             <CreateNote
-              create_note_open={create_note_open}
               titleHandler={titleHandler}
               contentHandler={contentHandler}
               tagHandler={tagHandler}
@@ -204,6 +207,7 @@ function App() {
               inputTitle={inputTitle}
               inputContent={inputContent}
               inputTag={inputTag}
+              create_note_open={create_note_open}
               handleNoteOpen={handleNoteOpen}
               handleNoteClose={handleNoteClose}
             />
