@@ -207,5 +207,5 @@ async fn edit_note_modifies_existing_note_in_database() {
     assert_eq!(saved.title, "Modified Test Note");
     assert_eq!(saved.content.unwrap(), "modified test note content");
     assert_eq!(saved.tag.unwrap(), "modified test");
-    assert_eq!(saved.is_archived, false);
+    assert_eq!(saved.is_archived, true);
 }
