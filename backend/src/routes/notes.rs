@@ -61,6 +61,7 @@ pub struct Note {
     pub tag: Option<String>,
     #[serde(with = "ts_seconds")]
     pub created_at: DateTime<Utc>,
+    pub is_archived: bool,
 }
 
 pub type Notes = Vec<Note>;
@@ -81,7 +82,7 @@ async fn fetch_notes(pool: &PgPool) -> Result<Notes, sqlx::Error> {
     let notes = sqlx::query_as!(
         Note,
         r#"
-        SELECT id, title, content, tag, created_at FROM notes
+        SELECT id, title, content, tag, created_at, is_archived FROM notes
         "#
     )
     .fetch_all(pool)
@@ -127,6 +128,7 @@ pub struct UpdateNote {
     pub title: String,
     pub content: Option<String>,
     pub tag: Option<String>,
+    pub is_archived: bool,
 }
 
 // Update note logic
@@ -149,12 +151,13 @@ async fn update_note_helper(pool: &PgPool, note: &UpdateNote) -> Result<(), sqlx
     sqlx::query!(
         r#"
         UPDATE notes 
-        SET title = $1, content = $2, tag = $3
-        WHERE id = $4
+        SET title = $1, content = $2, tag = $3, is_archived =$4
+        WHERE id = $5
         "#,
         note.title,
         note.content,
         note.tag,
+        note.is_archived,
         note.id,
     )
     .execute(pool)
