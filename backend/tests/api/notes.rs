@@ -113,9 +113,10 @@ async fn delete_note_deletes_note_from_database() {
             title,
             content,
             tag,
-            created_at
+            created_at,
+            is_archived
         )
-        VALUES ($1, $2, $3, $4, now())
+        VALUES ($1, $2, $3, $4, now(), false)
         "#,
         id,
         title,
@@ -173,9 +174,10 @@ async fn edit_note_modifies_existing_note_in_database() {
             title,
             content,
             tag,
-            created_at
+            created_at,
+            is_archived
         )
-        VALUES ($1, $2, $3, $4, now())
+        VALUES ($1, $2, $3, $4, now(), false)
         "#,
         id,
         title,
@@ -191,17 +193,19 @@ async fn edit_note_modifies_existing_note_in_database() {
         "title": "Modified Test Note",
         "content": "modified test note content",
         "tag": "modified test",
+        "is_archived": true,
     })
     .to_string();
     // Act
     let response = app.put_notes(body).await;
     // Assert
     assert_eq!(200, response.status().as_u16());
-    let saved = sqlx::query!("SELECT title, content, tag FROM notes ")
+    let saved = sqlx::query!("SELECT title, content, tag, is_archived FROM notes ")
         .fetch_one(&app.db_pool)
         .await
         .expect("Failed to fetch saved subscription.");
     assert_eq!(saved.title, "Modified Test Note");
     assert_eq!(saved.content.unwrap(), "modified test note content");
     assert_eq!(saved.tag.unwrap(), "modified test");
+    assert_eq!(saved.is_archived, false);
 }
