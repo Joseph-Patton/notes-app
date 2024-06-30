@@ -23,17 +23,18 @@ function CreateNoteBox({
     await createNote();
     resetNote();
   };
-  const handleClickAway = () => {
+  const handleClose = () => {
     console.log(`You clicked Outside the box`);
     handleNoteClose();
+    handleCreate();
   };
 
   return (
-    <Grid container justifyContent={"center"} onClose={handleNoteClose}>
-      <ClickAwayListener onClickAway={handleClickAway}>
+    <Grid container justifyContent={"center"}>
+      <ClickAwayListener onClickAway={handleClose}>
         <Grid
           item
-          //ref={boxRef}
+          paddingLeft={"1em"}
           xs={5}
           sx={{
             color: "#000",
@@ -90,13 +91,12 @@ function CreateNoteBox({
               </Grid>
             </Grid>
             <CardActions>
-              <Grid container justifyContent={"space-evenly"}>
-                <Button onClick={resetNote} color="primary">
-                  reset
-                </Button>
-                <Button color="secondary" onClick={handleCreate}>
-                  Save
-                </Button>
+              <Grid container justifyContent={"flex-end"}>
+                <Grid item paddingRight={"2em"}>
+                  <Button color="secondary" onClick={handleClose}>
+                    Close
+                  </Button>
+                </Grid>
               </Grid>
             </CardActions>
           </Grid>

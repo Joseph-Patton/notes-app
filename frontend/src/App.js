@@ -84,6 +84,9 @@ function App() {
       content: inputContent,
       tag: inputTag,
     };
+    //TODO better way to handle not creating empty notes
+    if (new_note.title === "" && new_note.content === "" && new_note.tag === "")
+      return;
     try {
       await axios.post(`${apiUrl}/notes`, new_note);
       //setNotes([response.data, ...notes]);
