@@ -17,6 +17,7 @@ services:
     depends_on:
       - db
   db:
+    build: ./backend
     container_name: db
     image: postgres:13
     ports:
