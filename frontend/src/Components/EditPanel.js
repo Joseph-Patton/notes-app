@@ -55,6 +55,7 @@ function EditPanel({
           />
           <InputBase
             minRows={1}
+            autoFocus
             placeholder="Content…"
             value={inputContentEdit}
             onChange={contentHandlerEdit}
