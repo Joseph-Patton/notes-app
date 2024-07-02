@@ -92,7 +92,6 @@ async fn get_notes_returns_notes_list() {
         .expect("Failed to deserialize the Json response.");
     // Assert
     // TODO change to check entire json object
-    // assert_eq!("test note content 1", notes[0].content.unwrap());
     assert_eq!("Test Note 1", &notes[0].title);
     assert_eq!("Test Note 2", &notes[1].title);
 }
@@ -102,45 +101,30 @@ async fn delete_note_deletes_note_from_database() {
     // Arrange
     let app = spawn_app().await;
     let id = Uuid::new_v4();
-    // TODO replace with automatically generated note
-    let title = "Test Note";
-    let content = "test note content";
-    let tag = "test";
-    sqlx::query!(
-        r#"
-        INSERT INTO notes (
-            id,
-            title,
-            content,
-            tag,
-            created_at,
-            is_archived
-        )
-        VALUES ($1, $2, $3, $4, now(), false)
-        "#,
-        id,
-        title,
-        content,
-        tag,
-    )
-    .execute(&app.db_pool)
-    .await
-    .expect("Failed to add note row to database.");
-    // check note added to database
-    let note = sqlx::query!(
-        r#"
-        SELECT * FROM notes WHERE id = $1
-        "#,
-        id,
-    )
-    .fetch_one(&app.db_pool)
-    .await
-    .expect("Failed to fetch saved note.");
-    assert_eq!(note.title, "Test Note");
-    assert_eq!(note.content.unwrap(), "test note content");
+    // TODO replace with automatically generated note body
+    // Add note
+    let body = json!({
+        "title": "Test Note",
+        "content": "test note content",
+        "tag": "test",
+    })
+    .to_string();
+    app.post_notes(body.into()).await;
+
+    let notes: Notes = app
+        .get_notes()
+        .await
+        .json()
+        .await
+        .expect("Failed to deserialize the Json response.");
+    let note = &notes[0];
+
+    assert_eq!(&note.title, "Test Note");
 
     // Act
-    let response = app.delete_notes(serde_json::to_string(&id).unwrap()).await;
+    let response = app
+        .delete_notes(serde_json::to_string(&note.id).unwrap())
+        .await;
     assert_eq!(200, response.status().as_u16());
 
     // Assert
@@ -162,41 +146,34 @@ async fn edit_note_modifies_existing_note_in_database() {
     let app = spawn_app().await;
 
     // Add note to the database
-    let id = Uuid::new_v4();
-    // TODO replace with automatically generated note
-    let title = "Test Note";
-    let content = "test note content";
-    let tag = "test";
-    sqlx::query!(
-        r#"
-        INSERT INTO notes (
-            id,
-            title,
-            content,
-            tag,
-            created_at,
-            is_archived
-        )
-        VALUES ($1, $2, $3, $4, now(), false)
-        "#,
-        id,
-        title,
-        content,
-        tag,
-    )
-    .execute(&app.db_pool)
-    .await
-    .expect("Failed to add note row to database.");
-
     let body = json!({
-        "id": id,
+        "title": "Test Note",
+        "content": "test note content",
+        "tag": "test",
+    })
+    .to_string();
+    // Get id of added note
+    app.post_notes(body.into()).await;
+    let notes: Notes = app
+        .get_notes()
+        .await
+        .json()
+        .await
+        .expect("Failed to deserialize the Json response.");
+    let note = &notes[0];
+
+    assert_eq!(&note.title, "Test Note");
+
+    // Act
+    let body = json!({
+        "id": note.id,
         "title": "Modified Test Note",
         "content": "modified test note content",
         "tag": "modified test",
         "is_archived": true,
     })
     .to_string();
-    // Act
+
     let response = app.put_notes(body).await;
     // Assert
     assert_eq!(200, response.status().as_u16());
