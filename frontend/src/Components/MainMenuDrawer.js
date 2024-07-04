@@ -8,12 +8,13 @@ import Divider from "@mui/material/Divider";
 import MenuIcon from "@mui/icons-material/Menu";
 import InboxIcon from "@mui/icons-material/MoveToInbox";
 import MailIcon from "@mui/icons-material/Mail";
+import LightbulbOutlinedIcon from "@mui/icons-material/LightbulbOutlined";
 import LabelOutlinedIcon from "@mui/icons-material/LabelOutlined";
 import ListItemDrawer from "./ListItemDrawer";
 import ArchiveOutlinedIcon from "@mui/icons-material/ArchiveOutlined";
 //const ListItem = styled(muiListItem)({});
 
-const drawerWidth = 240;
+const drawerWidth = 180;
 const archivedFilter = [(note) => note.is_archived];
 const defaultFilter = [(note) => !note.is_archived];
 const openedMixin = (theme) => ({
@@ -64,7 +65,9 @@ export default function MainMenuDrawer({ drawer_open, refreshFilter }) {
             text={"Notes"}
             drawer_open={drawer_open}
             action={() => refreshFilter(defaultFilter)}
-          ></ListItemDrawer>
+          >
+            <LightbulbOutlinedIcon />
+          </ListItemDrawer>
           {["Tag 1", "Tag 2", "Tag 3"].map((text) => (
             <ListItemDrawer text={text} drawer_open={drawer_open}>
               <LabelOutlinedIcon />

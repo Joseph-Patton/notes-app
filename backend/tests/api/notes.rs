@@ -152,7 +152,7 @@ async fn edit_note_modifies_existing_note_in_database() {
         "tag": "test",
     })
     .to_string();
-    // Get id of added note
+    // Get added note
     app.post_notes(body.into()).await;
     let notes: Notes = app
         .get_notes()
@@ -165,6 +165,7 @@ async fn edit_note_modifies_existing_note_in_database() {
     assert_eq!(&note.title, "Test Note");
 
     // Act
+    // Modify note
     let body = json!({
         "id": note.id,
         "title": "Modified Test Note",

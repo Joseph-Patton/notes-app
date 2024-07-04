@@ -56,6 +56,7 @@ function App() {
   // const filterNotArchived = (note) => !note.is_archived;
   const refreshFilter = (filter) => {
     setFilters(filter);
+    refreshNotes();
   };
   const [filters, setFilters] = useState([(note) => !note.is_archived]);
   const getVisibleNotes = useCallback(() => {
@@ -91,12 +92,15 @@ function App() {
 
   const refreshNotes = () => {
     fetchNotes(apiUrl);
-    getVisibleNotes();
   };
 
   useEffect(() => {
+    getVisibleNotes();
+  }, [notes]);
+
+  useEffect(() => {
     refreshNotes();
-  }, [visibleNotes]);
+  }, []);
 
   const createNote = async () => {
     const new_note = {
