@@ -125,10 +125,10 @@ async fn delete_note_helper(pool: &PgPool, note_id: &Uuid) -> Result<(), sqlx::E
 #[derive(serde::Serialize, serde::Deserialize, Debug)]
 pub struct UpdateNote {
     pub id: Uuid,
-    pub title: String,
+    pub title: Option<String>,
     pub content: Option<String>,
     pub tag: Option<String>,
-    pub is_archived: bool,
+    pub is_archived: Option<bool>,
 }
 
 // Update note logic
