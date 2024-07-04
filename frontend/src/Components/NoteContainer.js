@@ -2,7 +2,7 @@ import { React, useState } from "react";
 import Note from "./Note.js";
 import Grid from "@mui/material/Grid";
 
-function NoteContainer({ note, deleteNote, handleClickOpen }) {
+function NoteContainer({ note, deleteNote, handleClickOpen, archiveNote }) {
   const [noteHover, setNoteHover] = useState(false);
   return (
     <Grid
@@ -14,6 +14,7 @@ function NoteContainer({ note, deleteNote, handleClickOpen }) {
         noteHover={noteHover}
         deleteNote={deleteNote}
         handleClickOpen={handleClickOpen}
+        archiveNote={archiveNote}
       />
     </Grid>
   );

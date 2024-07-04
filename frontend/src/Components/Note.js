@@ -3,10 +3,12 @@ import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardActions from "@mui/material/CardActions";
 import DeleteNoteButton from "./DeleteNoteButton";
+import ArchiveOutlinedIcon from "@mui/icons-material/ArchiveOutlined";
+import IconButton from "@mui/material/IconButton";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 
-function Note({ note, noteHover, deleteNote, handleClickOpen }) {
+function Note({ note, noteHover, deleteNote, handleClickOpen, archiveNote }) {
   const handleClickOpenNote = () => {
     handleClickOpen(note);
   };
@@ -26,6 +28,17 @@ function Note({ note, noteHover, deleteNote, handleClickOpen }) {
       }}
     >
       <CardContent onClick={handleClickOpenNote} sx={{ paddingBottom: "0px" }}>
+        <Typography
+          sx={{
+            fontSize: "1em",
+            fontWeight: 500,
+            whiteSpace: "normal",
+            overflow: "hidden",
+            marginBottom: "0.6em",
+          }}
+        >
+          {note.is_archived.toString()}
+        </Typography>
         <Typography
           sx={{
             fontSize: "1em",
@@ -75,6 +88,13 @@ function Note({ note, noteHover, deleteNote, handleClickOpen }) {
           justifyContent: "right",
         }}
       >
+        <IconButton
+          onClick={() => archiveNote(note)}
+          aria-label="delete"
+          type="button"
+        >
+          <ArchiveOutlinedIcon />
+        </IconButton>
         <DeleteNoteButton
           title={note.title}
           deleteNote={() => deleteNote(note.id)}

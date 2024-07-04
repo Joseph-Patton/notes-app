@@ -1,4 +1,4 @@
-import { React, useState, useEffect } from "react";
+import { React, useState, useEffect, useCallback } from "react";
 import axios from "axios";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
@@ -51,7 +51,21 @@ function CreateNote({
 function App() {
   const apiUrl = "http://localhost:8000"; // TODO add as argument
   const [notes, setNotes] = useState([]);
-  //const [newNote, setNewNote] = useState([]);
+  const [visibleNotes, setVisibleNotes] = useState([]);
+  // const filterArchived = (note) => note.is_archived;
+  // const filterNotArchived = (note) => !note.is_archived;
+  const refreshFilter = (filter) => {
+    setFilters(filter);
+  };
+  const [filters, setFilters] = useState([(note) => !note.is_archived]);
+  const getVisibleNotes = useCallback(() => {
+    setVisibleNotes(
+      notes.filter((note) =>
+        filters.reduce((pass, curFilter) => pass && curFilter(note), true)
+      )
+    );
+  }, [notes, filters]);
+
   const [inputContent, setInputContent] = useState("");
   const [inputTitle, setInputTitle] = useState("");
   const [inputTag, setInputTag] = useState("");
@@ -74,9 +88,15 @@ function App() {
       console.error("Error fetching data:", error);
     }
   };
-  useEffect(() => {
+
+  const refreshNotes = () => {
     fetchNotes(apiUrl);
-  }, []);
+    getVisibleNotes();
+  };
+
+  useEffect(() => {
+    refreshNotes();
+  }, [visibleNotes]);
 
   const createNote = async () => {
     const new_note = {
@@ -94,7 +114,7 @@ function App() {
       console.error("Error creating notes:", error);
     }
     // Fetch the updated list
-    fetchNotes(apiUrl);
+    refreshNotes();
   };
 
   const resetNote = () => {
@@ -114,7 +134,7 @@ function App() {
     } catch (error) {
       console.error("Error deleting note:", error);
     }
-    fetchNotes(apiUrl);
+    refreshNotes();
   };
 
   const [inputTitleEdit, setInputTitleEdit] = useState("");
@@ -132,12 +152,13 @@ function App() {
     setInputTagEdit(e.target.value);
   };
 
-  const updateNote = async () => {
+  const updateNote = async (note) => {
     const updated_note = {
       id: noteIdEdit,
       title: inputTitleEdit,
       content: inputContentEdit,
       tag: inputTagEdit,
+      is_archived: false,
     };
     try {
       await axios.put(`${apiUrl}/notes`, updated_note);
@@ -146,7 +167,17 @@ function App() {
       console.error("Error creating notes:", error);
     }
     // Fetch the updated list
-    fetchNotes(apiUrl);
+    refreshNotes();
+  };
+
+  const archiveNote = async (note) => {
+    note.is_archived = true;
+    try {
+      await axios.put(`${apiUrl}/notes`, note);
+    } catch (error) {
+      console.error("Error archiving note:", error);
+    }
+    refreshNotes();
   };
 
   // const updateNote = async () => {
@@ -190,7 +221,7 @@ function App() {
       }}
     >
       <HeaderBar handleDrawerToggle={handleDrawerToggle} />
-      <MainMenuDrawer drawer_open={drawer_open} />
+      <MainMenuDrawer drawer_open={drawer_open} refreshFilter={refreshFilter} />
       <Box sx={{ width: "100%" }}>
         <Toolbar />
         <Grid
@@ -217,9 +248,10 @@ function App() {
           </Grid>
           <Grid item xs={12} paddingRight={"32px"}>
             <NoteList
-              notes={notes}
+              notes={visibleNotes}
               deleteNote={deleteNote}
               handleClickOpen={handleClickOpen}
+              archiveNote={archiveNote}
             />
           </Grid>
         </Grid>

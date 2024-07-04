@@ -3,7 +3,7 @@ import NoteContainer from "./NoteContainer.js";
 import Grid from "@mui/material/Grid";
 import { Typography } from "@mui/material";
 
-function NoteList({ notes, deleteNote, handleClickOpen }) {
+function NoteList({ notes, deleteNote, handleClickOpen, archiveNote }) {
   return (
     <Grid container spacing={2} justifyContent={"left"}>
       {notes.length === 0 ? (
@@ -15,6 +15,7 @@ function NoteList({ notes, deleteNote, handleClickOpen }) {
               note={note}
               deleteNote={deleteNote}
               handleClickOpen={handleClickOpen}
+              archiveNote={archiveNote}
             />
           </Grid>
         ))

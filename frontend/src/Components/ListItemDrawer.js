@@ -4,7 +4,7 @@ import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 
-function ListItemDrawer({ text, drawer_open, children }) {
+function ListItemDrawer({ text, drawer_open, children, action }) {
   return (
     <ListItem key={text} disablePadding>
       <ListItemButton
@@ -13,6 +13,7 @@ function ListItemDrawer({ text, drawer_open, children }) {
           justifyContent: drawer_open ? "initial" : "center",
           px: 2.5,
         }}
+        onClick={action}
       >
         <ListItemIcon
           sx={{
