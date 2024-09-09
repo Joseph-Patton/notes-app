@@ -8,6 +8,7 @@ import EditPanel from "./Components/EditPanel";
 import MainMenuDrawer from "./Components/MainMenuDrawer";
 import CreateNoteBox from "./Components/CreateNoteBox";
 import Toolbar from "@mui/material/Toolbar";
+import NoteContainer from "./Components/NoteContainer";
 
 //import { useStyles } from "styles/AppStyle";
 // const darkTheme = createTheme({
@@ -52,20 +53,6 @@ function App() {
     }
   };
 
-  const [inputContent, setInputContent] = useState("");
-  const [inputTitle, setInputTitle] = useState("");
-  const [inputTag, setInputTag] = useState("");
-
-  const contentHandler = (e) => {
-    setInputContent(e.target.value);
-  };
-  const titleHandler = (e) => {
-    setInputTitle(e.target.value);
-  };
-  const tagHandler = (e) => {
-    setInputTag(e.target.value);
-  };
-
   const fetchNotes = async (apiUrl) => {
     try {
       const response = await axios.get(`${apiUrl}/notes`);
@@ -83,12 +70,7 @@ function App() {
     refreshNotes();
   }, []);
 
-  const createNote = async () => {
-    const new_note = {
-      title: inputTitle,
-      content: inputContent,
-      tag: inputTag,
-    };
+  const createNote = async (new_note) => {
     //TODO better way to handle not creating empty notes
     if (new_note.title === "" && new_note.content === "" && new_note.tag === "")
       return;
@@ -100,13 +82,6 @@ function App() {
     }
     // Fetch the updated list
     refreshNotes();
-  };
-
-  const resetNote = () => {
-    // Clear the textarea
-    setInputTitle("");
-    setInputContent("");
-    setInputTag("");
   };
 
   // Delete note function
@@ -212,14 +187,7 @@ function App() {
           <Grid item xs={12} paddingRight={"32px"}>
             <CreateNoteContext.Provider
               value={{
-                inputTitle,
-                inputContent,
-                inputTag,
-                titleHandler,
-                contentHandler,
-                tagHandler,
                 createNote,
-                resetNote,
               }}
             >
               <CreateNoteBox />

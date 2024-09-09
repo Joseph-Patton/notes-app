@@ -6,29 +6,44 @@ import {
   ClickAwayListener,
 } from "@mui/material";
 import { CreateNoteContext } from "../App.js";
-import { React, useContext } from "react";
+import { React, useContext, useState } from "react";
 
 function CreateNoteBoxExpanded({ handleShrink }) {
-  const {
-    inputTitle,
-    inputContent,
-    inputTag,
-    titleHandler,
-    contentHandler,
-    tagHandler,
-    createNote,
-    resetNote,
-  } = useContext(CreateNoteContext);
+  const { createNote } = useContext(CreateNoteContext);
 
-  const handleCreate = async () => {
-    await createNote();
+  const handleCreate = async (note) => {
+    await createNote(note);
     resetNote();
   };
+
+  const resetNote = () => {
+    // Clear the textarea
+    setNewNoteValue({ title: "", content: "", tag: "" });
+  };
+
   const handleClose = () => {
     console.log(`You clicked Outside the box`);
     handleShrink();
-    handleCreate();
+    handleCreate(newNoteValue);
   };
+
+  const [newNoteValue, setNewNoteValue] = useState({
+    title: "",
+    content: "",
+    tag: "",
+  });
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setNewNoteValue((prev) => {
+      return {
+        ...prev,
+        [name]: value,
+      };
+    });
+  };
+
+  const { title, content, tag } = newNoteValue;
 
   return (
     <Grid container justifyContent={"center"}>
@@ -51,8 +66,9 @@ function CreateNoteBoxExpanded({ handleShrink }) {
             <InputBase
               minRows={1}
               placeholder="Title…"
-              value={inputTitle}
-              onChange={titleHandler}
+              onChange={handleChange}
+              name="title"
+              value={title}
               multiline={true}
               sx={{
                 fontSize: "1.2em",
@@ -63,8 +79,9 @@ function CreateNoteBoxExpanded({ handleShrink }) {
               minRows={1}
               autoFocus
               placeholder="Take a note…"
-              value={inputContent}
-              onChange={contentHandler}
+              name="content"
+              value={content}
+              onChange={handleChange}
               maxLength="100"
               multiline={true}
               sx={{
@@ -83,8 +100,9 @@ function CreateNoteBoxExpanded({ handleShrink }) {
               >
                 <InputBase
                   placeholder="Tag…"
-                  value={inputTag}
-                  onChange={tagHandler}
+                  name="tag"
+                  value={tag}
+                  onChange={handleChange}
                   sx={{
                     fontSize: "0.9em",
                   }}
