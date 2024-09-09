@@ -1,4 +1,4 @@
-import { React, useState, useEffect, useCallback } from "react";
+import { React, useState, useEffect, useCallback, createContext } from "react";
 import axios from "axios";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
@@ -17,14 +17,8 @@ import Toolbar from "@mui/material/Toolbar";
 //   },
 // });
 function CreateNote({
-  contentHandler,
-  titleHandler,
-  tagHandler,
   createNote,
   resetNote,
-  inputContent,
-  inputTitle,
-  inputTag,
   create_note_open,
   handleNoteOpen,
   handleNoteClose,
@@ -32,14 +26,8 @@ function CreateNote({
   if (create_note_open) {
     return (
       <CreateNoteBox
-        titleHandler={titleHandler}
-        contentHandler={contentHandler}
-        tagHandler={tagHandler}
         createNote={createNote}
         resetNote={resetNote}
-        inputTitle={inputTitle}
-        inputContent={inputContent}
-        inputTag={inputTag}
         open={create_note_open}
         handleNoteClose={handleNoteClose}
       />
@@ -47,6 +35,8 @@ function CreateNote({
   }
   return <CreateNoteBoxSmall handleNoteOpen={handleNoteOpen} />;
 }
+
+export const NoteContext = createContext();
 
 function App() {
   const apiUrl = "http://localhost:8000"; // TODO add as argument
@@ -249,19 +239,24 @@ function App() {
           alignItems={"center"}
         >
           <Grid item xs={12} paddingRight={"32px"}>
-            <CreateNote
-              titleHandler={titleHandler}
-              contentHandler={contentHandler}
-              tagHandler={tagHandler}
-              createNote={createNote}
-              resetNote={resetNote}
-              inputTitle={inputTitle}
-              inputContent={inputContent}
-              inputTag={inputTag}
-              create_note_open={create_note_open}
-              handleNoteOpen={handleNoteOpen}
-              handleNoteClose={handleNoteClose}
-            />
+            <NoteContext.Provider
+              value={{
+                inputTitle,
+                inputContent,
+                inputTag,
+                titleHandler,
+                contentHandler,
+                tagHandler,
+              }}
+            >
+              <CreateNote
+                createNote={createNote}
+                resetNote={resetNote}
+                create_note_open={create_note_open}
+                handleNoteOpen={handleNoteOpen}
+                handleNoteClose={handleNoteClose}
+              />
+            </NoteContext.Provider>
           </Grid>
           <Grid item xs={12} paddingRight={"32px"}>
             <NoteList
