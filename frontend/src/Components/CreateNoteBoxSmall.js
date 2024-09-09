@@ -1,12 +1,12 @@
 import { Button, Grid, InputBase, CardActions } from "@mui/material";
 import { React } from "react";
 
-function CreateNoteBoxSmall({ handleNoteOpen }) {
+function CreateNoteBoxSmall({ handleExpand }) {
   return (
     <Grid container justifyContent={"center"}>
       <Grid
         item
-        onClick={handleNoteOpen}
+        onClick={handleExpand}
         alignContent={"center"}
         sm={3}
         sx={{

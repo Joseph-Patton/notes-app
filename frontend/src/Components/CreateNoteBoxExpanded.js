@@ -6,9 +6,9 @@ import {
   ClickAwayListener,
 } from "@mui/material";
 import { CreateNoteContext } from "../App.js";
-import { React, useRef, useEffect, useState, useContext } from "react";
+import { React, useContext } from "react";
 
-function CreateNoteBoxExpanded() {
+function CreateNoteBoxExpanded({ handleShrink }) {
   const {
     inputTitle,
     inputContent,
@@ -18,7 +18,6 @@ function CreateNoteBoxExpanded() {
     tagHandler,
     createNote,
     resetNote,
-    handleNoteClose,
   } = useContext(CreateNoteContext);
 
   const handleCreate = async () => {
@@ -27,7 +26,7 @@ function CreateNoteBoxExpanded() {
   };
   const handleClose = () => {
     console.log(`You clicked Outside the box`);
-    handleNoteClose();
+    handleShrink();
     handleCreate();
   };
 

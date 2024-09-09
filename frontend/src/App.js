@@ -189,16 +189,6 @@ function App() {
     drawer_open ? setDrawerOpen(false) : setDrawerOpen(true);
   };
 
-  const [create_note_open, setCreateNoteOpen] = useState(false);
-  const handleNoteClose = () => {
-    setCreateNoteOpen(false);
-    console.log(`Handle note close called`);
-  };
-  const handleNoteOpen = () => {
-    setCreateNoteOpen(true);
-    console.log(`Handle note open called`);
-  };
-
   return (
     <Box
       sx={{
@@ -230,13 +220,9 @@ function App() {
                 tagHandler,
                 createNote,
                 resetNote,
-                handleNoteClose,
               }}
             >
-              <CreateNoteBox
-                create_note_open={create_note_open}
-                handleNoteOpen={handleNoteOpen}
-              />
+              <CreateNoteBox />
             </CreateNoteContext.Provider>
           </Grid>
           <Grid item xs={12} paddingRight={"32px"}>
