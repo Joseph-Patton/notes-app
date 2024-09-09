@@ -5,10 +5,19 @@ import {
   CardActions,
   ClickAwayListener,
 } from "@mui/material";
-import { NoteContext } from "../App.js";
+import { CreateNoteContext } from "../App.js";
 import { React, useRef, useEffect, useState, useContext } from "react";
 
 function CreateNoteBox({ createNote, resetNote, open, handleNoteClose }) {
+  const {
+    inputTitle,
+    inputContent,
+    inputTag,
+    titleHandler,
+    contentHandler,
+    tagHandler,
+  } = useContext(CreateNoteContext);
+
   const handleCreate = async () => {
     await createNote();
     resetNote();
@@ -18,14 +27,6 @@ function CreateNoteBox({ createNote, resetNote, open, handleNoteClose }) {
     handleNoteClose();
     handleCreate();
   };
-  const {
-    inputTitle,
-    inputContent,
-    inputTag,
-    titleHandler,
-    contentHandler,
-    tagHandler,
-  } = useContext(NoteContext);
 
   return (
     <Grid container justifyContent={"center"}>

@@ -1,4 +1,4 @@
-import { React } from "react";
+import { React, useContext } from "react";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardActions from "@mui/material/CardActions";
@@ -7,8 +7,11 @@ import ArchiveOutlinedIcon from "@mui/icons-material/ArchiveOutlined";
 import IconButton from "@mui/material/IconButton";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
+import { NoteContext } from "../App.js";
 
-function Note({ note, noteHover, deleteNote, handleClickOpen, archiveNote }) {
+function Note({ note, noteHover }) {
+  const { deleteNote, handleClickOpen, archiveNote } = useContext(NoteContext);
+
   const handleClickOpenNote = () => {
     handleClickOpen(note);
   };

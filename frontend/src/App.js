@@ -36,6 +36,7 @@ function CreateNote({
   return <CreateNoteBoxSmall handleNoteOpen={handleNoteOpen} />;
 }
 
+export const CreateNoteContext = createContext();
 export const NoteContext = createContext();
 
 function App() {
@@ -239,7 +240,7 @@ function App() {
           alignItems={"center"}
         >
           <Grid item xs={12} paddingRight={"32px"}>
-            <NoteContext.Provider
+            <CreateNoteContext.Provider
               value={{
                 inputTitle,
                 inputContent,
@@ -256,19 +257,21 @@ function App() {
                 handleNoteOpen={handleNoteOpen}
                 handleNoteClose={handleNoteClose}
               />
-            </NoteContext.Provider>
+            </CreateNoteContext.Provider>
           </Grid>
           <Grid item xs={12} paddingRight={"32px"}>
-            <NoteList
-              notes={getVisibleNotes}
-              deleteNote={deleteNote}
-              handleClickOpen={handleClickOpen}
-              archiveNote={archiveNote}
-            />
+            <NoteContext.Provider
+              value={{
+                deleteNote,
+                handleClickOpen,
+                archiveNote,
+              }}
+            >
+              <NoteList getVisibleNotes={getVisibleNotes} />
+            </NoteContext.Provider>
           </Grid>
         </Grid>
       </Box>
-
       <EditPanel
         open={open}
         handleClose={handleClose}
