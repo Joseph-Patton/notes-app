@@ -16,7 +16,7 @@ import AdbIcon from "@mui/icons-material/Adb";
 const pages = ["Test"];
 const settings = ["Profile", "Account", "Dashboard", "Logout"];
 
-function ResponsiveAppBar({ handleDrawerToggle }) {
+function ResponsiveAppBar({ handleDrawerToggle, headerTitle }) {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
 
@@ -73,7 +73,7 @@ function ResponsiveAppBar({ handleDrawerToggle }) {
               textDecoration: "none",
             }}
           >
-            Notes App
+            {headerTitle}
           </Typography>
 
           <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>

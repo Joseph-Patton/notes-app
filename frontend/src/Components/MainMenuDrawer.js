@@ -15,8 +15,6 @@ import ArchiveOutlinedIcon from "@mui/icons-material/ArchiveOutlined";
 //const ListItem = styled(muiListItem)({});
 
 const drawerWidth = 180;
-const archivedFilter = [(note) => note.is_archived];
-const defaultFilter = [(note) => !note.is_archived];
 const openedMixin = (theme) => ({
   width: drawerWidth,
   transition: theme.transitions.create("width", {
@@ -55,7 +53,7 @@ const Drawer = styled(MuiDrawer, {
   }),
 }));
 
-export default function MainMenuDrawer({ drawer_open, refreshFilter }) {
+export default function MainMenuDrawer({ drawer_open, changeTab }) {
   return (
     <Drawer variant="permanent" open={drawer_open} sx={{}}>
       <Toolbar />
@@ -64,7 +62,7 @@ export default function MainMenuDrawer({ drawer_open, refreshFilter }) {
           <ListItemDrawer
             text={"Notes"}
             drawer_open={drawer_open}
-            action={() => refreshFilter(defaultFilter)}
+            action={() => changeTab("Notes")}
           >
             <LightbulbOutlinedIcon />
           </ListItemDrawer>
@@ -76,7 +74,7 @@ export default function MainMenuDrawer({ drawer_open, refreshFilter }) {
           <ListItemDrawer
             text={"Archive"}
             drawer_open={drawer_open}
-            action={() => refreshFilter(archivedFilter)}
+            action={() => changeTab("Archived")}
           >
             <ArchiveOutlinedIcon />
           </ListItemDrawer>

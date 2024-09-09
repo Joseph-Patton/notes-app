@@ -51,21 +51,35 @@ function CreateNote({
 function App() {
   const apiUrl = "http://localhost:8000"; // TODO add as argument
   const [notes, setNotes] = useState([]);
-  const [visibleNotes, setVisibleNotes] = useState([]);
-  // const filterArchived = (note) => note.is_archived;
-  // const filterNotArchived = (note) => !note.is_archived;
-  const refreshFilter = (filter) => {
-    setFilters(filter);
-    refreshNotes();
-  };
+
+  // Filters on Notes being displayed
   const [filters, setFilters] = useState([(note) => !note.is_archived]);
-  const getVisibleNotes = useCallback(() => {
-    setVisibleNotes(
-      notes.filter((note) =>
-        filters.reduce((pass, curFilter) => pass && curFilter(note), true)
-      )
+
+  const getVisibleNotes = () =>
+    notes.filter((note) =>
+      filters.reduce((pass, curFilter) => pass && curFilter(note), true)
     );
-  }, [notes, filters]);
+
+  const archivedFilter = (note) => note.is_archived;
+  const notArchivedFilter = (note) => !note.is_archived;
+
+  // Header Title changes based on tab
+  const [headerTitle, setHeaderTitle] = useState("Notes");
+
+  const changeTab = (tab) => {
+    switch (tab) {
+      case "Notes":
+        setFilters([notArchivedFilter]);
+        setHeaderTitle("Notes");
+        break;
+      case "Archived":
+        setFilters([archivedFilter]);
+        setHeaderTitle("Archive");
+        break;
+      default:
+        break;
+    }
+  };
 
   const [inputContent, setInputContent] = useState("");
   const [inputTitle, setInputTitle] = useState("");
@@ -93,10 +107,6 @@ function App() {
   const refreshNotes = () => {
     fetchNotes(apiUrl);
   };
-
-  useEffect(() => {
-    getVisibleNotes();
-  }, [notes]);
 
   useEffect(() => {
     refreshNotes();
@@ -224,8 +234,11 @@ function App() {
         display: "flex",
       }}
     >
-      <HeaderBar handleDrawerToggle={handleDrawerToggle} />
-      <MainMenuDrawer drawer_open={drawer_open} refreshFilter={refreshFilter} />
+      <HeaderBar
+        handleDrawerToggle={handleDrawerToggle}
+        headerTitle={headerTitle}
+      />
+      <MainMenuDrawer drawer_open={drawer_open} changeTab={changeTab} />
       <Box sx={{ width: "100%" }}>
         <Toolbar />
         <Grid
@@ -252,7 +265,7 @@ function App() {
           </Grid>
           <Grid item xs={12} paddingRight={"32px"}>
             <NoteList
-              notes={visibleNotes}
+              notes={getVisibleNotes}
               deleteNote={deleteNote}
               handleClickOpen={handleClickOpen}
               archiveNote={archiveNote}
