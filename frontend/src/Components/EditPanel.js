@@ -6,23 +6,30 @@ import {
   Grid,
   InputBase,
 } from "@mui/material";
-import { React } from "react";
+import { React, useState } from "react";
 
-function EditPanel({
-  open,
-  handleClose,
-  contentHandlerEdit,
-  titleHandlerEdit,
-  tagHandlerEdit,
-  inputContentEdit,
-  inputTitleEdit,
-  inputTagEdit,
-  updateNote,
-}) {
-  const handleUpdate = async () => {
-    await updateNote();
+function EditPanel({ open, handleClose, updateNote, note }) {
+  const handleClickUpdate = async () => {
+    await updateNote(updateNoteValue);
     handleClose();
   };
+  const [updateNoteValue, setUpdateNoteValue] = useState({
+    id: note.id,
+    title: note.title,
+    content: note.content,
+    tag: note.tag,
+  });
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setUpdateNoteValue((prev) => {
+      return {
+        ...prev,
+        [name]: value,
+      };
+    });
+  };
+  const { _, title, content, tag } = updateNoteValue;
 
   return (
     <Dialog
@@ -42,8 +49,9 @@ function EditPanel({
           <InputBase
             minRows={1}
             placeholder="Title…"
-            value={inputTitleEdit}
-            onChange={titleHandlerEdit}
+            name="title"
+            value={title}
+            onChange={handleChange}
             multiline={true}
             sx={{
               fontSize: "1.2em",
@@ -57,8 +65,9 @@ function EditPanel({
             minRows={1}
             autoFocus
             placeholder="Content…"
-            value={inputContentEdit}
-            onChange={contentHandlerEdit}
+            name="content"
+            value={content}
+            onChange={handleChange}
             maxLength="100"
             multiline={true}
             sx={{
@@ -70,8 +79,9 @@ function EditPanel({
           />
           <InputBase
             placeholder="Tag…"
-            value={inputTagEdit}
-            onChange={tagHandlerEdit}
+            name="tag"
+            value={tag}
+            onChange={handleChange}
             sx={{
               fontSize: "0.9em",
               borderRadius: 2,
@@ -86,7 +96,7 @@ function EditPanel({
           <Button onClick={handleClose} color="primary">
             Cancel
           </Button>
-          <Button color="secondary" onClick={handleUpdate}>
+          <Button color="secondary" onClick={handleClickUpdate}>
             Update
           </Button>
         </Grid>

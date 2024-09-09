@@ -4,7 +4,6 @@ import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import HeaderBar from "./Components/HeaderBar";
 import NoteList from "./Components/NoteList";
-import EditPanel from "./Components/EditPanel";
 import MainMenuDrawer from "./Components/MainMenuDrawer";
 import CreateNoteBox from "./Components/CreateNoteBox";
 import Toolbar from "@mui/material/Toolbar";
@@ -66,6 +65,7 @@ function App() {
     fetchNotes(apiUrl);
   };
 
+  // Fetch notes on initial page load
   useEffect(() => {
     refreshNotes();
   }, []);
@@ -97,28 +97,13 @@ function App() {
     refreshNotes();
   };
 
-  const [inputTitleEdit, setInputTitleEdit] = useState("");
-  const [inputContentEdit, setInputContentEdit] = useState("");
-  const [inputTagEdit, setInputTagEdit] = useState("");
-  const [noteIdEdit, setNoteIdEdit] = useState();
-
-  const titleHandlerEdit = (e) => {
-    setInputTitleEdit(e.target.value);
-  };
-  const contentHandlerEdit = (e) => {
-    setInputContentEdit(e.target.value);
-  };
-  const tagHandlerEdit = (e) => {
-    setInputTagEdit(e.target.value);
-  };
-
   const updateNote = async (note) => {
     const updated_note = {
-      id: noteIdEdit,
-      title: inputTitleEdit,
-      content: inputContentEdit,
-      tag: inputTagEdit,
-      is_archived: false,
+      id: note.id,
+      title: note.title,
+      content: note.content,
+      tag: note.tag,
+      is_archived: false, // Updating note removes from archive (if in archive)
     };
     try {
       await axios.put(`${apiUrl}/notes`, updated_note);
@@ -145,12 +130,10 @@ function App() {
   // };
 
   const [open, setOpen] = useState(false);
-  const handleClickOpen = (note) => {
+
+  const handleOpenEdit = (note) => {
     console.log(note.id);
-    setNoteIdEdit(note.id);
-    setInputTitleEdit(note.title);
-    setInputContentEdit(note.content);
-    setInputTagEdit(note.tag);
+    setInitalNote(note);
     setOpen(true);
   };
 
@@ -197,8 +180,8 @@ function App() {
             <NoteContext.Provider
               value={{
                 deleteNote,
-                handleClickOpen,
                 archiveNote,
+                updateNote,
               }}
             >
               <NoteList getVisibleNotes={getVisibleNotes} />
@@ -206,17 +189,6 @@ function App() {
           </Grid>
         </Grid>
       </Box>
-      <EditPanel
-        open={open}
-        handleClose={handleClose}
-        titleHandlerEdit={titleHandlerEdit}
-        contentHandlerEdit={contentHandlerEdit}
-        tagHandlerEdit={tagHandlerEdit}
-        inputTitleEdit={inputTitleEdit}
-        inputContentEdit={inputContentEdit}
-        inputTagEdit={inputTagEdit}
-        updateNote={updateNote}
-      />
     </Box>
   );
 }
