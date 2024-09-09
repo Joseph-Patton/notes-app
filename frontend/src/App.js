@@ -6,7 +6,6 @@ import HeaderBar from "./Components/HeaderBar";
 import NoteList from "./Components/NoteList";
 import EditPanel from "./Components/EditPanel";
 import MainMenuDrawer from "./Components/MainMenuDrawer";
-import CreateNoteBoxSmall from "./Components/CreateNoteBoxSmall";
 import CreateNoteBox from "./Components/CreateNoteBox";
 import Toolbar from "@mui/material/Toolbar";
 
@@ -16,25 +15,6 @@ import Toolbar from "@mui/material/Toolbar";
 //     mode: "dark",
 //   },
 // });
-function CreateNote({
-  createNote,
-  resetNote,
-  create_note_open,
-  handleNoteOpen,
-  handleNoteClose,
-}) {
-  if (create_note_open) {
-    return (
-      <CreateNoteBox
-        createNote={createNote}
-        resetNote={resetNote}
-        open={create_note_open}
-        handleNoteClose={handleNoteClose}
-      />
-    );
-  }
-  return <CreateNoteBoxSmall handleNoteOpen={handleNoteOpen} />;
-}
 
 export const CreateNoteContext = createContext();
 export const NoteContext = createContext();
@@ -248,14 +228,14 @@ function App() {
                 titleHandler,
                 contentHandler,
                 tagHandler,
+                createNote,
+                resetNote,
+                handleNoteClose,
               }}
             >
-              <CreateNote
-                createNote={createNote}
-                resetNote={resetNote}
+              <CreateNoteBox
                 create_note_open={create_note_open}
                 handleNoteOpen={handleNoteOpen}
-                handleNoteClose={handleNoteClose}
               />
             </CreateNoteContext.Provider>
           </Grid>
