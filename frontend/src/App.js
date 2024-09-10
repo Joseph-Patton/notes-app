@@ -7,7 +7,7 @@ import NoteList from "./Components/NoteList";
 import MainMenuDrawer from "./Components/MainMenuDrawer";
 import CreateNoteBox from "./Components/CreateNoteBox";
 import Toolbar from "@mui/material/Toolbar";
-import NoteContainer from "./Components/NoteContainer";
+import NoteContainer from "./Components/NoteCardContainer";
 
 //import { useStyles } from "styles/AppStyle";
 // const darkTheme = createTheme({
@@ -98,47 +98,13 @@ function App() {
   };
 
   const updateNote = async (note) => {
-    const updated_note = {
-      id: note.id,
-      title: note.title,
-      content: note.content,
-      tag: note.tag,
-      is_archived: false, // Updating note removes from archive (if in archive)
-    };
     try {
-      await axios.put(`${apiUrl}/notes`, updated_note);
+      await axios.put(`${apiUrl}/notes`, note);
       //setNotes([response.data, ...notes]);
     } catch (error) {
       console.error("Error creating notes:", error);
     }
-    // Fetch the updated list
     refreshNotes();
-  };
-
-  const archiveNote = async (note) => {
-    note.is_archived = true;
-    try {
-      await axios.put(`${apiUrl}/notes`, note);
-    } catch (error) {
-      console.error("Error archiving note:", error);
-    }
-    refreshNotes();
-  };
-
-  // const updateNote = async () => {
-  //   console.log("calling updateNote");
-  // };
-
-  const [open, setOpen] = useState(false);
-
-  const handleOpenEdit = (note) => {
-    console.log(note.id);
-    setInitalNote(note);
-    setOpen(true);
-  };
-
-  const handleClose = () => {
-    setOpen(false);
   };
 
   const [drawer_open, setDrawerOpen] = useState(false);
@@ -180,7 +146,6 @@ function App() {
             <NoteContext.Provider
               value={{
                 deleteNote,
-                archiveNote,
                 updateNote,
               }}
             >

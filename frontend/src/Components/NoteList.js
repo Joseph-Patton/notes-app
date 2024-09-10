@@ -1,5 +1,5 @@
 import { React, useState } from "react";
-import NoteContainer from "./NoteContainer.js";
+import NoteContainer from "./NoteCardContainer.js";
 import Grid from "@mui/material/Grid";
 import { Typography } from "@mui/material";
 

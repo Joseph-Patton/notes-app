@@ -55,11 +55,6 @@ function DeleteNoteButton({ title, deleteNote }) {
             <DialogTitle id="alert-dialog-title" disableTypography>
               Delete note?
             </DialogTitle>
-            <DialogContent>
-              <DialogContentText id="alert-dialog-description">
-                {title}
-              </DialogContentText>
-            </DialogContent>
             <DialogActions>
               <Button onClick={handleClickClose} color="primary">
                 Cancel

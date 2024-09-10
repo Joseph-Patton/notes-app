@@ -2,16 +2,18 @@ import { React, useContext, useState } from "react";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardActions from "@mui/material/CardActions";
-import DeleteNoteButton from "./DeleteNoteButton";
-import ArchiveOutlinedIcon from "@mui/icons-material/ArchiveOutlined";
+import DeleteNoteButton from "./DeleteNoteButton.js";
+import UnarchiveOutlinedIcon from "@mui/icons-material/UnarchiveOutlined";
 import IconButton from "@mui/material/IconButton";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import { NoteContext } from "../App.js";
-import EditPanel from "./EditPanel";
+import EditPanel from "./EditPanel.js";
+import UnarchivePanel from "./UnarchivePanel.js";
+import ArchiveButton from "./ArchiveButton.js";
 
 function Note({ note, noteHover }) {
-  const { deleteNote, archiveNote, updateNote } = useContext(NoteContext);
+  const { deleteNote, updateNote } = useContext(NoteContext);
 
   const [open, setOpen] = useState(false);
   const handleOpen = () => {
@@ -21,6 +23,15 @@ function Note({ note, noteHover }) {
     setOpen(false);
   };
 
+  const archiveNote = async () => {
+    note.is_archived = true;
+    updateNote(note);
+  };
+
+  const unarchiveNote = async () => {
+    note.is_archived = false;
+    updateNote(note);
+  };
   return (
     <>
       <Card
@@ -91,31 +102,31 @@ function Note({ note, noteHover }) {
             </Grid>
           </Grid>
         </CardContent>
+
         <CardActions
           sx={{
-            opacity: noteHover === true ? "100%" : "0%",
+            opacity: noteHover === true ? "100%" : "50%",
             justifyContent: "right",
           }}
         >
-          <IconButton
-            onClick={() => archiveNote(note)}
-            aria-label="delete"
-            type="button"
-          >
-            <ArchiveOutlinedIcon />
-          </IconButton>
+          {note.is_archived ? (
+            <IconButton
+              onClick={unarchiveNote}
+              aria-label="delete"
+              type="button"
+            >
+              <UnarchiveOutlinedIcon />
+            </IconButton>
+          ) : (
+            <ArchiveButton archiveNote={archiveNote} />
+          )}
+
           <DeleteNoteButton
             title={note.title}
             deleteNote={() => deleteNote(note.id)}
           ></DeleteNoteButton>
         </CardActions>
       </Card>
-      <EditPanel
-        open={open}
-        handleClose={handleClose}
-        updateNote={updateNote}
-        note={note}
-      />
     </>
   );
 }
