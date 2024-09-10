@@ -105,7 +105,6 @@ function Note({ note, noteHover }) {
 
         <CardActions
           sx={{
-            opacity: noteHover === true ? "100%" : "50%",
             justifyContent: "right",
           }}
         >
@@ -118,7 +117,7 @@ function Note({ note, noteHover }) {
               <UnarchiveOutlinedIcon />
             </IconButton>
           ) : (
-            <ArchiveButton archiveNote={archiveNote} />
+            <ArchiveButton noteHover={noteHover} archiveNote={archiveNote} />
           )}
 
           <DeleteNoteButton
@@ -127,6 +126,20 @@ function Note({ note, noteHover }) {
           ></DeleteNoteButton>
         </CardActions>
       </Card>
+      {note.is_archived ? (
+        <UnarchivePanel
+          open={open}
+          handleClose={handleClose}
+          unarchiveNote={unarchiveNote}
+        />
+      ) : (
+        <EditPanel
+          open={open}
+          handleClose={handleClose}
+          updateNote={updateNote}
+          note={note}
+        />
+      )}
     </>
   );
 }

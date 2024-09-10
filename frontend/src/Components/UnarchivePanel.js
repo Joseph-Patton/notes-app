@@ -8,7 +8,7 @@ import {
 } from "@mui/material";
 import { React, useState } from "react";
 
-function EditPanel({ open, handleClose, unarchiveNote }) {
+function UnarchivePanel({ open, handleClose, unarchiveNote }) {
   const handleUnarchive = () => {
     unarchiveNote(note);
     handleClose();
@@ -38,4 +38,4 @@ function EditPanel({ open, handleClose, unarchiveNote }) {
     </Dialog>
   );
 }
-export default EditPanel;
+export default UnarchivePanel;

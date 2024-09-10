@@ -5,7 +5,7 @@ import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
 import ArchiveOutlinedIcon from "@mui/icons-material/ArchiveOutlined";
 
-function ArchiveButton({ archiveNote }) {
+function ArchiveButton({ archiveNote, noteHover }) {
   const [open, setOpen] = useState(false);
   const handleClick = () => {
     archiveNote();
@@ -38,7 +38,14 @@ function ArchiveButton({ archiveNote }) {
 
   return (
     <>
-      <IconButton onClick={handleClick} aria-label="archive" type="button">
+      <IconButton
+        sx={{
+          opacity: noteHover === true ? "100%" : "20%",
+        }}
+        onClick={handleClick}
+        aria-label="archive"
+        type="button"
+      >
         <ArchiveOutlinedIcon />
       </IconButton>
       <Snackbar
