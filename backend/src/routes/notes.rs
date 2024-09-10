@@ -1,5 +1,5 @@
 use actix_web::{http::header::ContentType, web, HttpResponse};
-use chrono::{serde::ts_seconds, DateTime, Utc};
+use chrono::{serde::ts_seconds_option, DateTime, Utc};
 use sqlx::PgPool;
 use uuid::Uuid;
 
@@ -56,11 +56,11 @@ async fn insert_note(
 #[derive(serde::Serialize, serde::Deserialize, Debug)]
 pub struct Note {
     pub id: Uuid,
-    pub title: String,
+    pub title: Option<String>,
     pub content: Option<String>,
     pub tag: Option<String>,
-    #[serde(with = "ts_seconds")]
-    pub created_at: DateTime<Utc>,
+    #[serde(with = "ts_seconds_option")]
+    pub created_at: Option<DateTime<Utc>>,
     pub is_archived: bool,
 }
 
@@ -122,18 +122,18 @@ async fn delete_note_helper(pool: &PgPool, note_id: &Uuid) -> Result<(), sqlx::E
     Ok(())
 }
 
-#[derive(serde::Serialize, serde::Deserialize, Debug)]
-pub struct UpdateNote {
-    pub id: Uuid,
-    pub title: Option<String>,
-    pub content: Option<String>,
-    pub tag: Option<String>,
-    pub is_archived: Option<bool>,
-}
+// #[derive(serde::Serialize, serde::Deserialize, Debug)]
+// pub struct UpdateNote {
+//     pub id: Uuid,
+//     pub title: Option<String>,
+//     pub content: Option<String>,
+//     pub tag: Option<String>,
+//     pub is_archived: Option<bool>,
+// }
 
 // Update note logic
 #[tracing::instrument(name = "Updating a note", skip(pool))]
-pub async fn update_note(pool: web::Data<PgPool>, note: web::Json<UpdateNote>) -> HttpResponse {
+pub async fn update_note(pool: web::Data<PgPool>, note: web::Json<Note>) -> HttpResponse {
     match update_note_helper(&pool, &note).await {
         Ok(_) => HttpResponse::Ok().finish(),
         Err(_) => HttpResponse::InternalServerError().finish(),
@@ -147,16 +147,17 @@ note_id = %note.id
 )
 
 )]
-async fn update_note_helper(pool: &PgPool, note: &UpdateNote) -> Result<(), sqlx::Error> {
+async fn update_note_helper(pool: &PgPool, note: &Note) -> Result<(), sqlx::Error> {
     sqlx::query!(
         r#"
         UPDATE notes 
-        SET title = $1, content = $2, tag = $3, is_archived =$4
-        WHERE id = $5
+        SET title = $1, content = $2, tag = $3, created_at = $4, is_archived =$5
+        WHERE id = $6
         "#,
         note.title,
         note.content,
         note.tag,
+        note.created_at,
         note.is_archived,
         note.id,
     )

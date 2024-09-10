@@ -25,7 +25,7 @@ async fn create_note_returns_a_200_for_valid_data() {
         .fetch_one(&app.db_pool)
         .await
         .expect("Failed to fetch saved subscription.");
-    assert_eq!(saved.title, "Test Note");
+    assert_eq!(saved.title.unwrap(), "Test Note");
     assert_eq!(saved.content.unwrap(), "test note content");
     assert_eq!(saved.tag.unwrap(), "test");
 }
@@ -92,8 +92,8 @@ async fn get_notes_returns_notes_list() {
         .expect("Failed to deserialize the Json response.");
     // Assert
     // TODO change to check entire json object
-    assert_eq!("Test Note 1", &notes[0].title);
-    assert_eq!("Test Note 2", &notes[1].title);
+    assert_eq!("Test Note 1", notes[0].title.as_ref().unwrap());
+    assert_eq!("Test Note 2", notes[1].title.as_ref().unwrap());
 }
 
 #[actix_rt::test]
@@ -119,7 +119,7 @@ async fn delete_note_deletes_note_from_database() {
         .expect("Failed to deserialize the Json response.");
     let note = &notes[0];
 
-    assert_eq!(&note.title, "Test Note");
+    assert_eq!(note.title.as_ref().unwrap(), "Test Note");
 
     // Act
     let response = app
@@ -160,9 +160,11 @@ async fn edit_note_modifies_existing_note_in_database() {
         .json()
         .await
         .expect("Failed to deserialize the Json response.");
-    let note = &notes[0];
 
-    assert_eq!(&note.title, "Test Note");
+    let note = &notes[0];
+    let title = &notes[0].title;
+
+    assert_eq!(title.as_ref().unwrap(), "Test Note");
 
     // Act
     // Modify note
@@ -182,7 +184,7 @@ async fn edit_note_modifies_existing_note_in_database() {
         .fetch_one(&app.db_pool)
         .await
         .expect("Failed to fetch saved subscription.");
-    assert_eq!(saved.title, "Modified Test Note");
+    assert_eq!(saved.title.unwrap(), "Modified Test Note");
     assert_eq!(saved.content.unwrap(), "modified test note content");
     assert_eq!(saved.tag.unwrap(), "modified test");
     assert_eq!(saved.is_archived, true);

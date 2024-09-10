@@ -18,6 +18,8 @@ function EditPanel({ open, handleClose, updateNote, note }) {
     title: note.title,
     content: note.content,
     tag: note.tag,
+    created_at: note.created_at,
+    is_archived: false,
   });
 
   const handleChange = (e) => {

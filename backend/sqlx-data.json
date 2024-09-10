@@ -1,5 +1,69 @@
 {
   "db": "PostgreSQL",
+  "2473f9e7396a1cc1bb5193e23539f6f23c53ecc13bd9dd95ac59a83cc4b77977": {
+    "describe": {
+      "columns": [
+        {
+          "name": "id",
+          "ordinal": 0,
+          "type_info": "Uuid"
+        },
+        {
+          "name": "title",
+          "ordinal": 1,
+          "type_info": "Text"
+        },
+        {
+          "name": "content",
+          "ordinal": 2,
+          "type_info": "Text"
+        },
+        {
+          "name": "tag",
+          "ordinal": 3,
+          "type_info": "Text"
+        },
+        {
+          "name": "created_at",
+          "ordinal": 4,
+          "type_info": "Timestamptz"
+        },
+        {
+          "name": "is_archived",
+          "ordinal": 5,
+          "type_info": "Bool"
+        }
+      ],
+      "nullable": [
+        false,
+        true,
+        true,
+        true,
+        true,
+        false
+      ],
+      "parameters": {
+        "Left": []
+      }
+    },
+    "query": "\n        SELECT id, title, content, tag, created_at, is_archived FROM notes\n        "
+  },
+  "52022f508fd8aa98a75d1faa750b39e18146064cad16b7a62c323b159d6a38bd": {
+    "describe": {
+      "columns": [],
+      "nullable": [],
+      "parameters": {
+        "Left": [
+          "Text",
+          "Text",
+          "Text",
+          "Bool",
+          "Uuid"
+        ]
+      }
+    },
+    "query": "\n        UPDATE notes \n        SET title = $1, content = $2, tag = $3, is_archived =$4\n        WHERE id = $5\n        "
+  },
   "aaeab766f745b6e02eb2292f3b3335cdb46162b24d02683b3a74f59c2a26126c": {
     "describe": {
       "columns": [],
@@ -15,5 +79,17 @@
       }
     },
     "query": "\n        INSERT INTO notes (id, title, content, tag, created_at)\n        VALUES ($1, $2, $3, $4, $5)\n        "
+  },
+  "dca0138ea66a4b9dfcf775813db2d332d54a7f9c641ce8a06fc9235a9214325b": {
+    "describe": {
+      "columns": [],
+      "nullable": [],
+      "parameters": {
+        "Left": [
+          "Uuid"
+        ]
+      }
+    },
+    "query": "\n        DELETE FROM notes WHERE id = $1\n        "
   }
 }
