@@ -30,7 +30,7 @@ function CreateNoteBoxExpanded({ handleShrink }) {
   const [newNoteValue, setNewNoteValue] = useState({
     title: "",
     content: "",
-    tag: [""],
+    tag: [],
   });
 
   const handleChange = (e) => {

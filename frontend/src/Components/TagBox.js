@@ -1,13 +1,27 @@
 import { React, useContext, useState } from "react";
-import IconButton from "@mui/material/IconButton";
+import Button from "@mui/material/Button";
 import Grid from "@mui/material/Grid";
+import InputBase from "@mui/material/InputBase";
 import Typography from "@mui/material/Typography";
 
-function TagBox({ note, updateNote }) {
-  function removeTag(index) {
-    updateNote(tags.filter((el, i) => i !== index));
-  }
-  function handleKeyDown(e) {
+function TagBox({ tag, setUpdateNoteValue }) {
+  const handleTagClick = (stag) => {
+    setUpdateNoteValue((prev) => {
+      return {
+        ...prev,
+        [tag]: updateNoteValue.tag.filter((item) => item !== stag),
+      };
+    });
+  };
+  const appendTagValue = (stag) => {
+    setUpdateNoteValue((prev) => {
+      return {
+        ...prev,
+        [tag]: tag.push(stag),
+      };
+    });
+  };
+  const handleKeyDown = (e) => {
     // If user did not press enter key, return
     if (e.key !== "Enter") return;
     // Get the value of the input
@@ -15,27 +29,50 @@ function TagBox({ note, updateNote }) {
     // If the value is empty, return
     if (!value.trim()) return;
     // Add the value to the tags array
-    setTags([...tags, value]);
+    appendTagValue(value);
     // Clear the input
     e.target.value = "";
-  }
+  };
+
   return (
-    <div className="tags-input-container">
-      {tags.map((tag, index) => (
-        <div className="tag-item" key={index}>
-          <span className="text">{tag}</span>
-          <span className="close" onClick={() => removeTag(index)}>
-            &times;
-          </span>
-        </div>
+    <Grid container>
+      {tag.map((stag) => (
+        <Grid
+          item
+          sx={{
+            borderRadius: 2,
+            backgroundColor: "#eee",
+            padding: "0.2em",
+          }}
+        >
+          <Button
+            //onClick={() => handleTagClick(stag)}
+            variant="body1"
+            component="div"
+            sx={{
+              fontSize: "0.9em",
+            }}
+          >
+            {stag}
+          </Button>
+        </Grid>
       ))}
-      <input
+      <InputBase
+        minRows={1}
+        autoFocus
+        placeholder="Add tag…"
+        name="tag"
         onKeyDown={handleKeyDown}
-        type="text"
-        className="tags-input"
-        placeholder="Type somthing"
+        maxLength="100"
+        multiline={true}
+        sx={{
+          fontSize: "1em",
+          whiteSpace: "normal",
+          overflow: "hidden",
+          marginBottom: "0.8em",
+        }}
       />
-    </div>
+    </Grid>
   );
 }
 export default TagBox;
