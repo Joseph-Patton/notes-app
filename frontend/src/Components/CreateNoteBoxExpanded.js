@@ -30,7 +30,7 @@ function CreateNoteBoxExpanded({ handleShrink }) {
   const [newNoteValue, setNewNoteValue] = useState({
     title: "",
     content: "",
-    tag: "",
+    tag: [""],
   });
 
   const handleChange = (e) => {
@@ -89,26 +89,6 @@ function CreateNoteBoxExpanded({ handleShrink }) {
                 margin: "6px",
               }}
             />
-            <Grid container sx={{ margin: "10px" }}>
-              <Grid
-                item
-                sx={{
-                  borderRadius: 2,
-                  backgroundColor: "#eee",
-                  padding: "0.2em",
-                }}
-              >
-                <InputBase
-                  placeholder="Tag…"
-                  name="tag"
-                  value={tag}
-                  onChange={handleChange}
-                  sx={{
-                    fontSize: "0.9em",
-                  }}
-                />
-              </Grid>
-            </Grid>
             <CardActions>
               <Grid container justifyContent={"flex-end"}>
                 <Grid item paddingRight={"2em"}>

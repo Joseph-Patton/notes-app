@@ -1,5 +1,22 @@
 {
   "db": "PostgreSQL",
+  "237176595700e0030ec5919c37dd82bb2227a8f346ba2799259850be25e859c5": {
+    "describe": {
+      "columns": [],
+      "nullable": [],
+      "parameters": {
+        "Left": [
+          "Text",
+          "Text",
+          "Text",
+          "Timestamptz",
+          "Bool",
+          "Uuid"
+        ]
+      }
+    },
+    "query": "\n        UPDATE notes \n        SET title = $1, content = $2, tag = $3, created_at = $4, is_archived =$5\n        WHERE id = $6\n        "
+  },
   "2473f9e7396a1cc1bb5193e23539f6f23c53ecc13bd9dd95ac59a83cc4b77977": {
     "describe": {
       "columns": [
@@ -47,22 +64,6 @@
       }
     },
     "query": "\n        SELECT id, title, content, tag, created_at, is_archived FROM notes\n        "
-  },
-  "52022f508fd8aa98a75d1faa750b39e18146064cad16b7a62c323b159d6a38bd": {
-    "describe": {
-      "columns": [],
-      "nullable": [],
-      "parameters": {
-        "Left": [
-          "Text",
-          "Text",
-          "Text",
-          "Bool",
-          "Uuid"
-        ]
-      }
-    },
-    "query": "\n        UPDATE notes \n        SET title = $1, content = $2, tag = $3, is_archived =$4\n        WHERE id = $5\n        "
   },
   "aaeab766f745b6e02eb2292f3b3335cdb46162b24d02683b3a74f59c2a26126c": {
     "describe": {

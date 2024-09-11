@@ -7,7 +7,7 @@ use uuid::Uuid;
 pub struct UninitialisedNote {
     title: String,
     content: String,
-    tag: String,
+    tag: Vec<String>,
 }
 
 // Create logic
@@ -42,7 +42,7 @@ async fn insert_note(
         Uuid::new_v4(),
         unitialised_note.title,
         unitialised_note.content,
-        unitialised_note.tag,
+        &unitialised_note.tag,
         Utc::now()
     )
     .execute(pool)
@@ -58,7 +58,7 @@ pub struct Note {
     pub id: Uuid,
     pub title: Option<String>,
     pub content: Option<String>,
-    pub tag: Option<String>,
+    pub tag: Option<Vec<String>>,
     #[serde(with = "ts_seconds_option")]
     pub created_at: Option<DateTime<Utc>>,
     pub is_archived: bool,
@@ -156,7 +156,7 @@ async fn update_note_helper(pool: &PgPool, note: &Note) -> Result<(), sqlx::Erro
         "#,
         note.title,
         note.content,
-        note.tag,
+        note.tag.as_deref(),
         note.created_at,
         note.is_archived,
         note.id,

@@ -1,0 +1,1 @@
+ALTER TABLE notes ALTER COLUMN tag TYPE text[] using array[tag]::text[];

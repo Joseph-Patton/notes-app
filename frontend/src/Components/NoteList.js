@@ -8,6 +8,7 @@ function NoteList({ getVisibleNotes }) {
   return (
     <>
       {visibleNotes.length === 0 ? (
+        // Empty note list display
         <Grid
           container
           direction="column"
@@ -31,6 +32,7 @@ function NoteList({ getVisibleNotes }) {
           </Grid>
         </Grid>
       ) : (
+        // Display if notes are present
         <Grid container spacing={2} justifyContent={"left"}>
           {visibleNotes.map((note) => (
             <Grid item xs={12} sm={3} key={note.id}>

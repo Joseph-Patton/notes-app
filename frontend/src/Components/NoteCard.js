@@ -82,24 +82,26 @@ function Note({ note, noteHover }) {
             {note.content}
           </Typography>
           <Grid container>
-            <Grid
-              item
-              sx={{
-                borderRadius: 2,
-                backgroundColor: "#eee",
-                padding: "0.2em",
-              }}
-            >
-              <Typography
-                variant="body1"
-                component="div"
+            {note.tag.map((stag) => (
+              <Grid
+                item
                 sx={{
-                  fontSize: "0.9em",
+                  borderRadius: 2,
+                  backgroundColor: "#eee",
+                  padding: "0.2em",
                 }}
               >
-                {note.tag}
-              </Typography>
-            </Grid>
+                <Typography
+                  variant="body1"
+                  component="div"
+                  sx={{
+                    fontSize: "0.9em",
+                  }}
+                >
+                  {stag}
+                </Typography>
+              </Grid>
+            ))}
           </Grid>
         </CardContent>
 
