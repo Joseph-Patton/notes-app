@@ -82,7 +82,11 @@ function EditPanel({ open, handleClose, updateNote, note }) {
               marginBottom: "0.8em",
             }}
           />
-          <TagBox tag={tag} setUpdateNoteValue={setUpdateNoteValue} />
+          <TagBox
+            tag={tag}
+            setUpdateNoteValue={setUpdateNoteValue}
+            updateNoteValue={updateNoteValue}
+          />
         </Grid>
       </DialogContent>
       <DialogActions>

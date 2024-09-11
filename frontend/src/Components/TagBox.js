@@ -4,12 +4,12 @@ import Grid from "@mui/material/Grid";
 import InputBase from "@mui/material/InputBase";
 import Typography from "@mui/material/Typography";
 
-function TagBox({ tag, setUpdateNoteValue }) {
-  const handleTagClick = (stag) => {
+function TagBox({ tag, setUpdateNoteValue, updateNoteValue }) {
+  const removeTag = (index) => {
     setUpdateNoteValue((prev) => {
       return {
         ...prev,
-        [tag]: updateNoteValue.tag.filter((item) => item !== stag),
+        tag: tag.filter((_, i) => i !== index),
       };
     });
   };
@@ -17,7 +17,7 @@ function TagBox({ tag, setUpdateNoteValue }) {
     setUpdateNoteValue((prev) => {
       return {
         ...prev,
-        [tag]: tag.push(stag),
+        tag: [...updateNoteValue.tag, stag],
       };
     });
   };
@@ -36,7 +36,7 @@ function TagBox({ tag, setUpdateNoteValue }) {
 
   return (
     <Grid container>
-      {tag.map((stag) => (
+      {tag.map((stag, index) => (
         <Grid
           item
           sx={{
@@ -46,7 +46,7 @@ function TagBox({ tag, setUpdateNoteValue }) {
           }}
         >
           <Button
-            //onClick={() => handleTagClick(stag)}
+            onClick={() => removeTag(index)}
             variant="body1"
             component="div"
             sx={{
