@@ -3,7 +3,7 @@ import NoteContainer from "./NoteCardContainer.js";
 import Grid from "@mui/material/Grid";
 import { Typography } from "@mui/material";
 import LightbulbOutlinedIcon from "@mui/icons-material/LightbulbOutlined";
-function NoteList({ getVisibleNotes }) {
+function NotesBox({ getVisibleNotes }) {
   const visibleNotes = getVisibleNotes();
   return (
     <>
@@ -44,4 +44,4 @@ function NoteList({ getVisibleNotes }) {
     </>
   );
 }
-export default NoteList;
+export default NotesBox;

@@ -1,18 +1,21 @@
-import { React, useContext, useState } from "react";
+import { React, useContext, useState, createContext } from "react";
 import Button from "@mui/material/Button";
 import Grid from "@mui/material/Grid";
 import InputBase from "@mui/material/InputBase";
 import Typography from "@mui/material/Typography";
+import TagContainer from "./TagContainer";
 
-function TagBox({ tag, setUpdateNoteValue, updateNoteValue }) {
+export const TagContext = createContext();
+function TagsBox({ setUpdateNoteValue, updateNoteValue }) {
   const removeTag = (index) => {
     setUpdateNoteValue((prev) => {
       return {
         ...prev,
-        tag: tag.filter((_, i) => i !== index),
+        tag: updateNoteValue.tag.filter((_, i) => i !== index),
       };
     });
   };
+
   const appendTagValue = (stag) => {
     setUpdateNoteValue((prev) => {
       return {
@@ -21,41 +24,29 @@ function TagBox({ tag, setUpdateNoteValue, updateNoteValue }) {
       };
     });
   };
+
   const handleKeyDown = (e) => {
-    // If user did not press enter key, return
     if (e.key !== "Enter") return;
-    // Get the value of the input
     const value = e.target.value;
-    // If the value is empty, return
     if (!value.trim()) return;
-    // Add the value to the tags array
     appendTagValue(value);
-    // Clear the input
     e.target.value = "";
   };
 
   return (
     <Grid container>
-      {tag.map((stag, index) => (
-        <Grid
-          item
-          sx={{
-            borderRadius: 2,
-            backgroundColor: "#eee",
-            padding: "0.2em",
+      {updateNoteValue.tag.map((stag, index) => (
+        <TagContext.Provider
+          value={{
+            stag,
+            index,
+            removeTag,
           }}
         >
-          <Button
-            onClick={() => removeTag(index)}
-            variant="body1"
-            component="div"
-            sx={{
-              fontSize: "0.9em",
-            }}
-          >
-            {stag}
-          </Button>
-        </Grid>
+          <Grid item xs={12} key={index}></Grid>
+          <TagContainer />
+          <Grid />
+        </TagContext.Provider>
       ))}
       <InputBase
         minRows={1}
@@ -75,4 +66,4 @@ function TagBox({ tag, setUpdateNoteValue, updateNoteValue }) {
     </Grid>
   );
 }
-export default TagBox;
+export default TagsBox;

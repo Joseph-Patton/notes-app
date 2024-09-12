@@ -3,7 +3,7 @@ import axios from "axios";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import HeaderBar from "./Components/HeaderBar";
-import NoteList from "./Components/NoteList";
+import NoteList from "./Components/NotesBox";
 import MainMenuDrawer from "./Components/MainMenuDrawer";
 import CreateNoteBox from "./Components/CreateNoteBox";
 import Toolbar from "@mui/material/Toolbar";

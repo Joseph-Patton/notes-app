@@ -7,7 +7,7 @@ import {
   InputBase,
 } from "@mui/material";
 import { React, useState } from "react";
-import TagBox from "./TagBox";
+import TagBox from "./TagsBox";
 
 function EditPanel({ open, handleClose, updateNote, note }) {
   const handleClickUpdate = async () => {
