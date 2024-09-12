@@ -34,6 +34,23 @@ function EditPanel({ open, handleClose, updateNote, note }) {
   };
   const { _, title, content, tag } = updateNoteValue;
 
+  const appendTagValue = (stag) => {
+    setUpdateNoteValue((prev) => {
+      return {
+        ...prev,
+        tag: [...updateNoteValue.tag, stag],
+      };
+    });
+  };
+
+  const handleKeyDown = (e) => {
+    if (e.key !== "Enter") return;
+    const value = e.target.value;
+    if (!value.trim()) return;
+    appendTagValue(value);
+    e.target.value = "";
+  };
+
   //const [newTagValue, setNewTagValue] = useState("");
 
   return (
@@ -45,49 +62,59 @@ function EditPanel({ open, handleClose, updateNote, note }) {
       sx={{ border: "3px solid", borderColor: "#888", borderRadius: 2 }}
     >
       <DialogContent>
-        <Grid
-          container
-          spacing={2}
-          direction="column"
-          sx={{ padding: "0.3em" }}
-        >
-          <InputBase
-            minRows={1}
-            placeholder="Title…"
-            name="title"
-            value={title}
-            onChange={handleChange}
-            multiline={true}
-            sx={{
-              fontSize: "1.2em",
-              fontWeight: 500,
-              whiteSpace: "normal",
-              overflow: "hidden",
-              marginBottom: "0.3em",
-            }}
-          />
-          <InputBase
-            minRows={1}
-            autoFocus
-            placeholder="Content…"
-            name="content"
-            value={content}
-            onChange={handleChange}
-            maxLength="100"
-            multiline={true}
-            sx={{
-              fontSize: "1em",
-              whiteSpace: "normal",
-              overflow: "hidden",
-              marginBottom: "0.8em",
-            }}
-          />
-          <TagBox
-            tag={tag}
-            setUpdateNoteValue={setUpdateNoteValue}
-            updateNoteValue={updateNoteValue}
-          />
-        </Grid>
+        <InputBase
+          minRows={1}
+          placeholder="Title…"
+          name="title"
+          value={title}
+          onChange={handleChange}
+          multiline={true}
+          sx={{
+            fontSize: "1.2em",
+            fontWeight: 500,
+            whiteSpace: "normal",
+            overflow: "hidden",
+            marginBottom: "0.3em",
+          }}
+        />
+        <InputBase
+          minRows={1}
+          autoFocus
+          placeholder="Content…"
+          name="content"
+          value={content}
+          onChange={handleChange}
+          maxLength="100"
+          multiline={true}
+          sx={{
+            fontSize: "1em",
+            whiteSpace: "normal",
+            overflow: "hidden",
+            marginBottom: "0.8em",
+          }}
+        />
+
+        <TagBox
+          tag={tag}
+          setUpdateNoteValue={setUpdateNoteValue}
+          updateNoteValue={updateNoteValue}
+        />
+
+        <InputBase
+          minRows={1}
+          autoFocus
+          placeholder="Add tag…"
+          name="tag"
+          onKeyDown={handleKeyDown}
+          maxLength="100"
+          multiline={true}
+          sx={{
+            fontSize: "1em",
+            whiteSpace: "normal",
+            overflow: "hidden",
+            marginBottom: "0.8em",
+          }}
+        />
       </DialogContent>
       <DialogActions>
         <Grid container spacing={3} justifyContent={"space-evenly"}>

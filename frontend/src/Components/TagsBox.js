@@ -16,25 +16,8 @@ function TagsBox({ setUpdateNoteValue, updateNoteValue }) {
     });
   };
 
-  const appendTagValue = (stag) => {
-    setUpdateNoteValue((prev) => {
-      return {
-        ...prev,
-        tag: [...updateNoteValue.tag, stag],
-      };
-    });
-  };
-
-  const handleKeyDown = (e) => {
-    if (e.key !== "Enter") return;
-    const value = e.target.value;
-    if (!value.trim()) return;
-    appendTagValue(value);
-    e.target.value = "";
-  };
-
   return (
-    <Grid container>
+    <Grid container columnSpacing={1} rowSpacing={0.5}>
       {updateNoteValue.tag.map((stag, index) => (
         <TagContext.Provider
           value={{
@@ -43,26 +26,9 @@ function TagsBox({ setUpdateNoteValue, updateNoteValue }) {
             removeTag,
           }}
         >
-          <Grid item xs={12} key={index}></Grid>
           <TagContainer />
-          <Grid />
         </TagContext.Provider>
       ))}
-      <InputBase
-        minRows={1}
-        autoFocus
-        placeholder="Add tag…"
-        name="tag"
-        onKeyDown={handleKeyDown}
-        maxLength="100"
-        multiline={true}
-        sx={{
-          fontSize: "1em",
-          whiteSpace: "normal",
-          overflow: "hidden",
-          marginBottom: "0.8em",
-        }}
-      />
     </Grid>
   );
 }

@@ -5,7 +5,7 @@ function TagContainer({ tag }) {
   const [hover, setHover] = useState(false);
   return (
     <Grid
-      container
+      item
       onMouseEnter={() => setHover(true)}
       onMouseLeave={() => setHover(false)}
     >

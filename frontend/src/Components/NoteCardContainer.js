@@ -1,15 +1,19 @@
 import { React, useState } from "react";
-import Note from "./NoteCard.js";
+import NoteCard from "./NoteCard.js";
 import Grid from "@mui/material/Grid";
 
 function NoteContainer({ note }) {
   const [noteHover, setNoteHover] = useState(false);
   return (
     <Grid
+      item
+      xs={12}
+      sm={3}
+      key={note.id}
       onMouseEnter={() => setNoteHover(true)}
       onMouseLeave={() => setNoteHover(false)}
     >
-      <Note note={note} noteHover={noteHover} />
+      <NoteCard note={note} noteHover={noteHover} />
     </Grid>
   );
 }

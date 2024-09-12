@@ -12,7 +12,7 @@ import EditPanel from "./EditPanel.js";
 import UnarchivePanel from "./UnarchivePanel.js";
 import ArchiveButton from "./ArchiveButton.js";
 
-function Note({ note, noteHover }) {
+function NoteCard({ note, noteHover }) {
   const { deleteNote, updateNote } = useContext(NoteContext);
 
   const [open, setOpen] = useState(false);
@@ -70,21 +70,17 @@ function Note({ note, noteHover }) {
           >
             {note.content}
           </Typography>
-          <Grid container>
+          <Grid container columnSpacing={2} rowSpacing={1}>
             {note.tag.map((stag) => (
-              <Grid
-                item
-                sx={{
-                  borderRadius: 2,
-                  backgroundColor: "#eee",
-                  padding: "0.2em",
-                }}
-              >
+              <Grid item>
                 <Typography
                   variant="body1"
                   component="div"
                   sx={{
-                    fontSize: "0.9em",
+                    fontSize: "0.75em",
+                    borderRadius: 2,
+                    backgroundColor: "#eee",
+                    padding: "0.2em",
                   }}
                 >
                   {stag}
@@ -134,4 +130,4 @@ function Note({ note, noteHover }) {
     </>
   );
 }
-export default Note;
+export default NoteCard;
