@@ -17,7 +17,14 @@ function TagsBox({ setUpdateNoteValue, updateNoteValue }) {
   };
 
   return (
-    <Grid container columnSpacing={1} rowSpacing={0.5}>
+    <Grid
+      container
+      columnSpacing={1}
+      rowSpacing={0.5}
+      sx={{
+        marginBottom: "0.8em",
+      }}
+    >
       {updateNoteValue.tag.map((stag, index) => (
         <TagContext.Provider
           value={{

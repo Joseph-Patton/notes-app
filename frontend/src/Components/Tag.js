@@ -16,7 +16,7 @@ function Tag({ hover }) {
         sx={{
           borderRadius: 2,
           backgroundColor: "#eee",
-          padding: "0.2em",
+          padding: "0.4em",
           minWidth: "3em",
         }}
       >

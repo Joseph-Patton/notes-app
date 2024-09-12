@@ -15,12 +15,13 @@ import ArchiveButton from "./ArchiveButton.js";
 function NoteCard({ note, noteHover }) {
   const { deleteNote, updateNote } = useContext(NoteContext);
 
-  const [open, setOpen] = useState(false);
-  const handleOpen = () => {
-    setOpen(true);
+  const [editPanelOpen, setEditPanelOpen] = useState(false);
+
+  const handleOpenEditPanel = () => {
+    setEditPanelOpen(true);
   };
-  const handleClose = () => {
-    setOpen(false);
+  const handleCloseEditPanel = () => {
+    setEditPanelOpen(false);
   };
 
   const archiveNote = async () => {
@@ -47,7 +48,10 @@ function NoteCard({ note, noteHover }) {
           boxShadow: noteHover === true ? "0 2px 4px #000" : "none",
         }}
       >
-        <CardContent onClick={handleOpen} sx={{ paddingBottom: "0px" }}>
+        <CardContent
+          onClick={handleOpenEditPanel}
+          sx={{ paddingBottom: "0px" }}
+        >
           <Typography
             sx={{
               fontSize: "1em",
@@ -115,14 +119,14 @@ function NoteCard({ note, noteHover }) {
       </Card>
       {note.is_archived ? (
         <UnarchivePanel
-          open={open}
-          handleClose={handleClose}
+          editPanelOpen={editPanelOpen}
+          handleCloseEditPanel={handleCloseEditPanel}
           unarchiveNote={unarchiveNote}
         />
       ) : (
         <EditPanel
-          open={open}
-          handleClose={handleClose}
+          editPanelOpen={editPanelOpen}
+          handleCloseEditPanel={handleCloseEditPanel}
           updateNote={updateNote}
           note={note}
         />

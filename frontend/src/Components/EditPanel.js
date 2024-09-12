@@ -9,11 +9,12 @@ import {
 import { React, useState } from "react";
 import TagBox from "./TagsBox";
 
-function EditPanel({ open, handleClose, updateNote, note }) {
-  const handleClickUpdate = async () => {
+function EditPanel({ editPanelOpen, handleCloseEditPanel, updateNote, note }) {
+  const handleClose = async () => {
     await updateNote(updateNoteValue);
-    handleClose();
+    handleCloseEditPanel();
   };
+
   const [updateNoteValue, setUpdateNoteValue] = useState({
     id: note.id,
     title: note.title,
@@ -56,7 +57,7 @@ function EditPanel({ open, handleClose, updateNote, note }) {
   return (
     <Dialog
       onClose={handleClose}
-      open={open}
+      open={editPanelOpen}
       fullWidth
       maxWidth={"xs"}
       sx={{ border: "3px solid", borderColor: "#888", borderRadius: 2 }}
@@ -106,23 +107,23 @@ function EditPanel({ open, handleClose, updateNote, note }) {
           placeholder="Add tag…"
           name="tag"
           onKeyDown={handleKeyDown}
-          maxLength="100"
-          multiline={true}
+          maxLength="30"
           sx={{
             fontSize: "1em",
             whiteSpace: "normal",
             overflow: "hidden",
             marginBottom: "0.8em",
+            borderRadius: 2,
+            backgroundColor: "#eee",
+            padding: "0.2em",
+            minWidth: "3em",
           }}
         />
       </DialogContent>
       <DialogActions>
-        <Grid container spacing={3} justifyContent={"space-evenly"}>
+        <Grid container spacing={3} justifyContent={"flex-end"}>
           <Button onClick={handleClose} color="primary">
-            Cancel
-          </Button>
-          <Button color="secondary" onClick={handleClickUpdate}>
-            Update
+            Close
           </Button>
         </Grid>
       </DialogActions>
