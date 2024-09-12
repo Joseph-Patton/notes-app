@@ -8,7 +8,7 @@ import {
 } from "@mui/material";
 import { React, useState } from "react";
 
-function UnarchivePanel({ open, handleClose, unarchiveNote }) {
+function UnarchivePanel({ open, handleClose, unarchiveNote, note }) {
   const handleUnarchive = () => {
     unarchiveNote(note);
     handleClose();

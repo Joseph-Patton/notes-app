@@ -119,9 +119,10 @@ function NoteCard({ note, noteHover }) {
       </Card>
       {note.is_archived ? (
         <UnarchivePanel
-          editPanelOpen={editPanelOpen}
-          handleCloseEditPanel={handleCloseEditPanel}
+          open={editPanelOpen}
+          handleClose={handleCloseEditPanel}
           unarchiveNote={unarchiveNote}
+          note={note}
         />
       ) : (
         <EditPanel
