@@ -57,17 +57,6 @@ function Note({ note, noteHover }) {
               marginBottom: "0.6em",
             }}
           >
-            {note.is_archived.toString()}
-          </Typography>
-          <Typography
-            sx={{
-              fontSize: "1em",
-              fontWeight: 500,
-              whiteSpace: "normal",
-              overflow: "hidden",
-              marginBottom: "0.6em",
-            }}
-          >
             {note.title}
           </Typography>
 
