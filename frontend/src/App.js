@@ -31,10 +31,13 @@ function App() {
       filters.reduce((pass, curFilter) => pass && curFilter(note), true)
     );
 
-  const getTagsList = () =>
-    notes
-      .filter(notArchivedFilter)
-      .reduce((tagsList, note) => [...tagsList, ...note.tag], []);
+  const getTagsList = () => [
+    ...new Set(
+      notes
+        .filter(notArchivedFilter)
+        .reduce((tagsList, note) => [...tagsList, ...note.tag], [])
+    ),
+  ];
 
   const archivedFilter = (note) => note.is_archived;
   const notArchivedFilter = (note) => !note.is_archived;

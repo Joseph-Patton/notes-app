@@ -1,7 +1,7 @@
 import { React, useState } from "react";
 import Grid from "@mui/material/Grid";
 import Tag from "./Tag";
-function TagContainer({ tag }) {
+function TagContainer() {
   const [hover, setHover] = useState(false);
   return (
     <Grid

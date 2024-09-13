@@ -39,7 +39,7 @@ function EditPanel({ editPanelOpen, handleCloseEditPanel, updateNote, note }) {
     setUpdateNoteValue((prev) => {
       return {
         ...prev,
-        tag: [...updateNoteValue.tag, stag],
+        tag: [...new Set([...updateNoteValue.tag, stag])],
       };
     });
   };
