@@ -71,7 +71,11 @@ export default function MainMenuDrawer({
             <LightbulbOutlinedIcon />
           </ListItemDrawer>
           {getTagsList().map((text) => (
-            <ListItemDrawer text={text} drawer_open={drawer_open}>
+            <ListItemDrawer
+              text={text}
+              drawer_open={drawer_open}
+              action={() => changeTab(text)}
+            >
               <LabelOutlinedIcon />
             </ListItemDrawer>
           ))}

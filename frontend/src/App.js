@@ -32,10 +32,13 @@ function App() {
     );
 
   const getTagsList = () =>
-    notes.reduce((tagsList, note) => [...tagsList, ...note.tag], []);
+    notes
+      .filter(notArchivedFilter)
+      .reduce((tagsList, note) => [...tagsList, ...note.tag], []);
 
   const archivedFilter = (note) => note.is_archived;
   const notArchivedFilter = (note) => !note.is_archived;
+  const tabFilter = (tab) => (note) => note.tag.includes(tab);
 
   // Header Title changes based on tab
   const [headerTitle, setHeaderTitle] = useState("Notes");
@@ -51,6 +54,8 @@ function App() {
         setHeaderTitle("Archive");
         break;
       default:
+        setFilters([tabFilter(tab), notArchivedFilter]);
+        setHeaderTitle(tab);
         break;
     }
   };

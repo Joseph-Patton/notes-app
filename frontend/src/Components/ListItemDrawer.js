@@ -25,7 +25,10 @@ function ListItemDrawer({ text, drawer_open, children, action }) {
           {children}
         </ListItemIcon>
 
-        <ListItemText primary={text} sx={{ opacity: drawer_open ? 1 : 0 }} />
+        <ListItemText
+          primary={text}
+          sx={{ fontSize: "0.7em", opacity: drawer_open ? 1 : 0 }}
+        />
       </ListItemButton>
     </ListItem>
   );
