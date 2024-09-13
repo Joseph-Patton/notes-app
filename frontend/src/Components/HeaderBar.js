@@ -43,7 +43,14 @@ function ResponsiveAppBar({ handleDrawerToggle, headerTitle }) {
         backgroundColor: "#fff",
       }}
     >
-      <Container maxWidth="xl">
+      <Container
+        maxWidth="flase"
+        disableGutters
+        sx={{
+          paddingLeft: 2,
+          paddingRight: 2,
+        }}
+      >
         <Toolbar disableGutters>
           <Box>
             <IconButton
