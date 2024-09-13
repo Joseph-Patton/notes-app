@@ -67,6 +67,7 @@ function NoteCard({ note, noteHover }) {
           <Typography
             variant="body2"
             component="p"
+            multiline={true}
             sx={{
               overflow: "hidden",
               marginBottom: "0.6em",
@@ -97,6 +98,7 @@ function NoteCard({ note, noteHover }) {
         <CardActions
           sx={{
             justifyContent: "right",
+            opacity: noteHover === true ? "100%" : "0%",
           }}
         >
           {note.is_archived ? (

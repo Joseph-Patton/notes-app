@@ -39,9 +39,6 @@ function ArchiveButton({ archiveNote, noteHover }) {
   return (
     <>
       <IconButton
-        sx={{
-          opacity: noteHover === true ? "100%" : "20%",
-        }}
         onClick={handleClick}
         aria-label="archive"
         type="button"

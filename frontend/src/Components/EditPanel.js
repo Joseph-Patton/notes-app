@@ -68,8 +68,9 @@ function EditPanel({ editPanelOpen, handleCloseEditPanel, updateNote, note }) {
           placeholder="Title…"
           name="title"
           value={title}
+          fullWidth
+          maxLength="20"
           onChange={handleChange}
-          multiline={true}
           sx={{
             fontSize: "1.2em",
             fontWeight: 500,
@@ -84,8 +85,9 @@ function EditPanel({ editPanelOpen, handleCloseEditPanel, updateNote, note }) {
           placeholder="Content…"
           name="content"
           value={content}
+          fullWidth
           onChange={handleChange}
-          maxLength="100"
+          maxLength="50"
           multiline={true}
           sx={{
             fontSize: "1em",
