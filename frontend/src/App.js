@@ -31,6 +31,9 @@ function App() {
       filters.reduce((pass, curFilter) => pass && curFilter(note), true)
     );
 
+  const getTagsList = () =>
+    notes.reduce((tagsList, note) => [...tagsList, ...note.tag], []);
+
   const archivedFilter = (note) => note.is_archived;
   const notArchivedFilter = (note) => !note.is_archived;
 
@@ -122,7 +125,11 @@ function App() {
         handleDrawerToggle={handleDrawerToggle}
         headerTitle={headerTitle}
       />
-      <MainMenuDrawer drawer_open={drawer_open} changeTab={changeTab} />
+      <MainMenuDrawer
+        drawer_open={drawer_open}
+        changeTab={changeTab}
+        getTagsList={getTagsList}
+      />
       <Box sx={{ width: "100%" }}>
         <Toolbar />
         <Grid

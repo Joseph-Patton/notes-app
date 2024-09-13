@@ -53,7 +53,11 @@ const Drawer = styled(MuiDrawer, {
   }),
 }));
 
-export default function MainMenuDrawer({ drawer_open, changeTab }) {
+export default function MainMenuDrawer({
+  drawer_open,
+  changeTab,
+  getTagsList,
+}) {
   return (
     <Drawer variant="permanent" open={drawer_open} sx={{}}>
       <Toolbar />
@@ -66,7 +70,7 @@ export default function MainMenuDrawer({ drawer_open, changeTab }) {
           >
             <LightbulbOutlinedIcon />
           </ListItemDrawer>
-          {["Tag 1", "Tag 2", "Tag 3"].map((text) => (
+          {getTagsList().map((text) => (
             <ListItemDrawer text={text} drawer_open={drawer_open}>
               <LabelOutlinedIcon />
             </ListItemDrawer>
