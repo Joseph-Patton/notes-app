@@ -4,9 +4,8 @@ import {
   DialogActions,
   Button,
   Grid,
-  InputBase,
 } from "@mui/material";
-import { React, useState } from "react";
+import { React } from "react";
 
 function UnarchivePanel({ open, handleClose, unarchiveNote, note }) {
   const handleUnarchive = () => {

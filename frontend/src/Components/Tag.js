@@ -1,6 +1,5 @@
-import { React, useContext, useState } from "react";
+import { React, useContext } from "react";
 import IconButton from "@mui/material/IconButton";
-import Button from "@mui/material/Button";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import { TagContext } from "./TagsBox";

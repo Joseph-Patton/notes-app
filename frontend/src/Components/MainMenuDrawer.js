@@ -5,14 +5,10 @@ import MuiDrawer from "@mui/material/Drawer";
 import Toolbar from "@mui/material/Toolbar";
 import List from "@mui/material/List";
 import Divider from "@mui/material/Divider";
-import MenuIcon from "@mui/icons-material/Menu";
-import InboxIcon from "@mui/icons-material/MoveToInbox";
-import MailIcon from "@mui/icons-material/Mail";
 import LightbulbOutlinedIcon from "@mui/icons-material/LightbulbOutlined";
 import LabelOutlinedIcon from "@mui/icons-material/LabelOutlined";
 import ListItemDrawer from "./ListItemDrawer";
 import ArchiveOutlinedIcon from "@mui/icons-material/ArchiveOutlined";
-//const ListItem = styled(muiListItem)({});
 
 const drawerWidth = 180;
 const openedMixin = (theme) => ({

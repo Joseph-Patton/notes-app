@@ -1,4 +1,4 @@
-import { Button, Grid, InputBase, CardActions } from "@mui/material";
+import { Grid, InputBase, CardActions } from "@mui/material";
 import { React } from "react";
 
 function CreateNoteBoxSmall({ handleExpand }) {

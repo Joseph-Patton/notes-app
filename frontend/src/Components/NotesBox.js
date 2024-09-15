@@ -1,4 +1,4 @@
-import { React, useState } from "react";
+import { React } from "react";
 import NoteContainer from "./NoteCardContainer.js";
 import Grid from "@mui/material/Grid";
 import { Typography } from "@mui/material";

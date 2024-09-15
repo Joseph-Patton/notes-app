@@ -1,4 +1,4 @@
-import { React, useContext, useState } from "react";
+import { React, useState } from "react";
 import Button from "@mui/material/Button";
 import Snackbar from "@mui/material/Snackbar";
 import IconButton from "@mui/material/IconButton";
@@ -38,11 +38,7 @@ function ArchiveButton({ archiveNote, noteHover }) {
 
   return (
     <>
-      <IconButton
-        onClick={handleClick}
-        aria-label="archive"
-        type="button"
-      >
+      <IconButton onClick={handleClick} aria-label="archive" type="button">
         <ArchiveOutlinedIcon />
       </IconButton>
       <Snackbar
