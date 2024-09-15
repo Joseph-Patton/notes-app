@@ -7,7 +7,7 @@ use uuid::Uuid;
 pub struct UninitialisedNote {
     title: String,
     content: String,
-    tag: Vec<String>,
+    tags: Vec<String>,
 }
 
 // Create logic
@@ -36,13 +36,13 @@ async fn insert_note(
 ) -> Result<(), sqlx::Error> {
     sqlx::query!(
         r#"
-        INSERT INTO notes (id, title, content, tag, created_at)
+        INSERT INTO notes (id, title, content, tags, created_at)
         VALUES ($1, $2, $3, $4, $5)
         "#,
         Uuid::new_v4(),
         unitialised_note.title,
         unitialised_note.content,
-        &unitialised_note.tag,
+        &unitialised_note.tags,
         Utc::now()
     )
     .execute(pool)
@@ -58,7 +58,7 @@ pub struct Note {
     pub id: Uuid,
     pub title: Option<String>,
     pub content: Option<String>,
-    pub tag: Option<Vec<String>>,
+    pub tags: Option<Vec<String>>,
     #[serde(with = "ts_seconds_option")]
     pub created_at: Option<DateTime<Utc>>,
     pub is_archived: bool,
@@ -82,7 +82,7 @@ async fn fetch_notes(pool: &PgPool) -> Result<Notes, sqlx::Error> {
     let notes = sqlx::query_as!(
         Note,
         r#"
-        SELECT id, title, content, tag, created_at, is_archived FROM notes
+        SELECT id, title, content, tags, created_at, is_archived FROM notes
         "#
     )
     .fetch_all(pool)
@@ -151,12 +151,12 @@ async fn update_note_helper(pool: &PgPool, note: &Note) -> Result<(), sqlx::Erro
     sqlx::query!(
         r#"
         UPDATE notes 
-        SET title = $1, content = $2, tag = $3, created_at = $4, is_archived =$5
+        SET title = $1, content = $2, tags = $3, created_at = $4, is_archived =$5
         WHERE id = $6
         "#,
         note.title,
         note.content,
-        note.tag.as_deref(),
+        note.tags.as_deref(),
         note.created_at,
         note.is_archived,
         note.id,

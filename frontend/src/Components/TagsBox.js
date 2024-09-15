@@ -11,7 +11,7 @@ function TagsBox({ setUpdateNoteValue, updateNoteValue }) {
     setUpdateNoteValue((prev) => {
       return {
         ...prev,
-        tag: updateNoteValue.tag.filter((_, i) => i !== index),
+        tags: updateNoteValue.tags.filter((_, i) => i !== index),
       };
     });
   };
@@ -25,10 +25,10 @@ function TagsBox({ setUpdateNoteValue, updateNoteValue }) {
         marginBottom: "0.8em",
       }}
     >
-      {updateNoteValue.tag.map((stag, index) => (
+      {updateNoteValue.tags.map((tag, index) => (
         <TagContext.Provider
           value={{
-            stag,
+            tag,
             index,
             removeTag,
           }}

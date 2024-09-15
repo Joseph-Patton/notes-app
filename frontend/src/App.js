@@ -31,7 +31,7 @@ function App() {
     ...new Set(
       notes
         .filter(notArchivedFilter)
-        .reduce((tagsList, note) => [...tagsList, ...note.tag], [])
+        .reduce((tagsList, note) => [...tagsList, ...note.tags], [])
     ),
   ];
 
@@ -39,7 +39,7 @@ function App() {
   // Filters
   const archivedFilter = (note) => note.is_archived;
   const notArchivedFilter = (note) => !note.is_archived;
-  const tagFilter = (tag) => (note) => note.tag.includes(tag);
+  const tagFilter = (tag) => (note) => note.tags.includes(tag);
   const searchBarFilter = (search) => (note) =>
     note.title.includes(search) || note.content.includes(search);
 

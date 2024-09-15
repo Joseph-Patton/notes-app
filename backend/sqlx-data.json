@@ -1,6 +1,6 @@
 {
   "db": "PostgreSQL",
-  "237176595700e0030ec5919c37dd82bb2227a8f346ba2799259850be25e859c5": {
+  "25ac7c00468871066ea28a08acafc47063fde5041bd604efc487785a05b4e0ee": {
     "describe": {
       "columns": [],
       "nullable": [],
@@ -8,16 +8,16 @@
         "Left": [
           "Text",
           "Text",
-          "Text",
+          "TextArray",
           "Timestamptz",
           "Bool",
           "Uuid"
         ]
       }
     },
-    "query": "\n        UPDATE notes \n        SET title = $1, content = $2, tag = $3, created_at = $4, is_archived =$5\n        WHERE id = $6\n        "
+    "query": "\n        UPDATE notes \n        SET title = $1, content = $2, tags = $3, created_at = $4, is_archived =$5\n        WHERE id = $6\n        "
   },
-  "2473f9e7396a1cc1bb5193e23539f6f23c53ecc13bd9dd95ac59a83cc4b77977": {
+  "c031b78f1da0463ff3cb3f243f1672dc7d622a51562f880c6770dbf3a96a9b3a": {
     "describe": {
       "columns": [
         {
@@ -36,9 +36,9 @@
           "type_info": "Text"
         },
         {
-          "name": "tag",
+          "name": "tags",
           "ordinal": 3,
-          "type_info": "Text"
+          "type_info": "TextArray"
         },
         {
           "name": "created_at",
@@ -63,23 +63,57 @@
         "Left": []
       }
     },
-    "query": "\n        SELECT id, title, content, tag, created_at, is_archived FROM notes\n        "
+    "query": "\n        SELECT id, title, content, tags, created_at, is_archived FROM notes\n        "
   },
-  "aaeab766f745b6e02eb2292f3b3335cdb46162b24d02683b3a74f59c2a26126c": {
+  "d9a2aebb1000442fbe19178eda54165e97ab747a1e33fd43d051e1e5cc6301e9": {
     "describe": {
-      "columns": [],
-      "nullable": [],
+      "columns": [
+        {
+          "name": "id",
+          "ordinal": 0,
+          "type_info": "Uuid"
+        },
+        {
+          "name": "title",
+          "ordinal": 1,
+          "type_info": "Text"
+        },
+        {
+          "name": "content",
+          "ordinal": 2,
+          "type_info": "Text"
+        },
+        {
+          "name": "tags",
+          "ordinal": 3,
+          "type_info": "TextArray"
+        },
+        {
+          "name": "created_at",
+          "ordinal": 4,
+          "type_info": "Timestamptz"
+        },
+        {
+          "name": "is_archived",
+          "ordinal": 5,
+          "type_info": "Bool"
+        }
+      ],
+      "nullable": [
+        false,
+        true,
+        true,
+        true,
+        true,
+        false
+      ],
       "parameters": {
         "Left": [
-          "Uuid",
-          "Text",
-          "Text",
-          "Text",
-          "Timestamptz"
+          "Uuid"
         ]
       }
     },
-    "query": "\n        INSERT INTO notes (id, title, content, tag, created_at)\n        VALUES ($1, $2, $3, $4, $5)\n        "
+    "query": "\n        SELECT * FROM notes WHERE id = $1\n        "
   },
   "dca0138ea66a4b9dfcf775813db2d332d54a7f9c641ce8a06fc9235a9214325b": {
     "describe": {
@@ -92,5 +126,21 @@
       }
     },
     "query": "\n        DELETE FROM notes WHERE id = $1\n        "
+  },
+  "ffe3d815f5a452cf6b96fc07559dafc5bb12895b624712ec72391ab17bcbdd12": {
+    "describe": {
+      "columns": [],
+      "nullable": [],
+      "parameters": {
+        "Left": [
+          "Uuid",
+          "Text",
+          "Text",
+          "TextArray",
+          "Timestamptz"
+        ]
+      }
+    },
+    "query": "\n        INSERT INTO notes (id, title, content, tags, created_at)\n        VALUES ($1, $2, $3, $4, $5)\n        "
   }
 }

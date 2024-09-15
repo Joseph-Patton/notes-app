@@ -7,7 +7,7 @@ import { TagContext } from "./TagsBox";
 import CancelOutlinedIcon from "@mui/icons-material/CancelOutlined";
 
 function Tag({ hover }) {
-  const { stag, index, removeTag } = useContext(TagContext);
+  const { tag, index, removeTag } = useContext(TagContext);
   return (
     <>
       <Grid
@@ -28,7 +28,7 @@ function Tag({ hover }) {
               fontSize: "0.9em",
             }}
           >
-            {stag}
+            {tag}
           </Typography>
         </Grid>
         <Grid item>

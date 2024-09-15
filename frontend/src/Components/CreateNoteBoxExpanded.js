@@ -18,7 +18,7 @@ function CreateNoteBoxExpanded({ handleShrink }) {
 
   const resetNote = () => {
     // Clear the textarea
-    setNewNoteValue({ title: "", content: "", tag: "" });
+    setNewNoteValue({ title: "", content: "", tags: [] });
   };
 
   const handleClose = () => {
@@ -30,7 +30,7 @@ function CreateNoteBoxExpanded({ handleShrink }) {
   const [newNoteValue, setNewNoteValue] = useState({
     title: "",
     content: "",
-    tag: [],
+    tags: [],
   });
 
   const handleChange = (e) => {
@@ -43,7 +43,7 @@ function CreateNoteBoxExpanded({ handleShrink }) {
     });
   };
 
-  const { title, content, tag } = newNoteValue;
+  const { title, content, tags } = newNoteValue;
 
   return (
     <Grid container justifyContent={"center"}>

@@ -19,7 +19,7 @@ function EditPanel({ editPanelOpen, handleCloseEditPanel, updateNote, note }) {
     id: note.id,
     title: note.title,
     content: note.content,
-    tag: note.tag,
+    tags: note.tags,
     created_at: note.created_at,
     is_archived: false,
   });
@@ -33,13 +33,13 @@ function EditPanel({ editPanelOpen, handleCloseEditPanel, updateNote, note }) {
       };
     });
   };
-  const { _, title, content, tag } = updateNoteValue;
+  const { _, title, content, tags } = updateNoteValue;
 
-  const appendTagValue = (stag) => {
+  const appendTagValue = (tag) => {
     setUpdateNoteValue((prev) => {
       return {
         ...prev,
-        tag: [...new Set([...updateNoteValue.tag, stag])],
+        tags: [...new Set([...updateNoteValue.tags, tag])],
       };
     });
   };
@@ -98,7 +98,7 @@ function EditPanel({ editPanelOpen, handleCloseEditPanel, updateNote, note }) {
         />
 
         <TagBox
-          tag={tag}
+          tags={tags}
           setUpdateNoteValue={setUpdateNoteValue}
           updateNoteValue={updateNoteValue}
         />

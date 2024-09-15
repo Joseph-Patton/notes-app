@@ -76,7 +76,7 @@ function NoteCard({ note, noteHover }) {
             {note.content}
           </Typography>
           <Grid container columnSpacing={2} rowSpacing={1}>
-            {note.tag.map((stag) => (
+            {note.tags.map((tag) => (
               <Grid item>
                 <Typography
                   variant="body1"
@@ -88,7 +88,7 @@ function NoteCard({ note, noteHover }) {
                     padding: "0.2em",
                   }}
                 >
-                  {stag}
+                  {tag}
                 </Typography>
               </Grid>
             ))}
