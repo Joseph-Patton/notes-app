@@ -7,7 +7,6 @@ import NoteList from "./Components/NotesBox";
 import MainMenuDrawer from "./Components/MainMenuDrawer";
 import CreateNoteBox from "./Components/CreateNoteBox";
 import Toolbar from "@mui/material/Toolbar";
-import NoteContainer from "./Components/NoteCardContainer";
 
 //import { useStyles } from "styles/AppStyle";
 // const darkTheme = createTheme({
@@ -41,7 +40,8 @@ function App() {
   const archivedFilter = (note) => note.is_archived;
   const notArchivedFilter = (note) => !note.is_archived;
   const tagFilter = (tag) => (note) => note.tag.includes(tag);
-  const searchBarFilter = (search) => (note) => note.title.includes(search);
+  const searchBarFilter = (search) => (note) =>
+    note.title.includes(search) || note.content.includes(search);
 
   // Tab filters e.g. is archived, is note tagged with corrisponding tag
   const [tabFilters, setTabFilters] = useState([notArchivedFilter]);
@@ -52,7 +52,7 @@ function App() {
 
   // Header Title changes based on tab
   const [headerTitle, setHeaderTitle] = useState("Notes");
-  const [searchBarInput, setSearchBarInput] = useState("No");
+  const [searchBarInput, setSearchBarInput] = useState("");
   const searchBarInputHandler = (e) => {
     setSearchBarInput(e.target.value);
   };
