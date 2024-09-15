@@ -23,12 +23,9 @@ function App() {
   const apiUrl = "http://localhost:8000"; // TODO add as argument
   const [notes, setNotes] = useState([]);
 
-  // Filters on Notes being displayed
-  const [filters, setFilters] = useState([(note) => !note.is_archived]);
-
   const getVisibleNotes = () =>
     notes.filter((note) =>
-      filters.reduce((pass, curFilter) => pass && curFilter(note), true)
+      getFilters().reduce((pass, curFilter) => pass && curFilter(note), true)
     );
 
   const getTagsList = () => [
@@ -39,25 +36,43 @@ function App() {
     ),
   ];
 
+  // Filters on Notes being displayed
+  // Filters
   const archivedFilter = (note) => note.is_archived;
   const notArchivedFilter = (note) => !note.is_archived;
-  const tabFilter = (tab) => (note) => note.tag.includes(tab);
+  const tagFilter = (tag) => (note) => note.tag.includes(tag);
+  const searchBarFilter = (search) => (note) => note.title.includes(search);
+
+  // Tab filters e.g. is archived, is note tagged with corrisponding tag
+  const [tabFilters, setTabFilters] = useState([notArchivedFilter]);
+  // Search Bar filters, is current string in search bar also in note
+  const [searchFilters, setSearchFilters] = useState([searchBarFilter]);
+  // Returns list of currently active filters
+  const getFilters = () => [...tabFilters, ...searchFilters];
 
   // Header Title changes based on tab
   const [headerTitle, setHeaderTitle] = useState("Notes");
+  const [searchBarInput, setSearchBarInput] = useState("No");
+  const searchBarInputHandler = (e) => {
+    setSearchBarInput(e.target.value);
+  };
+
+  useEffect(() => {
+    setSearchFilters([searchBarFilter(searchBarInput)]);
+  }, [searchBarInput]);
 
   const changeTab = (tab) => {
     switch (tab) {
       case "Notes":
-        setFilters([notArchivedFilter]);
+        setTabFilters([notArchivedFilter]);
         setHeaderTitle("Notes");
         break;
       case "Archived":
-        setFilters([archivedFilter]);
+        setTabFilters([archivedFilter]);
         setHeaderTitle("Archive");
         break;
       default:
-        setFilters([tabFilter(tab), notArchivedFilter]);
+        setTabFilters([tagFilter(tab), notArchivedFilter]);
         setHeaderTitle(tab);
         break;
     }
@@ -132,6 +147,8 @@ function App() {
       <HeaderBar
         handleDrawerToggle={handleDrawerToggle}
         headerTitle={headerTitle}
+        searchBarInput={searchBarInput}
+        searchBarInputHandler={searchBarInputHandler}
       />
       <MainMenuDrawer
         drawer_open={drawer_open}
