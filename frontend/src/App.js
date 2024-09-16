@@ -27,6 +27,7 @@ function App() {
       getFilters().reduce((pass, curFilter) => pass && curFilter(note), true)
     );
 
+  // Returns array of tags present in notes (no duplicates)
   const getTagsList = () => [
     ...new Set(
       notes
@@ -36,12 +37,15 @@ function App() {
   ];
 
   // Filters on Notes being displayed
-  // Filters
   const archivedFilter = (note) => note.is_archived;
   const notArchivedFilter = (note) => !note.is_archived;
   const tagFilter = (tag) => (note) => note.tags.includes(tag);
+  const isSubstringInTags = (note, search) =>
+    note.tags.reduce((pass, tag) => pass || tag.includes(search), false);
   const searchBarFilter = (search) => (note) =>
-    note.title.includes(search) || note.content.includes(search);
+    note.title.includes(search) ||
+    note.content.includes(search) ||
+    isSubstringInTags(note, search);
 
   // Tab filters e.g. is archived, is note tagged with corrisponding tag
   const [tabFilters, setTabFilters] = useState([notArchivedFilter]);
@@ -101,7 +105,6 @@ function App() {
     if (new_note.title === "" && new_note.content === "") return;
     try {
       await axios.post(`${apiUrl}/notes`, new_note);
-      //setNotes([response.data, ...notes]);
     } catch (error) {
       console.error("Error creating notes:", error);
     }
