@@ -35,7 +35,7 @@ function NotesBox({ getVisibleNotes }) {
         // Display if notes are present
         <Grid container spacing={2} justifyContent={"left"}>
           {visibleNotes.map((note) => (
-            <NoteContainer note={note} />
+            <NoteContainer note={note} key={note.id} />
           ))}
         </Grid>
       )}

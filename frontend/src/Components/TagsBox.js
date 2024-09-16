@@ -24,6 +24,7 @@ function TagsBox({ setUpdateNoteValue, updateNoteValue }) {
     >
       {updateNoteValue.tags.map((tag, index) => (
         <TagContext.Provider
+          key={index}
           value={{
             tag,
             index,

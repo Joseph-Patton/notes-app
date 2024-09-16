@@ -81,6 +81,7 @@ export default function MainMenuDrawer({
             {getTagsList().map((text) => (
               <ListItemDrawer
                 text={text}
+                key={text}
                 drawer_open={open()}
                 action={() => changeTab(text)}
                 selected={isTabSelected(text)}

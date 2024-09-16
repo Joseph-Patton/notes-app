@@ -68,7 +68,7 @@ function NoteCard({ note, noteHover }) {
           <Typography
             variant="body2"
             component="p"
-            multiline={true}
+            //multiline={true}
             sx={{
               overflow: "hidden",
               marginBottom: "0.6em",
@@ -77,8 +77,8 @@ function NoteCard({ note, noteHover }) {
             {note.content}
           </Typography>
           <Grid container columnSpacing={2} rowSpacing={1}>
-            {note.tags.map((tag) => (
-              <Grid item>
+            {note.tags.map((tag, index) => (
+              <Grid item key={index}>
                 <Typography
                   variant="body1"
                   component="div"
