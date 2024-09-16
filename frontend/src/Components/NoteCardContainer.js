@@ -8,7 +8,9 @@ function NoteContainer({ note }) {
     <Grid
       item
       xs={12}
-      sm={3}
+      sm={6}
+      md={4}
+      lg={3}
       key={note.id}
       onMouseEnter={() => setNoteHover(true)}
       onMouseLeave={() => setNoteHover(false)}
