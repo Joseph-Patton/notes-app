@@ -58,7 +58,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 
 function ResponsiveAppBar({
   handleDrawerToggle,
-  headerTitle,
+  currentTab,
   searchBarInput,
   searchBarInputHandler,
 }) {
@@ -125,7 +125,7 @@ function ResponsiveAppBar({
               textDecoration: "none",
             }}
           >
-            {headerTitle}
+            {currentTab === "" ? <>Notes</> : <>{currentTab}</>}
           </Typography>
 
           <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>

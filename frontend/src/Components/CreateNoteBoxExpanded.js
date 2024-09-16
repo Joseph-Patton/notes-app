@@ -9,7 +9,7 @@ import { CreateNoteContext } from "../App.js";
 import { React, useContext, useState } from "react";
 
 function CreateNoteBoxExpanded({ handleShrink }) {
-  const { createNote } = useContext(CreateNoteContext);
+  const { createNote, currentTab } = useContext(CreateNoteContext);
 
   const handleCreate = async (note) => {
     await createNote(note);
@@ -17,7 +17,6 @@ function CreateNoteBoxExpanded({ handleShrink }) {
   };
 
   const resetNote = () => {
-    // Clear the textarea
     setNewNoteValue({ title: "", content: "", tags: [] });
   };
 
@@ -26,11 +25,18 @@ function CreateNoteBoxExpanded({ handleShrink }) {
     handleShrink();
     handleCreate(newNoteValue);
   };
-
+  // This is to allow notes in the default "Notes" tab to be created with empty tags list
+  const getTagsValueCurrentTab = (currentTab) => {
+    if (currentTab === "") {
+      return [];
+    } else {
+      return [currentTab];
+    }
+  };
   const [newNoteValue, setNewNoteValue] = useState({
     title: "",
     content: "",
-    tags: [],
+    tags: getTagsValueCurrentTab(currentTab),
   });
 
   const handleChange = (e) => {

@@ -55,7 +55,6 @@ function App() {
   const getFilters = () => [...tabFilters, ...searchFilters];
 
   // Header Title changes based on tab
-  const [headerTitle, setHeaderTitle] = useState("Notes");
   const [searchBarInput, setSearchBarInput] = useState("");
   const searchBarInputHandler = (e) => {
     setSearchBarInput(e.target.value);
@@ -65,19 +64,20 @@ function App() {
     setSearchFilters([searchBarFilter(searchBarInput)]);
   }, [searchBarInput]);
 
+  const [currentTab, setCurrentTab] = useState("");
   const changeTab = (tab) => {
     switch (tab) {
-      case "Notes":
+      case "":
         setTabFilters([notArchivedFilter]);
-        setHeaderTitle("Notes");
+        setCurrentTab("");
         break;
       case "Archived":
         setTabFilters([archivedFilter]);
-        setHeaderTitle("Archive");
+        setCurrentTab("Archive");
         break;
       default:
         setTabFilters([tagFilter(tab), notArchivedFilter]);
-        setHeaderTitle(tab);
+        setCurrentTab(tab);
         break;
     }
   };
@@ -149,7 +149,7 @@ function App() {
     >
       <HeaderBar
         handleDrawerToggle={handleDrawerToggle}
-        headerTitle={headerTitle}
+        currentTab={currentTab}
         searchBarInput={searchBarInput}
         searchBarInputHandler={searchBarInputHandler}
       />
@@ -171,6 +171,7 @@ function App() {
             <CreateNoteContext.Provider
               value={{
                 createNote,
+                currentTab,
               }}
             >
               <CreateNoteBox />

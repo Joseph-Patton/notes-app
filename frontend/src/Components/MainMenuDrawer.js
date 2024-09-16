@@ -62,7 +62,7 @@ export default function MainMenuDrawer({
           <ListItemDrawer
             text={"Notes"}
             drawer_open={drawer_open}
-            action={() => changeTab("Notes")}
+            action={() => changeTab("")}
           >
             <LightbulbOutlinedIcon />
           </ListItemDrawer>
