@@ -11,6 +11,7 @@ import { NoteContext } from "../App.js";
 import EditPanel from "./EditPanel.js";
 import UnarchivePanel from "./UnarchivePanel.js";
 import ArchiveButton from "./ArchiveButton.js";
+import Tooltip from "@mui/material/Tooltip";
 
 function NoteCard({ note, noteHover }) {
   const { deleteNote, updateNote } = useContext(NoteContext);
@@ -102,13 +103,15 @@ function NoteCard({ note, noteHover }) {
           }}
         >
           {note.is_archived ? (
-            <IconButton
-              onClick={unarchiveNote}
-              aria-label="delete"
-              type="button"
-            >
-              <UnarchiveOutlinedIcon />
-            </IconButton>
+            <Tooltip title="Unarchive" placement="bottom">
+              <IconButton
+                onClick={unarchiveNote}
+                aria-label="delete"
+                type="button"
+              >
+                <UnarchiveOutlinedIcon />
+              </IconButton>
+            </Tooltip>
           ) : (
             <ArchiveButton noteHover={noteHover} archiveNote={archiveNote} />
           )}

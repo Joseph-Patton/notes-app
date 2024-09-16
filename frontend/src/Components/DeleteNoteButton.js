@@ -6,6 +6,7 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogTitle from "@mui/material/DialogTitle";
 import IconButton from "@mui/material/IconButton";
 import DeleteIcon from "@material-ui/icons/Delete";
+import Tooltip from "@mui/material/Tooltip";
 
 function DeleteNoteButton({ title, deleteNote }) {
   const [open, setOpen] = useState(false);
@@ -20,14 +21,15 @@ function DeleteNoteButton({ title, deleteNote }) {
     <>
       <ClickAwayListener onClickAway={handleClickClose}>
         <div>
-          <IconButton
-            aria-label="delete"
-            onClick={handleClickOpen}
-            type="button"
-          >
-            <DeleteIcon />
-          </IconButton>
-
+          <Tooltip title="Delete" placement="bottom">
+            <IconButton
+              aria-label="delete"
+              onClick={handleClickOpen}
+              type="button"
+            >
+              <DeleteIcon />
+            </IconButton>
+          </Tooltip>
           <Dialog
             open={open}
             onClose={handleClickClose}

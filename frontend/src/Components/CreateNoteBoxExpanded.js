@@ -25,7 +25,7 @@ function CreateNoteBoxExpanded({ handleShrink }) {
     handleShrink();
     handleCreate(newNoteValue);
   };
-  // This is to allow notes in the default "Notes" tab to be created with empty tags list
+  // Allows notes in the default "Notes" tab to be created with empty tags list
   const getTagsValueCurrentTab = (currentTab) => {
     if (currentTab === "") {
       return [];
