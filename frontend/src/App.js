@@ -157,6 +157,7 @@ function App() {
         drawer_open={drawer_open}
         changeTab={changeTab}
         getTagsList={getTagsList}
+        currentTab={currentTab}
       />
       <Box sx={{ width: "100%" }}>
         <Toolbar />

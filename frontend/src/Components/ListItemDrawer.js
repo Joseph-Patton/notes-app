@@ -4,10 +4,11 @@ import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 
-function ListItemDrawer({ text, drawer_open, children, action }) {
+function ListItemDrawer({ text, drawer_open, children, action, selected }) {
   return (
     <ListItem key={text} disablePadding>
       <ListItemButton
+        selected={selected}
         sx={{
           minHeight: 48,
           justifyContent: drawer_open ? "initial" : "center",

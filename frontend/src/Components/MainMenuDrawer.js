@@ -1,8 +1,9 @@
-import * as React from "react";
+import { React, useState, useEffect, useCallback, createContext } from "react";
 import { styled } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import MuiDrawer from "@mui/material/Drawer";
 import Toolbar from "@mui/material/Toolbar";
+import Grid from "@mui/material/Grid";
 import List from "@mui/material/List";
 import Divider from "@mui/material/Divider";
 import LightbulbOutlinedIcon from "@mui/icons-material/LightbulbOutlined";
@@ -11,6 +12,7 @@ import ListItemDrawer from "./ListItemDrawer";
 import ArchiveOutlinedIcon from "@mui/icons-material/ArchiveOutlined";
 
 const drawerWidth = 180;
+
 const openedMixin = (theme) => ({
   width: drawerWidth,
   transition: theme.transitions.create("width", {
@@ -53,39 +55,52 @@ export default function MainMenuDrawer({
   drawer_open,
   changeTab,
   getTagsList,
+  currentTab,
 }) {
+  const [hover, setHover] = useState(false);
+  const open = () => drawer_open || hover;
+  const isTabSelected = (text) => currentTab === text;
   return (
-    <Drawer variant="permanent" open={drawer_open} sx={{}}>
-      <Toolbar />
-      <Box sx={{ overflow: "hidden" }}>
-        <List>
-          <ListItemDrawer
-            text={"Notes"}
-            drawer_open={drawer_open}
-            action={() => changeTab("")}
-          >
-            <LightbulbOutlinedIcon />
-          </ListItemDrawer>
-          {getTagsList().map((text) => (
+    <Grid
+      item
+      onMouseEnter={() => setHover(true)}
+      onMouseLeave={() => setHover(false)}
+    >
+      <Drawer variant="permanent" open={open()} sx={{}}>
+        <Toolbar />
+        <Box sx={{ overflow: "hidden" }}>
+          <List>
             <ListItemDrawer
-              text={text}
-              drawer_open={drawer_open}
-              action={() => changeTab(text)}
+              text={"Notes"}
+              drawer_open={open()}
+              action={() => changeTab("")}
+              selected={isTabSelected("")}
             >
-              <LabelOutlinedIcon />
+              <LightbulbOutlinedIcon />
             </ListItemDrawer>
-          ))}
-          <ListItemDrawer
-            text={"Archive"}
-            drawer_open={drawer_open}
-            action={() => changeTab("Archived")}
-          >
-            <ArchiveOutlinedIcon />
-          </ListItemDrawer>
-        </List>
+            {getTagsList().map((text) => (
+              <ListItemDrawer
+                text={text}
+                drawer_open={open()}
+                action={() => changeTab(text)}
+                selected={isTabSelected(text)}
+              >
+                <LabelOutlinedIcon />
+              </ListItemDrawer>
+            ))}
+            <ListItemDrawer
+              text={"Archive"}
+              drawer_open={open()}
+              selected={isTabSelected("Archived")}
+              action={() => changeTab("Archived")}
+            >
+              <ArchiveOutlinedIcon />
+            </ListItemDrawer>
+          </List>
 
-        <Divider />
-      </Box>
-    </Drawer>
+          <Divider />
+        </Box>
+      </Drawer>
+    </Grid>
   );
 }
