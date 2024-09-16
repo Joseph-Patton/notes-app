@@ -21,7 +21,6 @@ function CreateNoteBoxExpanded({ handleShrink }) {
   };
 
   const handleClose = () => {
-    console.log(`You clicked Outside the box`);
     handleShrink();
     handleCreate(newNoteValue);
   };

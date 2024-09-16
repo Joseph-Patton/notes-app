@@ -6,11 +6,9 @@ function CreateNoteBox() {
   const [expanded, setExpanded] = useState(false);
   const handleShrink = () => {
     setExpanded(false);
-    console.log(`Handle note close called`);
   };
   const handleExpand = () => {
     setExpanded(true);
-    console.log(`Handle note open called`);
   };
 
   if (expanded) {
