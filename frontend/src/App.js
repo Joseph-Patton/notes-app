@@ -27,6 +27,9 @@ function App() {
       getFilters().reduce((pass, curFilter) => pass && curFilter(note), true)
     );
 
+  const getTimeOrderedVisibleNotes = () =>
+    getVisibleNotes().sort((a, b) => b.created_at - a.created_at);
+
   // Returns array of tags present in notes (no duplicates)
   const getTagsList = () => [
     ...new Set(
@@ -185,7 +188,7 @@ function App() {
                 updateNote,
               }}
             >
-              <NoteList getVisibleNotes={getVisibleNotes} />
+              <NoteList getVisibleNotes={getTimeOrderedVisibleNotes} />
             </NoteContext.Provider>
           </Grid>
         </Grid>
