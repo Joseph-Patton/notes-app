@@ -11,7 +11,7 @@ async fn create_note_returns_a_200_for_valid_data() {
     let body = json!({
         "title": "Test Note",
         "content": "test note content",
-        "tag": "test",
+        "tags": ["testTag", "testTag2"],
     })
     .to_string();
 
@@ -21,13 +21,13 @@ async fn create_note_returns_a_200_for_valid_data() {
     // Assert
     assert_eq!(200, response.status().as_u16());
 
-    let saved = sqlx::query!("SELECT title, content, tag FROM notes ")
+    let saved = sqlx::query!("SELECT title, content, tags FROM notes ")
         .fetch_one(&app.db_pool)
         .await
         .expect("Failed to fetch saved subscription.");
     assert_eq!(saved.title.unwrap(), "Test Note");
     assert_eq!(saved.content.unwrap(), "test note content");
-    assert_eq!(saved.tag.unwrap(), "test");
+    assert_eq!(saved.tags.unwrap(), ["testTag", "testTag2"]);
 }
 
 #[actix_rt::test]
@@ -37,7 +37,7 @@ async fn create_note_returns_a_400_when_data_is_missing() {
 
     let note_body_missing_title = json!({
         "content": "test note content",
-        "tag": "test",
+        "tags": ["testTag", "testTag2"],
     })
     .to_string();
 
@@ -69,13 +69,13 @@ async fn get_notes_returns_notes_list() {
     let body1 = json!({
         "title": "Test Note 1",
         "content": "test note content 1",
-        "tag": "test 1",
+        "tags": ["testTag", "testTag2"],
     })
     .to_string();
     let body2 = json!({
         "title": "Test Note 2",
         "content": "test note content 2",
-        "tag": "test 2",
+        "tags": ["testTag", "testTag2"],
     })
     .to_string();
 
@@ -106,7 +106,7 @@ async fn delete_note_deletes_note_from_database() {
     let body = json!({
         "title": "Test Note",
         "content": "test note content",
-        "tag": "test",
+        "tags": ["testTag", "testTag2"],
     })
     .to_string();
     app.post_notes(body.into()).await;
@@ -149,7 +149,7 @@ async fn edit_note_modifies_existing_note_in_database() {
     let body = json!({
         "title": "Test Note",
         "content": "test note content",
-        "tag": "test",
+        "tags": ["testTag", "testTag2"],
     })
     .to_string();
     // Get added note
@@ -165,6 +165,7 @@ async fn edit_note_modifies_existing_note_in_database() {
     let title = &notes[0].title;
 
     assert_eq!(title.as_ref().unwrap(), "Test Note");
+    //assert!(&note.tags.unwrap() == vec!["testTag", "testTag2"]);
 
     // Act
     // Modify note
@@ -172,7 +173,8 @@ async fn edit_note_modifies_existing_note_in_database() {
         "id": note.id,
         "title": "Modified Test Note",
         "content": "modified test note content",
-        "tag": "modified test",
+        "tags": ["modifiedtestTag", "modifiedtestTag2", "modifiedtestTag3"],
+        "created_at": 0, // TODO use real uuid value
         "is_archived": true,
     })
     .to_string();
@@ -180,12 +182,15 @@ async fn edit_note_modifies_existing_note_in_database() {
     let response = app.put_notes(body).await;
     // Assert
     assert_eq!(200, response.status().as_u16());
-    let saved = sqlx::query!("SELECT title, content, tag, is_archived FROM notes ")
+    let saved = sqlx::query!("SELECT title, content, tags, is_archived FROM notes ")
         .fetch_one(&app.db_pool)
         .await
         .expect("Failed to fetch saved subscription.");
     assert_eq!(saved.title.unwrap(), "Modified Test Note");
     assert_eq!(saved.content.unwrap(), "modified test note content");
-    assert_eq!(saved.tag.unwrap(), "modified test");
+    assert_eq!(
+        saved.tags.unwrap(),
+        ["modifiedtestTag", "modifiedtestTag2", "modifiedtestTag3"]
+    );
     assert_eq!(saved.is_archived, true);
 }

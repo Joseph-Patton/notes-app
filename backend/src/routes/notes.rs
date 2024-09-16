@@ -122,15 +122,6 @@ async fn delete_note_helper(pool: &PgPool, note_id: &Uuid) -> Result<(), sqlx::E
     Ok(())
 }
 
-// #[derive(serde::Serialize, serde::Deserialize, Debug)]
-// pub struct UpdateNote {
-//     pub id: Uuid,
-//     pub title: Option<String>,
-//     pub content: Option<String>,
-//     pub tag: Option<String>,
-//     pub is_archived: Option<bool>,
-// }
-
 // Update note logic
 #[tracing::instrument(name = "Updating a note", skip(pool))]
 pub async fn update_note(pool: web::Data<PgPool>, note: web::Json<Note>) -> HttpResponse {
