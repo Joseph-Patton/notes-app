@@ -7,6 +7,7 @@ import NoteList from "./Components/NotesBox";
 import MainMenuDrawer from "./Components/MainMenuDrawer";
 import CreateNoteBox from "./Components/CreateNoteBox";
 import Toolbar from "@mui/material/Toolbar";
+import { useColorScheme } from "@mui/material/styles";
 
 //import { useStyles } from "styles/AppStyle";
 // const darkTheme = createTheme({
@@ -20,8 +21,13 @@ export const NoteContext = createContext();
 
 function App() {
   const apiUrl = "http://localhost:8000"; // TODO add as argument
-  const [notes, setNotes] = useState([]);
 
+  // const { mode, setMode } = useColorScheme();
+  // if (!mode) {
+  //   return null;
+  // }
+
+  const [notes, setNotes] = useState([]);
   const getVisibleNotes = () =>
     notes.filter((note) =>
       getFilters().reduce((pass, curFilter) => pass && curFilter(note), true)

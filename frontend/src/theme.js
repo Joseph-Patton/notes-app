@@ -1,6 +1,10 @@
 import { createTheme, ThemeProvider, styled } from "@mui/material/styles";
 
 const theme = createTheme({
+  colorSchemes: { light: true, dark: true },
+  cssVariables: {
+    colorSchemeSelector: "class",
+  },
   wrapper: {
     width: "100%",
     //maxWidth: "824px",
