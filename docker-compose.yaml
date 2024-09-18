@@ -1,15 +1,13 @@
 services:
-  # frontend:
-  #   container_name: frontend
-  #   build:
-  #     context: ./frontend
-  #     dockerfile: Dockerfile
-  #   ports:
-  #     - 4200:80
-  #   # environment:
-  #   #   - NEXT_PUBLIC_API_URL=http://localhost:8080
-  #   depends_on:
-  #     - backend
+  frontend:
+    build: ./frontend
+    ports:
+      - 3000:3000
+    # environment:
+    #   - NEXT_PUBLIC_API_URL=http://localhost:8080
+    #depends_on:
+     # - backend
+
   backend:
     #build: ./
     build: ./backend
