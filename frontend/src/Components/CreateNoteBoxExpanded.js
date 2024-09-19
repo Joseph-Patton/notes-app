@@ -62,7 +62,7 @@ function CreateNoteBoxExpanded({ handleShrink }) {
             border: "1px solid",
             borderColor: "border.main",
             borderRadius: 2,
-            backgroundColor: "background",
+            backgroundColor: "background.default",
             "&:hover": { boxShadow: "0 1px 2px #000" },
           }}
         >

@@ -39,12 +39,10 @@ function NoteCard({ note, noteHover }) {
       <Card
         sx={{
           position: "relative",
-          //color: "#000",
-          //backgroundColor: "#fff",
           overflow: "visible",
           border: "1px solid",
           borderColor: "border.main",
-          backgroundColor: "background",
+          backgroundColor: "background.default",
           borderRadius: 2,
           marginBottom: "0px",
 

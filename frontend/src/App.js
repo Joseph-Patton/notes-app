@@ -177,7 +177,7 @@ function App() {
           getTagsList={getTagsList}
           currentTab={currentTab}
         />
-        <Box sx={{ width: "100%" }}>
+        <Box sx={{ width: "100%", backgroundColor: "background.default" }}>
           <Toolbar />
           <Grid
             container

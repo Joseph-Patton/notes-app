@@ -11,7 +11,6 @@ function CreateNoteBoxSmall({ handleExpand }) {
         sm={3}
         sx={{
           color: "#000",
-          //backgroundColor: "#fff",
           overflow: "visible",
           border: "1px solid",
           borderColor: "border.main",
