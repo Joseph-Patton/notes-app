@@ -12,8 +12,8 @@ const lightTheme = createTheme({
     mode: "light", //default theme
 
     primary: {
-      main: "#fff",
-      dark: "#ddd",
+      main: "#555",
+      dark: "#444",
     },
     secondary: {
       main: "#282E2999",

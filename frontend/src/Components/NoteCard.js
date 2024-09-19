@@ -44,11 +44,11 @@ function NoteCard({ note, noteHover }) {
           overflow: "visible",
           border: "1px solid",
           borderColor: "border.main",
-          backgroundColor: "background.default",
+          backgroundColor: "background",
           borderRadius: 2,
           marginBottom: "0px",
 
-          boxShadow: noteHover === true ? "0 2px 4px #000" : "none",
+          boxShadow: noteHover === true ? "0 2px 4px" : "none",
         }}
       >
         <CardContent

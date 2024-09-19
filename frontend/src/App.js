@@ -7,7 +7,6 @@ import NoteList from "./Components/NotesBox";
 import MainMenuDrawer from "./Components/MainMenuDrawer";
 import CreateNoteBox from "./Components/CreateNoteBox";
 import Toolbar from "@mui/material/Toolbar";
-import { useColorScheme } from "@mui/material/styles";
 import lightTheme from "./themes/lightTheme";
 import darkTheme from "./themes/darkTheme";
 import { ThemeProvider } from "@mui/material/styles";

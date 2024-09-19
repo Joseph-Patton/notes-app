@@ -62,6 +62,7 @@ function CreateNoteBoxExpanded({ handleShrink }) {
             border: "1px solid",
             borderColor: "border.main",
             borderRadius: 2,
+            backgroundColor: "background",
             "&:hover": { boxShadow: "0 1px 2px #000" },
           }}
         >
@@ -95,7 +96,7 @@ function CreateNoteBoxExpanded({ handleShrink }) {
             <CardActions>
               <Grid container justifyContent={"flex-end"}>
                 <Grid item paddingRight={"2em"}>
-                  <Button color="secondary" onClick={handleClose}>
+                  <Button color="primary" onClick={handleClose}>
                     Close
                   </Button>
                 </Grid>

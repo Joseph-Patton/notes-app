@@ -14,6 +14,7 @@ import MenuItem from "@mui/material/MenuItem";
 import SearchIcon from "@mui/icons-material/Search";
 import InputBase from "@mui/material/InputBase";
 import Switch from "@mui/material/Switch";
+import SearchBar from "./SearchBar";
 
 const settings = ["Profile", "Account", "Dashboard", "Logout"];
 
@@ -85,6 +86,7 @@ function ResponsiveAppBar({
   return (
     <AppBar
       position="fixed"
+      color="background"
       sx={{
         zIndex: (theme) => theme.zIndex.drawer + 1,
       }}
@@ -140,34 +142,21 @@ function ResponsiveAppBar({
               <MenuIcon />
             </IconButton> */}
           </Box>
-          <Box sx={{ flexGrow: 1 }} />
-          <Box
-            sx={{
-              position: "relative",
-              border: "1px solid",
-              borderColor: "border.main",
-              borderRadius: 2,
-            }}
-          >
-            <SearchIconWrapper>
-              <SearchIcon />
-            </SearchIconWrapper>
 
-            <StyledInputBase
-              placeholder="Search…"
-              inputProps={{ "aria-label": "search" }}
-              value={searchBarInput}
-              onChange={searchBarInputHandler}
-            />
-          </Box>
           <Box sx={{ flexGrow: 3 }} />
+          <SearchBar
+            searchBarInput={searchBarInput}
+            searchBarInputHandler={searchBarInputHandler}
+          />
+          <Box sx={{ flexGrow: 5 }} />
+          <Switch onChange={toggleDarkMode} />
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                 <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
               </IconButton>
             </Tooltip>
-            <Switch onChange={toggleDarkMode} />
+
             <Menu
               sx={{ mt: "45px" }}
               id="menu-appbar"
