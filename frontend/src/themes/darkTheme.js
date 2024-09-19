@@ -1,7 +1,6 @@
 import { createTheme, ThemeProvider, styled } from "@mui/material/styles";
 
-const theme = createTheme({
-  colorSchemes: { light: true, dark: true },
+const darkTheme = createTheme({
   cssVariables: {
     colorSchemeSelector: "class",
   },
@@ -10,6 +9,7 @@ const theme = createTheme({
     //maxWidth: "824px",
   },
   palette: {
+    mode: "dark", //default theme
     primary: {
       main: "#556cd6",
       dark: "##2d4fe6",
@@ -37,4 +37,4 @@ const theme = createTheme({
   },
 });
 
-export default theme;
+export default darkTheme;

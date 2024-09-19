@@ -13,6 +13,7 @@ import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import SearchIcon from "@mui/icons-material/Search";
 import InputBase from "@mui/material/InputBase";
+import Switch from "@mui/material/Switch";
 
 const settings = ["Profile", "Account", "Dashboard", "Logout"];
 
@@ -61,6 +62,7 @@ function ResponsiveAppBar({
   currentTab,
   searchBarInput,
   searchBarInputHandler,
+  toggleDarkMode,
 }) {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
@@ -170,6 +172,7 @@ function ResponsiveAppBar({
                 <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
               </IconButton>
             </Tooltip>
+            <Switch onChange={toggleDarkMode} />
             <Menu
               sx={{ mt: "45px" }}
               id="menu-appbar"

@@ -1,4 +1,4 @@
-import { React, useState, useEffect, useCallback, createContext } from "react";
+import { React, useState, useEffect, createContext } from "react";
 import axios from "axios";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
@@ -8,6 +8,10 @@ import MainMenuDrawer from "./Components/MainMenuDrawer";
 import CreateNoteBox from "./Components/CreateNoteBox";
 import Toolbar from "@mui/material/Toolbar";
 import { useColorScheme } from "@mui/material/styles";
+import lightTheme from "./themes/lightTheme";
+import darkTheme from "./themes/darkTheme";
+import { ThemeProvider } from "@mui/material/styles";
+import CssBaseline from "@mui/material/CssBaseline";
 
 //import { useStyles } from "styles/AppStyle";
 // const darkTheme = createTheme({
@@ -22,21 +26,23 @@ export const NoteContext = createContext();
 function App() {
   const apiUrl = "http://localhost:8000"; // TODO add as argument
 
-  // const { mode, setMode } = useColorScheme();
-  // if (!mode) {
-  //   return null;
-  // }
+  // Theme
+  const [isDarkMode, setIsDarkMode] = useState(false);
+  const theme = isDarkMode ? darkTheme : lightTheme;
+  const toggleDarkMode = () => setIsDarkMode(!isDarkMode);
 
+  // Notes State
   const [notes, setNotes] = useState([]);
   const getVisibleNotes = () =>
     notes.filter((note) =>
       getFilters().reduce((pass, curFilter) => pass && curFilter(note), true)
     );
 
+  // Returns list of notes ordered by time created (latest first)
   const getTimeOrderedVisibleNotes = () =>
     getVisibleNotes().sort((a, b) => b.created_at - a.created_at);
 
-  // Returns array of tags present in notes (no duplicates)
+  // Returns unique array of tags present in notes
   const getTagsList = () => [
     ...new Set(
       notes
@@ -45,7 +51,7 @@ function App() {
     ),
   ];
 
-  // Filters on Notes being displayed
+  // Filters on Notes being shown
   const archivedFilter = (note) => note.is_archived;
   const notArchivedFilter = (note) => !note.is_archived;
   const tagFilter = (tag) => (note) => note.tags.includes(tag);
@@ -56,9 +62,9 @@ function App() {
     note.content.includes(search) ||
     isSubstringInTags(note, search);
 
-  // Tab filters e.g. is archived, is note tagged with corrisponding tag
+  // Tab Filters
   const [tabFilters, setTabFilters] = useState([notArchivedFilter]);
-  // Search Bar filters, is current string in search bar also in note
+  // Search Bar Filters
   const [searchFilters, setSearchFilters] = useState([searchBarFilter]);
   // Returns list of currently active filters
   const getFilters = () => [...tabFilters, ...searchFilters];
@@ -151,55 +157,59 @@ function App() {
   };
 
   return (
-    <Box
-      sx={{
-        display: "flex",
-      }}
-    >
-      <HeaderBar
-        handleDrawerToggle={handleDrawerToggle}
-        currentTab={currentTab}
-        searchBarInput={searchBarInput}
-        searchBarInputHandler={searchBarInputHandler}
-      />
-      <MainMenuDrawer
-        drawer_open={drawer_open}
-        changeTab={changeTab}
-        getTagsList={getTagsList}
-        currentTab={currentTab}
-      />
-      <Box sx={{ width: "100%" }}>
-        <Toolbar />
-        <Grid
-          container
-          spacing={2}
-          margin={"auto"}
-          justifyContent={"center"}
-          alignItems={"center"}
-        >
-          <Grid item xs={12} paddingRight={"32px"}>
-            <CreateNoteContext.Provider
-              value={{
-                createNote,
-                currentTab,
-              }}
-            >
-              <CreateNoteBox />
-            </CreateNoteContext.Provider>
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
+      <Box
+        sx={{
+          display: "flex",
+        }}
+      >
+        <HeaderBar
+          handleDrawerToggle={handleDrawerToggle}
+          currentTab={currentTab}
+          searchBarInput={searchBarInput}
+          searchBarInputHandler={searchBarInputHandler}
+          toggleDarkMode={toggleDarkMode}
+        />
+        <MainMenuDrawer
+          drawer_open={drawer_open}
+          changeTab={changeTab}
+          getTagsList={getTagsList}
+          currentTab={currentTab}
+        />
+        <Box sx={{ width: "100%" }}>
+          <Toolbar />
+          <Grid
+            container
+            spacing={2}
+            margin={"auto"}
+            justifyContent={"center"}
+            alignItems={"center"}
+          >
+            <Grid item xs={12} paddingRight={"32px"}>
+              <CreateNoteContext.Provider
+                value={{
+                  createNote,
+                  currentTab,
+                }}
+              >
+                <CreateNoteBox />
+              </CreateNoteContext.Provider>
+            </Grid>
+            <Grid item xs={12} paddingRight={"32px"}>
+              <NoteContext.Provider
+                value={{
+                  deleteNote,
+                  updateNote,
+                }}
+              >
+                <NoteList getVisibleNotes={getTimeOrderedVisibleNotes} />
+              </NoteContext.Provider>
+            </Grid>
           </Grid>
-          <Grid item xs={12} paddingRight={"32px"}>
-            <NoteContext.Provider
-              value={{
-                deleteNote,
-                updateNote,
-              }}
-            >
-              <NoteList getVisibleNotes={getTimeOrderedVisibleNotes} />
-            </NoteContext.Provider>
-          </Grid>
-        </Grid>
+        </Box>
       </Box>
-    </Box>
+    </ThemeProvider>
   );
 }
 export default App;
