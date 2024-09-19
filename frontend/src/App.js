@@ -161,6 +161,7 @@ function App() {
       <Box
         sx={{
           display: "flex",
+          overflow: "hidden",
         }}
       >
         <HeaderBar
