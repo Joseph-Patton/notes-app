@@ -11,10 +11,10 @@ import Container from "@mui/material/Container";
 import Avatar from "@mui/material/Avatar";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
-import SearchIcon from "@mui/icons-material/Search";
 import InputBase from "@mui/material/InputBase";
 import Switch from "@mui/material/Switch";
 import SearchBar from "./SearchBar";
+import DarkModeSwitch from "./DarkModeSwitch";
 
 const settings = ["Profile", "Account", "Dashboard", "Logout"];
 
@@ -149,7 +149,7 @@ function ResponsiveAppBar({
             searchBarInputHandler={searchBarInputHandler}
           />
           <Box sx={{ flexGrow: 5 }} />
-          <Switch onChange={toggleDarkMode} />
+          <DarkModeSwitch toggleDarkMode={toggleDarkMode} />
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
