@@ -11,10 +11,10 @@ function CreateNoteBoxSmall({ handleExpand }) {
         sm={3}
         sx={{
           color: "#000",
-          backgroundColor: "#fff",
+          //backgroundColor: "#fff",
           overflow: "visible",
           border: "1px solid",
-          borderColor: "#5555",
+          borderColor: "border.main",
           borderRadius: 2,
           "&:hover": { boxShadow: "0 1px 2px #000" },
         }}

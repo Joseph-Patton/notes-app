@@ -17,14 +17,12 @@ const darkTheme = createTheme({
     success: {
       main: "#66BB6A",
     },
-    danger: {
-      main: "#FF9100",
+    tag: {
+      main: "#333",
+      border: "#aaa",
     },
-    info: {
-      main: "#3eaca1",
-    },
-    grey: {
-      main: "#282E2999",
+    border: {
+      main: "#bbb",
     },
   },
   typography: {

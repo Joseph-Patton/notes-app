@@ -87,7 +87,6 @@ function ResponsiveAppBar({
       position="fixed"
       sx={{
         zIndex: (theme) => theme.zIndex.drawer + 1,
-        backgroundColor: "#fff",
       }}
     >
       <Container
@@ -121,8 +120,7 @@ function ResponsiveAppBar({
               display: { xs: "none", md: "flex" },
               //fontFamily: "monospace",
               fontWeight: 700,
-              letterSpacing: ".3rem",
-              color: "#52990a",
+              color: "text.primary",
 
               textDecoration: "none",
             }}
@@ -146,11 +144,8 @@ function ResponsiveAppBar({
           <Box
             sx={{
               position: "relative",
-              color: "#000",
-              backgroundColor: "#fff",
-              overflow: "visible",
               border: "1px solid",
-              borderColor: "#5555",
+              borderColor: "border.main",
               borderRadius: 2,
             }}
           >

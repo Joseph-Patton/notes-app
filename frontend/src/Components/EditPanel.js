@@ -116,9 +116,11 @@ function EditPanel({ editPanelOpen, handleCloseEditPanel, updateNote, note }) {
             overflow: "hidden",
             marginBottom: "0.8em",
             borderRadius: 2,
-            backgroundColor: "#eee",
+            backgroundColor: "tag.main",
             padding: "0.2em",
             minWidth: "3em",
+            border: "1px solid",
+            borderColor: "tag.border",
           }}
         />
       </DialogContent>

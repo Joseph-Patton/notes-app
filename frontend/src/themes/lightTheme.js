@@ -10,21 +10,21 @@ const lightTheme = createTheme({
   },
   palette: {
     mode: "light", //default theme
+
     primary: {
-      main: "#556cd6",
-      dark: "##2d4fe6",
+      main: "#fff",
+      dark: "#ddd",
     },
-    success: {
-      main: "#66BB6A",
-    },
-    danger: {
-      main: "#FF9100",
-    },
-    info: {
-      main: "#3eaca1",
-    },
-    grey: {
+    secondary: {
       main: "#282E2999",
+    },
+    tag: {
+      main: "#eee",
+      border: "#eee",
+    },
+    // TODO not sure if this is canonical way to do border coloring
+    border: {
+      main: "#bbb",
     },
   },
   typography: {

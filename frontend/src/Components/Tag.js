@@ -14,9 +14,12 @@ function Tag({ hover }) {
         justifyContent={"flex-end"}
         sx={{
           borderRadius: 2,
-          backgroundColor: "#eee",
-          padding: "0.4em",
+          backgroundColor: "tag.main",
+          paddingLeft: "0.4em",
+          paddingRight: "0.4em",
           minWidth: "3em",
+          border: "1px solid",
+          borderColor: "tag.border",
         }}
       >
         <Grid item>
