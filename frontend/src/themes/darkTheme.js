@@ -1,4 +1,4 @@
-import { createTheme, ThemeProvider, styled } from "@mui/material/styles";
+import { createTheme } from "@mui/material/styles";
 
 const darkTheme = createTheme({
   cssVariables: {
@@ -31,7 +31,7 @@ const darkTheme = createTheme({
   },
   typography: {
     body1: {
-      fontSize: "1.2em",
+      fontSize: "1.0em",
     },
     body2: {
       fontSize: ".98em",

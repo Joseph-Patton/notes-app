@@ -51,7 +51,7 @@ function SearchBar({ searchBarInput, searchBarInputHandler }) {
         position: "relative",
         border: "1px solid",
         borderColor: "border.main",
-        fontSize: "0.8em",
+        fontSize: "1em",
         borderRadius: 2,
       }}
     >
