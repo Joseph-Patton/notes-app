@@ -70,9 +70,6 @@ function App() {
 
   // Header Title changes based on tab
   const [searchBarInput, setSearchBarInput] = useState("");
-  const searchBarInputHandler = (e) => {
-    setSearchBarInput(e.target.value);
-  };
 
   useEffect(() => {
     setSearchFilters([searchBarFilter(searchBarInput)]);
@@ -169,7 +166,7 @@ function App() {
           isDrawerOpen={isDrawerOpen}
           currentTab={currentTab}
           searchBarInput={searchBarInput}
-          searchBarInputHandler={searchBarInputHandler}
+          setSearchBarInput={setSearchBarInput}
           toggleDarkMode={toggleDarkMode}
         />
         <MainMenuDrawer

@@ -3,7 +3,9 @@ import { styled } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import SearchIcon from "@mui/icons-material/Search";
 import InputBase from "@mui/material/InputBase";
+import { IconButton } from "@mui/material";
 
+import ClearIcon from "@mui/icons-material/Clear";
 // const Search = styled("div")(({ theme }) => ({
 //   position: "relative",
 //   borderRadius: theme.shape.borderRadius,
@@ -44,7 +46,15 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
-function SearchBar({ searchBarInput, searchBarInputHandler }) {
+function SearchBar({ searchBarInput, setSearchBarInput }) {
+  const inputHandler = (e) => {
+    setSearchBarInput(e.target.value);
+  };
+
+  const clearInput = () => {
+    setSearchBarInput("");
+  };
+
   return (
     <Box
       sx={{
@@ -63,8 +73,11 @@ function SearchBar({ searchBarInput, searchBarInputHandler }) {
         placeholder="Search…"
         inputProps={{ "aria-label": "search" }}
         value={searchBarInput}
-        onChange={searchBarInputHandler}
+        onChange={inputHandler}
       />
+      <IconButton onClick={clearInput} className="materialBtn">
+        <ClearIcon />
+      </IconButton>
     </Box>
   );
 }

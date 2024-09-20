@@ -21,7 +21,7 @@ function ResponsiveAppBar({
   isDrawerOpen,
   currentTab,
   searchBarInput,
-  searchBarInputHandler,
+  setSearchBarInput,
   toggleDarkMode,
 }) {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
@@ -106,7 +106,7 @@ function ResponsiveAppBar({
           <Box sx={{ flexGrow: 3 }} />
           <SearchBar
             searchBarInput={searchBarInput}
-            searchBarInputHandler={searchBarInputHandler}
+            setSearchBarInput={setSearchBarInput}
           />
           <Box sx={{ flexGrow: 5 }} />
           <DarkModeSwitch toggleDarkMode={toggleDarkMode} />
