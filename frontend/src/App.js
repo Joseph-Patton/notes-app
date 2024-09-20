@@ -149,10 +149,10 @@ function App() {
     refreshNotes();
   };
 
-  const [drawer_open, setDrawerOpen] = useState(false);
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
   const handleDrawerToggle = () => {
-    drawer_open ? setDrawerOpen(false) : setDrawerOpen(true);
+    setIsDrawerOpen(!isDrawerOpen);
   };
 
   return (
@@ -166,13 +166,14 @@ function App() {
       >
         <HeaderBar
           handleDrawerToggle={handleDrawerToggle}
+          isDrawerOpen={isDrawerOpen}
           currentTab={currentTab}
           searchBarInput={searchBarInput}
           searchBarInputHandler={searchBarInputHandler}
           toggleDarkMode={toggleDarkMode}
         />
         <MainMenuDrawer
-          drawer_open={drawer_open}
+          isDrawerOpen={isDrawerOpen}
           changeTab={changeTab}
           getTagsList={getTagsList}
           currentTab={currentTab}

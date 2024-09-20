@@ -52,13 +52,13 @@ const Drawer = styled(MuiDrawer, {
 }));
 
 export default function MainMenuDrawer({
-  drawer_open,
+  isDrawerOpen,
   changeTab,
   getTagsList,
   currentTab,
 }) {
   const [hover, setHover] = useState(false);
-  const open = () => drawer_open || hover;
+  const open = () => isDrawerOpen || hover;
   const isTabSelected = (text) => currentTab === text;
   return (
     <Grid

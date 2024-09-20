@@ -18,6 +18,7 @@ const settings = ["Profile", "Account", "Dashboard", "Logout"];
 
 function ResponsiveAppBar({
   handleDrawerToggle,
+  isDrawerOpen,
   currentTab,
   searchBarInput,
   searchBarInputHandler,
@@ -62,6 +63,7 @@ function ResponsiveAppBar({
             <IconButton
               aria-label="open drawer"
               onClick={handleDrawerToggle}
+              selected={isDrawerOpen}
               sx={{
                 marginRight: 5,
               }}
@@ -114,7 +116,7 @@ function ResponsiveAppBar({
                 <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
               </IconButton>
             </Tooltip>
-
+            {/* 
             <Menu
               sx={{ mt: "45px" }}
               id="menu-appbar"
@@ -136,7 +138,7 @@ function ResponsiveAppBar({
                   <Typography textAlign="center">{setting}</Typography>
                 </MenuItem>
               ))}
-            </Menu>
+            </Menu> */}
           </Box>
         </Toolbar>
       </Container>

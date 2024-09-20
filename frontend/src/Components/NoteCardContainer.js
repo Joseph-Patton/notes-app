@@ -11,6 +11,7 @@ function NoteContainer({ note }) {
       sm={6}
       md={4}
       lg={3}
+      xl={2}
       key={note.id}
       onMouseEnter={() => setNoteHover(true)}
       onMouseLeave={() => setNoteHover(false)}
