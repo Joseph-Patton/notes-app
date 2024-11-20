@@ -53,7 +53,7 @@ jobs:
 
       - name: Check sqlx-data.json is up-to-date
         run: |
-          cargo sqlx prepare --workspace --check
+          cargo sqlx prepare --check
 
       - name: Run tests
         run: cargo test --verbose
