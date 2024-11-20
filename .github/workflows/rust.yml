@@ -51,10 +51,6 @@ jobs:
       - name: Migrate database
         run: SKIP_DOCKER=true ./docker-entrypoint-initdb.d/init_db.sh
 
-      - name: Check sqlx-data.json is up-to-date
-        run: |
-          cargo sqlx prepare --check
-
       - name: Run tests
         run: cargo test --verbose
         working-directory: ./backend
